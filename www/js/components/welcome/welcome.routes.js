@@ -1,6 +1,6 @@
 (function () {
   angular
-    .module('tagoGato.welcome')
+    .module('taco.welcome')
     .config(config);
 
   function config($stateProvider, $urlRouterProvider) {

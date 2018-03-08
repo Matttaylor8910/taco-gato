@@ -1,9 +1,9 @@
 (function () {
   angular
-    .module('tagoGato.welcome', [])
+    .module('taco.welcome', [])
     .controller('WelcomeController', WelcomeController);
 
-  function WelcomeController() {
+  function WelcomeController(firebaseService) {
     var $ctrl = this;
 
     $ctrl.user = {
@@ -14,7 +14,8 @@
     $ctrl.saveUser = saveUser;
 
     function saveUser() {
-      console.log($ctrl.user);
+      $ctrl.user.tacos = parseInt($ctrl.user.tacos);
+      firebaseService.addUser($ctrl.user);
     }
   }
 })();

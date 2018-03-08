@@ -1,9 +1,10 @@
 (function () {
   angular
-    .module('tacoGato', [
+    .module('taco', [
       'ionic',
+      'ionic.utils',
 
-      'tagoGato.welcome'
+      'taco.welcome'
     ])
 
     .run(function($ionicPlatform) {
