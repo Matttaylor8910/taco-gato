@@ -12,8 +12,6 @@
         controllerAs: '$ctrl'
       });
 
-    console.log('suh');
-
     // If no other routes are matched always default to fruit-list
     $urlRouterProvider.otherwise('/welcome');
   }
