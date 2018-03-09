@@ -47,6 +47,11 @@
     function mapUsers(user) {
       user.tacoEvents = _.reverse(_.map(user.tacoEvents));
       user.tacos = _.sumBy(user.tacoEvents, 'tacos');
+
+      _.each(user.tacoEvents, function (event) {
+        event.moment = moment.unix(event.time);
+      });
+
       return user;
     }
 
@@ -64,7 +69,7 @@
         user.tacoEvents.push({
           initial: true, // a marker we can key off for how many you started with
           tacos: user.tacos,
-          time: new Date() // TODO: moment unix timestamp
+          time: moment().unix()
         });
       }
       delete user.tacos;
@@ -80,8 +85,11 @@
       });
     }
 
-    function addTacos(tacoEvent) {
-      userTacoEvents.$add(tacoEvent);
+    function addTacos(numTacos) {
+      return userTacoEvents.$add({
+        tacos: numTacos,
+        time: moment().unix()
+      });
     }
 
     function getUser(id) {

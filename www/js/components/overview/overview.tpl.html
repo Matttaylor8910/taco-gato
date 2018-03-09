@@ -19,7 +19,8 @@
 
       <ion-list>
         <ion-item ng-repeat="event in $ctrl.user.tacoEvents">
-          {{$ctrl.user.name}} ate {{ event.tacos }} {{ event.tacos === 1 ? 'taco' : 'tacos' }} <span ng-if="event.time">at {{event.time}}</span>
+          {{$ctrl.user.name}} {{ event.initial ? 'started with' : 'ate' }} {{ event.tacos }} {{ event.tacos === 1 ? 'taco' : 'tacos' }}
+          <p am-time-ago="event.moment"></p>
           <p ng-bind="event.tacos | tacoFilter"></p>
         </ion-item>
       </ion-list>

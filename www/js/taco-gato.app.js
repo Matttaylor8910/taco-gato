@@ -4,6 +4,7 @@
       'ionic',
       'ionic.utils',
       'firebase',
+      'angularMoment',
 
       'taco.welcome',
       'taco.overview'
