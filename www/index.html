@@ -22,6 +22,7 @@
 
     <!-- your app's js -->
     <script src="js/taco-gato.app.js"></script>
+    <script src="js/taco-gato.controller.js"></script>
     <script src="js/taco-gato.constant.js"></script>
 
     <script src="js/common/firebase.service.js"></script>
@@ -34,11 +35,41 @@
     <script src="js/components/overview/overview.controller.js"></script>
     <script src="js/components/overview/overview.routes.js"></script>
     <script src="js/components/overview/more-tacos.controller.js"></script>
+    <script src="js/components/leaderboard/leaderboard.controller.js"></script>
+    <script src="js/components/leaderboard/leaderboard.routes.js"></script>
+    <script src="js/components/activity/activity.controller.js"></script>
+    <script src="js/components/activity/activity.routes.js"></script>
 
   </head>
-  <body ng-app="taco">
+  <body ng-app="taco" ng-controller="TacoGatoController as $ctrl">
     <ion-nav-bar class="bar-stable">
     </ion-nav-bar>
     <ion-nav-view></ion-nav-view>
+
+    <!--hide the tabs on the welcome page-->
+    <ion-tabs class="tabs-icon-top" ng-class="{'hidden': $ctrl.thisState.name === 'welcome'}">
+
+      <ion-tab
+        title="You"
+        icon="ion-person"
+        ui-sref="overview">
+        <ion-nav-view name="overview"></ion-nav-view>
+      </ion-tab>
+
+      <ion-tab
+        title="Leaderboard"
+        icon="ion-trophy"
+        ui-sref="leaderboard">
+        <ion-nav-view name="leaderboard"></ion-nav-view>
+      </ion-tab>
+
+      <ion-tab
+        title="Activity"
+        icon="ion-ios-paper"
+        ui-sref="activity">
+        <ion-nav-view name="activity"></ion-nav-view>
+      </ion-tab>
+
+    </ion-tabs>
   </body>
 </html>

@@ -1,3 +1,7 @@
+ion-tabs.tabs-bottom.hidden .tabs {
+  display: none;
+}
+
 ion-spinner {
   display: flex;
   justify-content: center;

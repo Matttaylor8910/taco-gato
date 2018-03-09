@@ -7,9 +7,13 @@
     $stateProvider
       .state('overview', {
         url: '/overview/:id',
-        templateUrl: 'js/components/overview/overview.tpl.html',
-        controller: 'OverviewController',
-        controllerAs: '$ctrl'
+        views: {
+          'overview': {
+            templateUrl: 'js/components/overview/overview.tpl.html',
+            controller: 'OverviewController',
+            controllerAs: '$ctrl'
+          }
+        }
       });
   }
 })();

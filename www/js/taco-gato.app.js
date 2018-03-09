@@ -7,7 +7,9 @@
       'angularMoment',
 
       'taco.welcome',
-      'taco.overview'
+      'taco.overview',
+      'taco.leaderboard',
+      'taco.activity'
     ])
 
     .run(function($ionicPlatform, firebaseConfig) {
