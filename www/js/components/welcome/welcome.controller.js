@@ -9,7 +9,7 @@
     $ctrl.newUser = false; // set to false till we know
     $ctrl.user = {
       name: '',
-      tacos: 0
+      tacos: undefined
     };
 
     $ctrl.saveUser = saveUser;
@@ -26,7 +26,7 @@
     }
 
     function saveUser() {
-      $ctrl.user.tacos = parseInt($ctrl.user.tacos);
+      $ctrl.user.tacos = parseInt($ctrl.user.tacos || 0);
       firebaseService.addUser($ctrl.user).then(function (user) {
         goToOverview(user.id);
       });

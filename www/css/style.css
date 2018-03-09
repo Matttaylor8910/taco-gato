@@ -3,3 +3,15 @@ ion-spinner {
   justify-content: center;
   margin-top: 15px;
 }
+
+#overview button {
+  font-variant: all-petite-caps;
+  font-size: 24px;
+}
+
+#overview .question-section {
+  margin-bottom: 20px;
+}
+#overview .question-section h1 {
+  font-size: 20px;
+}

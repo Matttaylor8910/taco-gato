@@ -1,18 +1,24 @@
-<ion-view>
+<ion-view id="overview">
   <ion-nav-title>🌮😺</ion-nav-title>
-  <ion-content>
+  <ion-content class="padding">
     <div ng-if="$ctrl.newUser">
-      <div>
-        <h1>What's your name?</h1>
-        <input ng-model="$ctrl.user.name" placeholder="Tap here">
+      <div class="list">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">What's your name?</span>
+          <input type="text" placeholder="Tap Here" ng-model="$ctrl.user.name">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">How many tacos have you eaten?</span>
+          <input type="tel" placeholder="0" ng-model="$ctrl.user.tacos">
+        </label>
       </div>
 
-      <div>
-        <h1>How many tacos have you eaten so far?</h1>
-        <input type="tel" ng-model="$ctrl.user.tacos">
-      </div>
-
-      <button class="button button-positive" ng-click="$ctrl.saveUser()">Save</button>
+      <button
+        class="button button-block button-clear button-positive"
+        ng-disabled="!$ctrl.user.name"
+        ng-click="$ctrl.saveUser()">
+        Join Kaizen
+      </button>
     </div>
   </ion-content>
 </ion-view>
