@@ -30,6 +30,7 @@
     <script src="js/common/settings.service.js"></script>
     <script src="js/common/taco.filter.js"></script>
 
+    <script src="js/components/taco-item/taco-item.component.js"></script>
     <script src="js/components/welcome/welcome.controller.js"></script>
     <script src="js/components/welcome/welcome.routes.js"></script>
     <script src="js/components/overview/overview.controller.js"></script>
@@ -52,7 +53,7 @@
       <ion-tab
         title="You"
         icon="ion-person"
-        ui-sref="overview">
+        ui-sref="overview({id: $ctrl.firebase.user.id})">
         <ion-nav-view name="overview"></ion-nav-view>
       </ion-tab>
 

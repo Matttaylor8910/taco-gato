@@ -21,7 +21,7 @@
       $ionicModal.fromTemplateUrl('js/components/overview/more-tacos.modal.html', {
         scope: $scope,
         animation: 'slide-in-up'
-      }).then(function(modal) {
+      }).then(function (modal) {
         $scope.modal = modal;
       });
     }

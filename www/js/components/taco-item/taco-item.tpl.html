@@ -1,0 +1,10 @@
+<!-- TODO: class="item-button-right"-->
+<ion-item>
+  {{$ctrl.event.userName}} {{ $ctrl.event.initial ? 'joined Kaizen with' : 'ate' }} {{ $ctrl.event.tacos === 1 ? 'a' : $ctrl.event.tacos }} {{ $ctrl.event.tacos === 1 ? 'taco' : 'tacos' }}
+  <p am-time-ago="$ctrl.event.moment"></p>
+  <!--TODO: wrap tacos -->
+  <p ng-bind="$ctrl.event.tacos | tacoFilter"></p>
+
+  <!--TODO: edit-->
+  <!--<button class="button button-clear button-positive">Edit</button>-->
+</ion-item>

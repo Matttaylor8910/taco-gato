@@ -1,6 +1,7 @@
 <ion-view id="activity">
   <ion-nav-title>🌮 Activity</ion-nav-title>
   <ion-content class="padding">
-    <div class="text-center padding positive">COMING SOON!</div>
+    <ion-spinner ng-if="!$ctrl.firebase.activity" icon="lines"></ion-spinner>
+    <taco-item event="event" ng-repeat="event in $ctrl.firebase.activity"></taco-item>
   </ion-content>
 </ion-view>

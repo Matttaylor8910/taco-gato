@@ -37,7 +37,10 @@
         service.users = _.map(eaters, mapUsers);
         $rootScope.$broadcast('firebase.usersUpdated');
 
-        // TODO: generate news feed and leaderboard
+        // set up activity and leaderboard
+        service.activity = getActivityFeed(service.users);
+        console.log(service.activity);
+        // TODO: generate leaderboard
       });
 
       // set up the user ref if we can
@@ -45,14 +48,23 @@
     }
 
     function mapUsers(user) {
-      user.tacoEvents = _.reverse(_.map(user.tacoEvents));
+      user.tacoEvents = mapTacoEvents(user.tacoEvents, user.name);
       user.tacos = _.sumBy(user.tacoEvents, 'tacos');
 
-      _.each(user.tacoEvents, function (event) {
+      return user;
+    }
+
+    function mapTacoEvents(events, name) {
+      // reverse the order so newest are displayed first
+      var tacoEvents = _.reverse(_.map(events));
+
+      // add the moment for date stuff and userName to each event
+      _.each(tacoEvents, function (event) {
         event.moment = moment.unix(event.time);
+        event.userName = name;
       });
 
-      return user;
+      return tacoEvents;
     }
 
     function addUserRef() {
@@ -97,8 +109,23 @@
     }
 
     function clearUser() {
+      console.log('CLEARED');
       localStorage.setObject('user', {});
       service.user = {};
+    }
+
+    function getActivityFeed(users) {
+      return _(users)
+        .filter(removeTestUsers)
+        .map('tacoEvents')
+        .flatten()
+        .sortBy('time')
+        .reverse()
+        .value();
+    }
+
+    function removeTestUsers(user) {
+      return user.name && !user.name.toLowerCase().includes('test');
     }
 
     /**
