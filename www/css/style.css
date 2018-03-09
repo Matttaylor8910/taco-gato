@@ -36,3 +36,7 @@ button.button-clear.button-block {
   margin-top: 10px;
   font-size: 30px;
 }
+
+.taco-item p {
+  white-space: normal;
+}
