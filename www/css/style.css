@@ -16,8 +16,19 @@ button.button-clear.button-block {
   font-size: 20px;
 }
 
-#overview .taco-count {
+#overview .taco-count,
+#more-tacos .taco-count {
   font-size: 150px;
   line-height: 150px;
   padding: 10px;
+}
+
+#more-tacos .more-tacos-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+#more-tacos .more-tacos-container .button-icon:before {
+  margin-top: 10px;
+  font-size: 30px;
 }
