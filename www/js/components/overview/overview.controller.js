@@ -11,9 +11,8 @@
 
     init();
 
+    $scope.$on('$ionicView.beforeEnter', beforeEnter);
     $rootScope.$on('firebase.usersUpdated', usersUpdated);
-    $scope.$on('$ionicView.beforeEnter', setUpUser);
-    $scope.$on('modal.hidden', incrementTotalTacos);
 
     function init() {
       $ionicModal.fromTemplateUrl('js/components/overview/more-tacos.modal.html', {
@@ -24,29 +23,32 @@
       });
     }
 
-    function usersUpdated() {
-      setUpUser();
-      $ctrl.user = firebaseService.getUser($state.params.id);
-      incrementTacoDelay($ctrl.user.tacos - $ctrl.tacoCounter);
-    }
-
-    function setUpUser() {
+    function beforeEnter() {
       $ctrl.loading = !$ctrl.user;
       if (!$ctrl.user && firebaseService.users) {
-        $ctrl.user = firebaseService.getUser($state.params.id);
-        incrementTacoDelay($ctrl.user.tacos - $ctrl.tacoCounter);
+        getUserFromFirebase();
         $ctrl.loading = false;
       }
     }
 
-    function tacosModal($event) {
-      $scope.modal.show($event);
+    function usersUpdated() {
+      if (!$ctrl.user) {
+        beforeEnter();
+      }
+      else {
+        getUserFromFirebase();
+      }
     }
 
-    function incrementTotalTacos() {
-      if ($scope.modal.newTacos) {
-        incrementTacoDelay($scope.modal.newTacos.tacos - $ctrl.tacoCounter);
-      }
+    function getUserFromFirebase() {
+      $ctrl.user = firebaseService.getUser($state.params.id);
+      var tacosToIncrement = $ctrl.user.tacos - $ctrl.tacoCounter;
+      var delay = $ctrl.tacoCounter === 0 ? 0 : undefined;
+      incrementTacoDelay(tacosToIncrement, delay);
+    }
+
+    function tacosModal($event) {
+      $scope.modal.show($event);
     }
 
     function incrementTacoDelay(tacosRemaining, delay) {
