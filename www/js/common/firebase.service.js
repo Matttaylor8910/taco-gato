@@ -68,8 +68,20 @@
       return tacoEvents;
     }
 
-    function getGrouping(moment) {
-      return moment.format('dddd');
+    function getGrouping(thisMoment) {
+      var day = roundDown(thisMoment);
+      var daysFromToday = roundDown(moment()).diff(day, 'days');
+
+      // Special cases
+      if (daysFromToday === 0) return 'Today';
+      if (daysFromToday === 1) return 'Yesterday';
+      if (daysFromToday < 7) return day.format('dddd');
+
+      return day.format('MMMM Do, YYYY');
+    }
+
+    function roundDown(someMoment) {
+      return moment(someMoment.format('MM/DD/YYYY'), 'MM/DD/YYYY');
     }
 
     function addUserRef() {
