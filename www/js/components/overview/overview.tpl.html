@@ -21,9 +21,11 @@
       </button>
 
       <ion-list>
-        <ion-item class="item-button-right" ng-repeat="event in $ctrl.user.tacoEvents">
+        <!-- TODO: class="item-button-right"-->
+        <ion-item ng-repeat="event in $ctrl.user.tacoEvents">
           {{$ctrl.user.name}} {{ event.initial ? 'started with' : 'ate' }} {{ event.tacos === 1 ? 'a' : event.tacos }} {{ event.tacos === 1 ? 'taco' : 'tacos' }}
           <p am-time-ago="event.moment"></p>
+          <!--TODO: wrap tacos -->
           <p ng-bind="event.tacos | tacoFilter"></p>
 
           <!--TODO: edit-->
