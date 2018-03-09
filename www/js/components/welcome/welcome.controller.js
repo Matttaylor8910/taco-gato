@@ -3,7 +3,7 @@
     .module('taco.welcome', [])
     .controller('WelcomeController', WelcomeController);
 
-  function WelcomeController(firebaseService) {
+  function WelcomeController($state, firebaseService) {
     var $ctrl = this;
 
     $ctrl.user = {
@@ -16,6 +16,7 @@
     function saveUser() {
       $ctrl.user.tacos = parseInt($ctrl.user.tacos);
       firebaseService.addUser($ctrl.user);
+      $state.go('overview');
     }
   }
 })();

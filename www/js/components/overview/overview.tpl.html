@@ -1,0 +1,16 @@
+<ion-view>
+  <ion-nav-title>🌮😺</ion-nav-title>
+  <ion-content>
+    <div ng-if="$ctrl.user">
+      <h3>{{ $ctrl.user.name }}, you have eaten</h3>
+
+      <h1>{{ $ctrl.user.tacos }}</h1>
+
+      <h3>tacos! 🌮🌮🌮</h3>
+    </div>
+
+    <p ng-if="modal.newTacos">{{ modal.newTacos.tacos }} just now!</p>
+
+    <button class="button button-positive" ng-click="$ctrl.tacosModal($event)">Add More Tacos</button>
+  </ion-content>
+</ion-view>

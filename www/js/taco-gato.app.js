@@ -4,7 +4,8 @@
       'ionic',
       'ionic.utils',
 
-      'taco.welcome'
+      'taco.welcome',
+      'taco.overview'
     ])
 
     .run(function($ionicPlatform) {

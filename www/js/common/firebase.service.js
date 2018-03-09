@@ -3,11 +3,14 @@
     .module('taco')
     .factory('firebaseService', firebaseService);
 
-  function firebaseService() {
+  function firebaseService(localStorage) {
     var dbRef;
 
     var service = {
-      addUser: addUser
+      user: localStorage.getObject('user'),
+
+      addUser: addUser,
+      addTacos: addTacos
     };
 
     init();
@@ -18,11 +21,20 @@
      * Initialize the firebase objects and collections
      */
     function init() {
-      // connect to the firebase database
+      // TODO: connect to the firebase database
+      // TODO: listen on users and generate news feed and leaderboard
     }
 
     function addUser(user) {
-      console.log(user);
+      service.user = user;
+      localStorage.setObject('user', user);
+      // TODO: Save to firebase
+      // TODO: also add the initial tacos as the first event
+    }
+
+    function addTacos(tacoEvent) {
+      console.log(tacoEvent);
+      // TODO: add this taco event to the user (for the feed/leaderboard)
     }
 
     /**
