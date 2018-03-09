@@ -20,7 +20,7 @@
         {{$ctrl.user.tacos === 0 ? 'Eat Some Tacos' : 'Eat More Tacos'}}
       </button>
 
-      <div class="card">
+      <div class="card" ng-if="$ctrl.user.tacoEvents.length > 0">
         <taco-item ng-class="{'no-border': $index === 0}" event="event" ng-repeat="event in $ctrl.user.tacoEvents"></taco-item>
       </div>
     </div>

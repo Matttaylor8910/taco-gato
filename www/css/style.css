@@ -46,3 +46,10 @@ taco-item.no-border .item.taco-item {
 .taco-item p {
   white-space: normal;
 }
+
+
+
+/*OVERRIDES*/
+.list {
+  padding-top: 0px !important;
+}
