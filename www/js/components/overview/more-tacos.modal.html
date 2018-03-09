@@ -7,6 +7,6 @@
     <h1>{{ $ctrl.tacoEvent.tacos || 0 }}</h1>
     <button ng-click="$ctrl.tacoEvent.tacos = $ctrl.tacoEvent.tacos - 1">REMOVE</button>
     <br>
-    <button class="button button-positive" ng-click="$ctrl.save()">Done</button>
+    <button class="button button-block button-clear button-positive" ng-click="$ctrl.save()">Done</button>
   </ion-content>
 </ion-modal-view>
