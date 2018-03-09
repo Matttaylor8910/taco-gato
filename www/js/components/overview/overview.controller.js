@@ -7,6 +7,9 @@
     var $ctrl = this;
 
     $ctrl.tacoCounter = 0;
+    $ctrl.userId = $state.params.id;
+    $ctrl.firebase = firebaseService;
+
     $ctrl.tacosModal = tacosModal;
 
     init();
