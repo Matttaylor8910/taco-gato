@@ -34,6 +34,7 @@
       $ctrl.loading = !$ctrl.user;
       if (!$ctrl.user && firebaseService.users) {
         $ctrl.user = firebaseService.getUser($state.params.id);
+        incrementTacoDelay($ctrl.user.tacos - $ctrl.tacoCounter);
         $ctrl.loading = false;
       }
     }
