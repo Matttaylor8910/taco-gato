@@ -39,7 +39,6 @@
 
         // set up activity and leaderboard
         service.activity = getActivityFeed(service.users);
-        console.log(service.activity);
         // TODO: generate leaderboard
       });
 

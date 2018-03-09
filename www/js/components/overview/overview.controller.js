@@ -7,7 +7,6 @@
     var $ctrl = this;
 
     $ctrl.tacoCounter = 0;
-    $ctrl.userId = $state.params.id;
     $ctrl.firebase = firebaseService;
 
     $ctrl.tacosModal = tacosModal;
@@ -16,7 +15,7 @@
     init();
 
     $scope.$on('$ionicView.beforeEnter', beforeEnter);
-    $rootScope.$on('firebase.usersUpdated', usersUpdated);
+    $rootScope.$on('firebase.usersUpdated', getUserFromFirebase);
 
     function init() {
       $ionicModal.fromTemplateUrl('js/components/overview/more-tacos.modal.html', {
@@ -25,32 +24,24 @@
       }).then(function (modal) {
         $scope.modal = modal;
       });
+
+      // return to welcome if this user has no user.id at all
+      if (!firebaseService.user.id) {
+        clearUser();
+      }
     }
 
     function beforeEnter() {
       $ctrl.user = undefined;
+      $ctrl.userId = $state.params.id;
       $ctrl.loading = true;
-      if (!$ctrl.user && firebaseService.users) {
-        getUserFromFirebase();
-        $ctrl.loading = false;
-      }
-    }
-
-    function usersUpdated() {
-      if ($state.current.name !== 'overview') {
-        return;
-      }
-
-      if (!$ctrl.user) {
-        beforeEnter();
-      }
-      else {
+      if (firebaseService.users) {
         getUserFromFirebase();
       }
     }
 
     function getUserFromFirebase() {
-      $ctrl.user = firebaseService.getUser($state.params.id);
+      $ctrl.user = firebaseService.getUser($ctrl.userId);
       if ($ctrl.user) {
         updateTacoCounter();
         $ctrl.error = false;
@@ -58,6 +49,7 @@
       else {
         $ctrl.error = true;
       }
+      $ctrl.loading = false;
     }
 
     function updateTacoCounter() {
