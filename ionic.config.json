@@ -1,4 +1,9 @@
 {
   "name": "taco-cat",
-  "app_id": ""
+  "app_id": "",
+  "integrations": {
+    "cordova": {},
+    "gulp": {}
+  },
+  "type": "ionic1"
 }
