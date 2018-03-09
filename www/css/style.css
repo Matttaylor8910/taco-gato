@@ -43,6 +43,7 @@ taco-item .item.taco-item {
 taco-item.no-border .item.taco-item {
   border-top: none !important;
 }
+.taco-item,
 .taco-item p {
   white-space: normal;
 }
