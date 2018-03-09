@@ -3,7 +3,7 @@
     .module('taco.welcome', [])
     .controller('WelcomeController', WelcomeController);
 
-  function WelcomeController($state, firebaseService) {
+  function WelcomeController($scope, $state, firebaseService) {
     var $ctrl = this;
 
     $ctrl.newUser = false; // set to false till we know
@@ -14,7 +14,7 @@
 
     $ctrl.saveUser = saveUser;
 
-    init();
+    $scope.$on('$ionicView.beforeEnter', init);
 
     function init() {
       if (firebaseService.user.id) {

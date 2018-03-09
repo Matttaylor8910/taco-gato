@@ -14,7 +14,8 @@
 
       addUser: addUser,
       addTacos: addTacos,
-      getUser: getUser
+      getUser: getUser,
+      clearUser: clearUser
     };
 
     init();
@@ -85,6 +86,11 @@
 
     function getUser(id) {
       return _.find(service.users, {key: id});
+    }
+
+    function clearUser() {
+      localStorage.setObject('user', {});
+      service.user = {};
     }
 
     /**

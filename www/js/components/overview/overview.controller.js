@@ -3,7 +3,7 @@
     .module('taco.overview', [])
     .controller('OverviewController', OverviewController);
 
-  function OverviewController($scope, $rootScope, $state, $timeout, $ionicModal, firebaseService) {
+  function OverviewController($scope, $rootScope, $state, $timeout, $ionicHistory, $ionicModal, firebaseService) {
     var $ctrl = this;
 
     $ctrl.tacoCounter = 0;
@@ -43,7 +43,19 @@
 
     function getUserFromFirebase() {
       $ctrl.user = firebaseService.getUser($state.params.id);
+      if ($ctrl.user) {
+        updateTacoCounter();
+      }
+      else {
+        firebaseService.clearUser();
+        $ionicHistory.nextViewOptions({
+          animation: false
+        });
+        $state.go('welcome');
+      }
+    }
 
+    function updateTacoCounter() {
       // if the taco counter is at 0 and we're definitely going to increment it,
       // start the counter at 1 so it never incorrectly shows that you have 0 tacos
       if ($ctrl.tacoCounter === 0 && $ctrl.user.tacos) {
