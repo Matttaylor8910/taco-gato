@@ -10,11 +10,11 @@
 
         <div class="taco-count text-center">{{ $ctrl.tacoCounter }}</div>
 
-        <h3 class="text-center">{{ $ctrl.tacoCounter === 1 ? 'taco' : 'tacos' }}! {{$ctrl.user.tacos === 0 ? '' : '🌮🌮🌮'}}</h3>
+        <h3 class="text-center">{{ $ctrl.tacoCounter === 1 ? 'taco' : 'tacos' }}! {{$ctrl.user.tacos === 0 ? '🙀' : '🌮🌮🌮'}}</h3>
       </div>
 
       <button class="button button-block button-clear button-positive" ng-click="$ctrl.tacosModal($event)">
-        {{$ctrl.user.tacos === 0 ? 'Eat Some Tacos' : 'Add More Tacos'}}
+        {{$ctrl.user.tacos === 0 ? 'Eat Some Tacos' : 'Eat More Tacos'}}
       </button>
 
       <ion-list>

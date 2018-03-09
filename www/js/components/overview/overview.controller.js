@@ -24,7 +24,8 @@
     }
 
     function beforeEnter() {
-      $ctrl.loading = !$ctrl.user;
+      $ctrl.user = undefined;
+      $ctrl.loading = true;
       if (!$ctrl.user && firebaseService.users) {
         getUserFromFirebase();
         $ctrl.loading = false;
@@ -42,9 +43,16 @@
 
     function getUserFromFirebase() {
       $ctrl.user = firebaseService.getUser($state.params.id);
+
+      // if the taco counter is at 0 and we're definitely going to increment it,
+      // start the counter at 1 so it never incorrectly shows that you have 0 tacos
+      if ($ctrl.tacoCounter === 0 && $ctrl.user.tacos) {
+        $ctrl.tacoCounter = 1;
+      }
+
+      // only add the tacos that aren't accounted for yet in the counter
       var tacosToIncrement = $ctrl.user.tacos - $ctrl.tacoCounter;
-      var delay = $ctrl.tacoCounter === 0 ? 0 : undefined;
-      incrementTacoDelay(tacosToIncrement, delay);
+      incrementTacoDelay(tacosToIncrement);
     }
 
     function tacosModal($event) {
@@ -52,15 +60,15 @@
     }
 
     function incrementTacoDelay(tacosRemaining, delay) {
+      // set a delay that ensures the counter is correct within 1 second, but only
+      // if there is no delay passed in (from recursive call)
       var DELAY = delay || (1000 / tacosRemaining);
+
       if (tacosRemaining > 0) {
         $timeout(function () {
           $ctrl.tacoCounter++;
           incrementTacoDelay(tacosRemaining - 1, DELAY);
         }, DELAY);
-      }
-      else {
-        $ctrl.user = firebaseService.getUser($state.params.id);
       }
     }
   }

@@ -58,12 +58,17 @@
 
     function addUser(user) {
       user.tacoEvents = [];
-      user.tacoEvents.push({
-        tacos: user.tacos,
-        time: new Date() // TODO: moment unix timestamp
-      });
+      // only create a tacoEvent if this user started with some tacos
+      if (user.tacos > 0) {
+        user.tacoEvents.push({
+          initial: true, // a marker we can key off for how many you started with
+          tacos: user.tacos,
+          time: new Date() // TODO: moment unix timestamp
+        });
+      }
       delete user.tacos;
 
+      // return the promise so we can wait for this add to finish
       return tacoEatersCollection.$add(user).then(function (ref) {
         user.id = ref.key;
         service.user = user;
