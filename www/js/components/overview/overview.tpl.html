@@ -1,21 +1,28 @@
-<ion-view>
+<ion-view id="overview">
   <ion-nav-title>🌮😺</ion-nav-title>
-  <ion-content>
+  <ion-content class="padding">
 
     <ion-spinner ng-if="$ctrl.loading" icon="lines"></ion-spinner>
 
     <div ng-if="!$ctrl.loading">
       <div ng-if="$ctrl.user">
-        <h3>{{ $ctrl.user.name }}, you have eaten</h3>
+        <h3 class="text-center">{{ $ctrl.user.name }}, you have eaten</h3>
 
-        <h1>{{ $ctrl.user.tacos }}</h1>
+        <div class="taco-count text-center">{{ $ctrl.tacoCounter }}</div>
 
-        <h3>tacos! 🌮🌮🌮</h3>
+        <h3 class="text-center">tacos! {{$ctrl.user.tacos === 0 ? '' : '🌮🌮🌮'}}</h3>
       </div>
 
-      <p ng-if="modal.newTacos">{{ modal.newTacos.tacos }} just now!</p>
+      <button class="button button-block button-clear button-positive" ng-click="$ctrl.tacosModal($event)">
+        {{$ctrl.user.tacos === 0 ? 'Eat Some Tacos' : 'Add More Tacos'}}
+      </button>
 
-      <button class="button button-block button-clear button-positive" ng-click="$ctrl.tacosModal($event)">Add More Tacos</button>
+      <ion-list>
+        <ion-item ng-repeat="event in $ctrl.user.tacoEvents">
+          {{$ctrl.user.name}} ate {{ event.tacos }} {{ event.tacos === 1 ? 'taco' : 'tacos' }} <span ng-if="event.time">at {{event.time}}</span>
+          <p ng-bind="event.tacos | tacoFilter"></p>
+        </ion-item>
+      </ion-list>
     </div>
   </ion-content>
 </ion-view>

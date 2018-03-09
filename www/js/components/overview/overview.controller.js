@@ -6,6 +6,7 @@
   function OverviewController($scope, $rootScope, $state, $timeout, $ionicModal, firebaseService) {
     var $ctrl = this;
 
+    $ctrl.tacoCounter = 0;
     $ctrl.tacosModal = tacosModal;
 
     init();
@@ -25,6 +26,8 @@
 
     function usersUpdated() {
       setUpUser();
+      $ctrl.user = firebaseService.getUser($state.params.id);
+      incrementTacoDelay($ctrl.user.tacos - $ctrl.tacoCounter);
     }
 
     function setUpUser() {
@@ -41,16 +44,20 @@
 
     function incrementTotalTacos() {
       if ($scope.modal.newTacos) {
-        incrementTacoDelay($scope.modal.newTacos.tacos);
+        incrementTacoDelay($scope.modal.newTacos.tacos - $ctrl.tacoCounter);
       }
     }
 
-    function incrementTacoDelay(tacosRemaining) {
+    function incrementTacoDelay(tacosRemaining, delay) {
+      var DELAY = delay || (1000 / tacosRemaining);
       if (tacosRemaining > 0) {
         $timeout(function () {
-          $ctrl.user.tacos++;
-          incrementTacoDelay(tacosRemaining - 1);
-        }, 100);
+          $ctrl.tacoCounter++;
+          incrementTacoDelay(tacosRemaining - 1, DELAY);
+        }, DELAY);
+      }
+      else {
+        $ctrl.user = firebaseService.getUser($state.params.id);
       }
     }
   }

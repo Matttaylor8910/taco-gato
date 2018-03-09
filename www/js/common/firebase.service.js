@@ -34,7 +34,6 @@
       tacoEatersRef.on('value', function (snapshot) {
         var eaters = snapshotToArray(snapshot);
         service.users = _.map(eaters, mapUsers);
-        console.log(eaters);
         $rootScope.$broadcast('firebase.usersUpdated');
 
         // TODO: generate news feed and leaderboard
@@ -45,7 +44,8 @@
     }
 
     function mapUsers(user) {
-      user.tacos = _.sumBy(_.map(user.tacoEvents), 'tacos')
+      user.tacoEvents = _.reverse(_.map(user.tacoEvents));
+      user.tacos = _.sumBy(user.tacoEvents, 'tacos');
       return user;
     }
 
@@ -75,8 +75,6 @@
     }
 
     function addTacos(tacoEvent) {
-      console.log(tacoEvent);
-      console.log(service.user.id);
       userTacoEvents.$add(tacoEvent);
     }
 
