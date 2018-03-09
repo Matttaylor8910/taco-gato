@@ -3,14 +3,18 @@
     .module('taco')
     .factory('firebaseService', firebaseService);
 
-  function firebaseService(localStorage) {
+  function firebaseService($rootScope, localStorage, $firebaseArray) {
     var dbRef;
+
+    var tacoEatersRef, tacoEatersCollection;
+    var userRef, userTacoEvents;
 
     var service = {
       user: localStorage.getObject('user'),
 
       addUser: addUser,
-      addTacos: addTacos
+      addTacos: addTacos,
+      getUser: getUser
     };
 
     init();
@@ -21,20 +25,63 @@
      * Initialize the firebase objects and collections
      */
     function init() {
-      // TODO: connect to the firebase database
-      // TODO: listen on users and generate news feed and leaderboard
+      // connect to the taco database
+      dbRef = firebase.database();
+
+      // wire up the taco eaters collection
+      tacoEatersRef = dbRef.ref('tacoEaters');
+      tacoEatersCollection = $firebaseArray(tacoEatersRef);
+      tacoEatersRef.on('value', function (snapshot) {
+        var eaters = snapshotToArray(snapshot);
+        service.users = _.map(eaters, mapUsers);
+        console.log(eaters);
+        $rootScope.$broadcast('firebase.usersUpdated');
+
+        // TODO: generate news feed and leaderboard
+      });
+
+      // set up the user ref if we can
+      addUserRef();
+    }
+
+    function mapUsers(user) {
+      user.tacos = _.sumBy(_.map(user.tacoEvents), 'tacos')
+      return user;
+    }
+
+    function addUserRef() {
+      if (service.user.id) {
+        userRef = dbRef.ref('tacoEaters/' + service.user.id + '/tacoEvents');
+        userTacoEvents = $firebaseArray(userRef);
+      }
     }
 
     function addUser(user) {
-      service.user = user;
-      localStorage.setObject('user', user);
-      // TODO: Save to firebase
-      // TODO: also add the initial tacos as the first event
+      user.tacoEvents = [];
+      user.tacoEvents.push({
+        tacos: user.tacos,
+        time: new Date() // TODO: moment unix timestamp
+      });
+      delete user.tacos;
+
+      return tacoEatersCollection.$add(user).then(function (ref) {
+        user.id = ref.key;
+        service.user = user;
+        localStorage.setObject('user', user);
+        addUserRef();
+
+        return user;
+      });
     }
 
     function addTacos(tacoEvent) {
       console.log(tacoEvent);
-      // TODO: add this taco event to the user (for the feed/leaderboard)
+      console.log(service.user.id);
+      userTacoEvents.$add(tacoEvent);
+    }
+
+    function getUser(id) {
+      return _.find(service.users, {key: id});
     }
 
     /**

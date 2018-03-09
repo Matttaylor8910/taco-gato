@@ -13,6 +13,6 @@
       });
 
     // If no other routes are matched always default to fruit-list
-    $urlRouterProvider.otherwise('/overview');
+    $urlRouterProvider.otherwise('/welcome');
   }
 })();

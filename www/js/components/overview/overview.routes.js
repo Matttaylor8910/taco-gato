@@ -6,7 +6,7 @@
   function config($stateProvider) {
     $stateProvider
       .state('overview', {
-        url: '/overview',
+        url: '/overview/:id',
         templateUrl: 'js/components/overview/overview.tpl.html',
         controller: 'OverviewController',
         controllerAs: '$ctrl'

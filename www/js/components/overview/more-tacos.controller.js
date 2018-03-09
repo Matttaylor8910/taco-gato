@@ -11,7 +11,7 @@
     $ctrl.save = save;
 
     function save() {
-      firebaseService.addTacos($ctrl.tacoEvent);
+      firebaseService.addTacos($ctrl.tacoEvent, firebaseService);
 
       // set a 'newTacos' back to $scope so we can
       // play with it in the overview controller

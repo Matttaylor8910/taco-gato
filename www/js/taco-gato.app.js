@@ -3,12 +3,13 @@
     .module('taco', [
       'ionic',
       'ionic.utils',
+      'firebase',
 
       'taco.welcome',
       'taco.overview'
     ])
 
-    .run(function($ionicPlatform) {
+    .run(function($ionicPlatform, firebaseConfig) {
       $ionicPlatform.ready(function() {
         if(window.cordova && window.cordova.plugins.Keyboard) {
           // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -24,6 +25,9 @@
           StatusBar.styleDefault();
         }
       });
+
+      // connect to firebase
+      firebase.initializeApp(firebaseConfig);
     });
 
 })();

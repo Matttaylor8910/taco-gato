@@ -1,16 +1,18 @@
 <ion-view>
   <ion-nav-title>🌮😺</ion-nav-title>
   <ion-content>
-    <div>
-      <h1>What's your name?</h1>
-      <input ng-model="$ctrl.user.name" placeholder="Tap here">
-    </div>
+    <div ng-if="$ctrl.newUser">
+      <div>
+        <h1>What's your name?</h1>
+        <input ng-model="$ctrl.user.name" placeholder="Tap here">
+      </div>
 
-    <div>
-      <h1>How many tacos have you eaten so far?</h1>
-      <input type="tel" ng-model="$ctrl.user.tacos">
-    </div>
+      <div>
+        <h1>How many tacos have you eaten so far?</h1>
+        <input type="tel" ng-model="$ctrl.user.tacos">
+      </div>
 
-    <button class="button button-positive" ng-click="$ctrl.saveUser()">Save</button>
+      <button class="button button-positive" ng-click="$ctrl.saveUser()">Save</button>
+    </div>
   </ion-content>
 </ion-view>

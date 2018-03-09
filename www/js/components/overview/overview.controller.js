@@ -3,12 +3,14 @@
     .module('taco.overview', [])
     .controller('OverviewController', OverviewController);
 
-  function OverviewController($scope, $state, $timeout, $ionicModal, firebaseService) {
+  function OverviewController($scope, $rootScope, $state, $timeout, $ionicModal, firebaseService) {
     var $ctrl = this;
 
     $ctrl.tacosModal = tacosModal;
 
     init();
+
+    $rootScope.$on('firebase.usersUpdated', usersUpdated);
     $scope.$on('$ionicView.beforeEnter', setUpUser);
     $scope.$on('modal.hidden', incrementTotalTacos);
 
@@ -21,12 +23,15 @@
       });
     }
 
+    function usersUpdated() {
+      setUpUser();
+    }
+
     function setUpUser() {
-      if (!firebaseService.user || !firebaseService.user.name) {
-        $state.go('welcome');
-      }
-      else {
-        $ctrl.user = firebaseService.user;
+      $ctrl.loading = !$ctrl.user;
+      if (!$ctrl.user && firebaseService.users) {
+        $ctrl.user = firebaseService.getUser($state.params.id);
+        $ctrl.loading = false;
       }
     }
 
