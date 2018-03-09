@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.matt.tagogato" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.matt.tacogato" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Taco Gato</name>
   <description>Keep a tally of tacos eaten, compete with your friends, earn achievements</description>
   <author email="taylor.matt777@gmail.com" href="https://taco-gato.herokuapp.com/">Matt Taylor</author>
