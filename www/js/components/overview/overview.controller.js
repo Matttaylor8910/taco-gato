@@ -3,7 +3,7 @@
     .module('taco.overview', [])
     .controller('OverviewController', OverviewController);
 
-  function OverviewController($scope, $rootScope, $state, $timeout, $ionicHistory, $ionicModal, firebaseService) {
+  function OverviewController($scope, $rootScope, $state, $timeout, $ionicModal, $ionicHistory, firebaseService) {
     var $ctrl = this;
 
     $ctrl.tacoCounter = 0;
@@ -11,6 +11,7 @@
     $ctrl.firebase = firebaseService;
 
     $ctrl.tacosModal = tacosModal;
+    $ctrl.clearUser = clearUser;
 
     init();
 
@@ -36,6 +37,10 @@
     }
 
     function usersUpdated() {
+      if ($state.current.name !== 'overview') {
+        return;
+      }
+
       if (!$ctrl.user) {
         beforeEnter();
       }
@@ -48,13 +53,10 @@
       $ctrl.user = firebaseService.getUser($state.params.id);
       if ($ctrl.user) {
         updateTacoCounter();
+        $ctrl.error = false;
       }
       else {
-        firebaseService.clearUser();
-        $ionicHistory.nextViewOptions({
-          animation: false
-        });
-        $state.go('welcome');
+        $ctrl.error = true;
       }
     }
 
@@ -72,6 +74,14 @@
 
     function tacosModal($event) {
       $scope.modal.show($event);
+    }
+
+    function clearUser() {
+      firebaseService.clearUser();
+      $ionicHistory.nextViewOptions({
+        animation: false
+      });
+      $state.go('welcome');
     }
 
     function incrementTacoDelay(tacosRemaining, delay) {

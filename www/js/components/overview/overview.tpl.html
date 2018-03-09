@@ -4,7 +4,7 @@
 
     <ion-spinner ng-if="$ctrl.loading" icon="lines"></ion-spinner>
 
-    <div ng-if="!$ctrl.loading">
+    <div ng-if="!$ctrl.loading && !$ctrl.error">
       <div ng-if="$ctrl.user">
         <h3 class="text-center">{{ $ctrl.user.name }}, you have eaten</h3>
 
@@ -23,6 +23,16 @@
       <div class="card">
         <taco-item ng-class="{'no-border': $index === 0}" event="event" ng-repeat="event in $ctrl.user.tacoEvents"></taco-item>
       </div>
+    </div>
+
+    <div class="text-center" ng-if="$ctrl.error">
+      <span>Could not load user. This is probably because you have recently been deleted. Talk to Matt or Daniel if you think you're seeing this in error.</span>
+
+      <button
+        class="button button-block button-clear button-positive"
+        ng-click="$ctrl.clearUser()">
+        RETURN TO LOGIN
+      </button>
     </div>
   </ion-content>
 </ion-view>
