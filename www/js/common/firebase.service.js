@@ -61,10 +61,15 @@
       // add the moment for date stuff and userName to each event
       _.each(tacoEvents, function (event) {
         event.moment = moment.unix(event.time);
+        event.grouping = getGrouping(event.moment);
         event.userName = name;
       });
 
       return tacoEvents;
+    }
+
+    function getGrouping(moment) {
+      return moment.format('dddd');
     }
 
     function addUserRef() {
@@ -121,6 +126,13 @@
         .flatten()
         .sortBy('time')
         .reverse()
+        .groupBy('grouping')
+        .map(function (events, grouping) {
+          return {
+            grouping: grouping,
+            events: events
+          };
+        })
         .value();
     }
 

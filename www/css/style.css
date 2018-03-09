@@ -37,6 +37,12 @@ button.button-clear.button-block {
   font-size: 30px;
 }
 
+taco-item .item.taco-item {
+  border-top: 1px dashed #d69200 !important;
+}
+taco-item.no-border .item.taco-item {
+  border-top: none !important;
+}
 .taco-item p {
   white-space: normal;
 }

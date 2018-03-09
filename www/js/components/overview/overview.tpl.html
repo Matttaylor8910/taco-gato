@@ -20,9 +20,9 @@
         {{$ctrl.user.tacos === 0 ? 'Eat Some Tacos' : 'Eat More Tacos'}}
       </button>
 
-      <ion-list>
-        <taco-item event="event" ng-repeat="event in $ctrl.user.tacoEvents"></taco-item>
-      </ion-list>
+      <div class="card">
+        <taco-item ng-class="{'no-border': $index === 0}" event="event" ng-repeat="event in $ctrl.user.tacoEvents"></taco-item>
+      </div>
     </div>
   </ion-content>
 </ion-view>
