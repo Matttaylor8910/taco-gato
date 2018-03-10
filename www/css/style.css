@@ -7,8 +7,12 @@ ion-spinner {
   justify-content: center;
   margin-top: 15px;
 }
+.disabled {
+  opacity: .3;
+  pointer-events: none;
+}
 
-button.button-clear.button-block {
+button.button-clear {
   font-variant: all-petite-caps;
   font-size: 24px !important;
 }

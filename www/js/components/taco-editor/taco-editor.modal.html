@@ -4,28 +4,41 @@
     <h1 class="title">
       {{ event ? 'Edit Mode' : 'Mas Tacos!' }}
     </h1>
+    <button class="button button-assertive button-clear button-icon icon ion-trash-a" ng-click="setConfirmRemove(true)" ng-if="event"></button>
   </ion-header-bar>
   <ion-content>
-    <div class="more-tacos-container">
-      <button
-        class="button button-icon ion-minus"
-        ng-disabled="tacos === 0"
-        ng-click="tacos = tacos - 1">
-      </button>
 
-      <div class="taco-count">{{ tacos || 0 }}</div>
+    <div class="padding" ng-if="confirmRemove">
+      <h3 class="text-center">Are you sure you want to delete this taco event? This cannot be undone.</h3>
+      <div class="row">
+        <button class="col button button-clear button-positive" ng-click="setConfirmRemove(false)">Cancel</button>
+        <button class="col button button-clear button-assertive" ng-click="remove()">Delete</button>
+      </div>
+    </div>
+
+    <div ng-class="{'disabled': confirmRemove}">
+      <div class="more-tacos-container">
+        <button
+          class="button button-icon ion-minus"
+          ng-disabled="tacos === 0"
+          ng-click="decrement()">
+        </button>
+
+        <div class="taco-count">{{ tacos || 0 }}</div>
+
+        <button
+          class="button button-icon ion-plus"
+          ng-click="increment()">
+        </button>
+      </div>
 
       <button
-        class="button button-icon ion-plus"
-        ng-click="tacos = tacos + 1">
+        class="button button-block button-clear button-positive"
+        ng-disabled="tacos === 0 || tacos === event.tacos"
+        ng-click="save(tacos)">
+        {{ event ? 'Update' : 'Done' }}
       </button>
     </div>
 
-    <button
-      class="button button-block button-clear button-positive"
-      ng-disabled="tacos === 0 || tacos === event.tacos"
-      ng-click="save(tacos)">
-      {{ event ? 'Update' : 'Done' }}
-    </button>
   </ion-content>
 </ion-modal-view>

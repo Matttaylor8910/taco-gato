@@ -15,6 +15,7 @@
       addUser: addUser,
       addTacos: addTacos,
       editTacos: editTacos,
+      deleteTacos: deleteTacos,
       getUser: getUser,
       clearUser: clearUser
     };
@@ -127,6 +128,11 @@
       var index = _.findIndex(userTacoEvents, {time: event.time});
       userTacoEvents[index].tacos = tacos;
       userTacoEvents.$save(index);
+    }
+
+    function deleteTacos(event) {
+      var index = _.findIndex(userTacoEvents, {time: event.time});
+      userTacoEvents.$remove(index);
     }
 
     function getUser(id) {
