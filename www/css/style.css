@@ -38,7 +38,7 @@ button.button-clear.button-block {
 }
 
 taco-item .item.taco-item {
-  border-top: 1px dashed #7e6f4f !important;
+  border-top: 1px solid #ccc !important;
 }
 taco-item.no-border .item.taco-item {
   border-top: none !important;

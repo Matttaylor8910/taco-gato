@@ -9,7 +9,8 @@
       'taco.welcome',
       'taco.overview',
       'taco.leaderboard',
-      'taco.activity'
+      'taco.activity',
+      'taco.editor'
     ])
 
     .run(function($ionicPlatform, firebaseConfig) {

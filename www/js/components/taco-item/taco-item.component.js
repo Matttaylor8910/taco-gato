@@ -9,26 +9,18 @@
       }
     });
 
-  function controller(firebaseService, $ionicPopup) {
+  function controller(firebaseService) {
     var $ctrl = this;
 
     $ctrl.firebase = firebaseService;
 
     $ctrl.$onInit = onChanges;
     $ctrl.$onChanges = onChanges;
-    $ctrl.editEvent = editEvent;
 
     function onChanges() {
       if (firebaseService.user.id && $ctrl.event) {
         $ctrl.you = firebaseService.user.id === $ctrl.event.userId;
       }
-    }
-
-    function editEvent() {
-      console.log('edit', $ctrl.event);
-      $ionicPopup.alert({
-        title: 'Editing taco events coming soon!'
-      });
     }
   }
 })();

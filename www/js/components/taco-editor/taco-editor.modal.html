@@ -1,7 +1,9 @@
 <ion-modal-view id="more-tacos">
   <ion-header-bar>
-    <button class="button button-icon icon ion-chevron-down" ng-click="cancel()"></button>
-    <h1 class="title">Mas Tacos!</h1>
+    <button class="button button-icon icon ion-chevron-down" ng-click="modal.hide()"></button>
+    <h1 class="title">
+      {{ event ? 'Edit Mode' : 'Mas Tacos!' }}
+    </h1>
   </ion-header-bar>
   <ion-content>
     <div class="more-tacos-container">
@@ -21,9 +23,9 @@
 
     <button
       class="button button-block button-clear button-positive"
-      ng-disabled="tacos === 0"
+      ng-disabled="tacos === 0 || tacos === event.tacos"
       ng-click="save(tacos)">
-      Done
+      {{ event ? 'Update' : 'Done' }}
     </button>
   </ion-content>
 </ion-modal-view>

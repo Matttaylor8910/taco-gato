@@ -1,8 +1,6 @@
 (function () {
   angular
-    .module('taco.overview', [
-      'taco.editor'
-    ])
+    .module('taco.overview', [])
     .controller('OverviewController', OverviewController);
 
   function OverviewController($scope, $rootScope, $state, $timeout, $ionicHistory, firebaseService) {
@@ -70,12 +68,19 @@
     function incrementTacoDelay(tacosRemaining, delay) {
       // set a delay that ensures the counter is correct within 1 second, but only
       // if there is no delay passed in (from recursive call)
-      var DELAY = delay || (1000 / tacosRemaining);
+      var DELAY = delay || (1000 / Math.abs(tacosRemaining));
 
-      if (tacosRemaining > 0) {
+      if (tacosRemaining !== 0) {
         $timeout(function () {
-          $ctrl.tacoCounter++;
-          incrementTacoDelay(tacosRemaining - 1, DELAY);
+          if (tacosRemaining > 0) {
+            $ctrl.tacoCounter++;
+            tacosRemaining--;
+          }
+          else {
+            $ctrl.tacoCounter--;
+            tacosRemaining++;
+          }
+          incrementTacoDelay(tacosRemaining, DELAY);
         }, DELAY);
       }
     }

@@ -14,6 +14,7 @@
 
       addUser: addUser,
       addTacos: addTacos,
+      editTacos: editTacos,
       getUser: getUser,
       clearUser: clearUser
     };
@@ -58,7 +59,8 @@
       var tacoEvents = _.reverse(_.map(events));
 
       // add the moment for date stuff and userName to each event
-      _.each(tacoEvents, function (event) {
+      _.each(tacoEvents, function (event, index) {
+        event.index = index;
         event.moment = moment.unix(event.time);
         event.grouping = getGrouping(event.moment);
         event.userName = user.name;
@@ -119,6 +121,12 @@
         tacos: numTacos,
         time: moment().unix()
       });
+    }
+
+    function editTacos(event, tacos) {
+      var index = _.findIndex(userTacoEvents, {time: event.time});
+      userTacoEvents[index].tacos = tacos;
+      userTacoEvents.$save(index);
     }
 
     function getUser(id) {

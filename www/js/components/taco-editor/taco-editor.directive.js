@@ -19,7 +19,6 @@
       $scope.tacos = 1;
 
       $scope.save = save;
-      $scope.cancel = closeAndResetModal;
       $elem.on('click', openModal);
       init();
 
@@ -33,18 +32,18 @@
       }
 
       function openModal () {
+        $scope.tacos = $scope.event ? $scope.event.tacos : 1;
         $scope.modal.show();
       }
 
       function save(tacos) {
-        firebaseService.addTacos(tacos);
-        closeAndResetModal();
-      }
-
-      function closeAndResetModal() {
-        $scope.modal.hide().then(function () {
-          $scope.tacos = 1;
-        });
+        if ($scope.event) {
+          firebaseService.editTacos($scope.event, tacos);
+        }
+        else {
+          firebaseService.addTacos(tacos);
+        }
+        $scope.modal.hide();
       }
     }
   }
