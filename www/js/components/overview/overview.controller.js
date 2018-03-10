@@ -1,15 +1,16 @@
 (function () {
   angular
-    .module('taco.overview', [])
+    .module('taco.overview', [
+      'taco.editor'
+    ])
     .controller('OverviewController', OverviewController);
 
-  function OverviewController($scope, $rootScope, $state, $timeout, $ionicModal, $ionicHistory, firebaseService) {
+  function OverviewController($scope, $rootScope, $state, $timeout, $ionicHistory, firebaseService) {
     var $ctrl = this;
 
     $ctrl.tacoCounter = 0;
     $ctrl.firebase = firebaseService;
 
-    $ctrl.tacosModal = tacosModal;
     $ctrl.clearUser = clearUser;
 
     init();
@@ -18,13 +19,6 @@
     $rootScope.$on('firebase.usersUpdated', getUserFromFirebase);
 
     function init() {
-      $ionicModal.fromTemplateUrl('js/components/overview/more-tacos.modal.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-      }).then(function (modal) {
-        $scope.modal = modal;
-      });
-
       // return to welcome if this user has no user.id at all
       if (!firebaseService.user.id) {
         clearUser();
@@ -34,6 +28,7 @@
     function beforeEnter() {
       $ctrl.user = undefined;
       $ctrl.userId = $state.params.id;
+      $ctrl.you = $ctrl.firebase.user.id === $ctrl.userId;
       $ctrl.loading = true;
       if (firebaseService.users) {
         getUserFromFirebase();
@@ -62,10 +57,6 @@
       // only add the tacos that aren't accounted for yet in the counter
       var tacosToIncrement = $ctrl.user.tacos - $ctrl.tacoCounter;
       incrementTacoDelay(tacosToIncrement);
-    }
-
-    function tacosModal($event) {
-      $scope.modal.show($event);
     }
 
     function clearUser() {

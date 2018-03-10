@@ -15,8 +15,8 @@
 
       <button
         class="button button-block button-clear button-positive"
-        ng-if="$ctrl.firebase.user.id === $ctrl.userId"
-        ng-click="$ctrl.tacosModal($event)">
+        ng-if="$ctrl.you"
+        taco-editor>
         {{$ctrl.user.tacos === 0 ? 'Eat Some Tacos' : 'Eat More Tacos'}}
       </button>
 

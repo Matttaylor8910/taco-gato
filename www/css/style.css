@@ -38,7 +38,7 @@ button.button-clear.button-block {
 }
 
 taco-item .item.taco-item {
-  border-top: 1px dashed #d69200 !important;
+  border-top: 1px dashed #7e6f4f !important;
 }
 taco-item.no-border .item.taco-item {
   border-top: none !important;
@@ -46,6 +46,10 @@ taco-item.no-border .item.taco-item {
 .taco-item,
 .taco-item p {
   white-space: normal;
+}
+.taco-item .ion-edit:before {
+  font-size: 24px;
+  color: #46240c;
 }
 
 /*OVERRIDES*/

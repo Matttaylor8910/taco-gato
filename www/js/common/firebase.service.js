@@ -47,13 +47,13 @@
     }
 
     function mapUsers(user) {
-      user.tacoEvents = mapTacoEvents(user.tacoEvents, user.name);
+      user.tacoEvents = mapTacoEvents(user.tacoEvents, user);
       user.tacos = _.sumBy(user.tacoEvents, 'tacos');
 
       return user;
     }
 
-    function mapTacoEvents(events, name) {
+    function mapTacoEvents(events, user) {
       // reverse the order so newest are displayed first
       var tacoEvents = _.reverse(_.map(events));
 
@@ -61,7 +61,8 @@
       _.each(tacoEvents, function (event) {
         event.moment = moment.unix(event.time);
         event.grouping = getGrouping(event.moment);
-        event.userName = name;
+        event.userName = user.name;
+        event.userId = user.key;
       });
 
       return tacoEvents;
