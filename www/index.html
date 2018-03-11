@@ -33,6 +33,7 @@
     <script src="js/components/taco-item/taco-item.component.js"></script>
     <script src="js/components/welcome/welcome.controller.js"></script>
     <script src="js/components/welcome/welcome.routes.js"></script>
+    <script src="js/components/welcome/sign-in/sign-in.controller.js"></script>
     <script src="js/components/overview/overview.controller.js"></script>
     <script src="js/components/overview/overview.routes.js"></script>
     <script src="js/components/overview/edit-profile/edit-profile.directive.js"></script>
@@ -43,8 +44,10 @@
     <script src="js/components/taco-editor/taco-editor.directive.js"></script>
 
   </head>
-  <body ng-app="taco" ng-controller="TacoGatoController as $ctrl">
+  <body ng-app="taco" class="platform-ios" ng-controller="TacoGatoController as $ctrl">
     <ion-nav-bar class="bar-stable">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
     </ion-nav-bar>
     <ion-nav-view></ion-nav-view>
 

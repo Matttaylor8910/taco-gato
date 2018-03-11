@@ -14,6 +14,16 @@
             controllerAs: '$ctrl'
           }
         }
+      })
+      .state('welcome-sign-in', {
+        url: '/welcome/sign-in',
+        views: {
+          'overview' : {
+            templateUrl: 'js/components/welcome/sign-in/sign-in.tpl.html',
+            controller: 'SignInController',
+            controllerAs: '$ctrl'
+          }
+        }
       });
 
     // If no other routes are matched always default to fruit-list

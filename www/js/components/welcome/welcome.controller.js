@@ -1,9 +1,11 @@
 (function () {
   angular
-    .module('taco.welcome', [])
+    .module('taco.welcome', [
+      'taco.overview.signin'
+    ])
     .controller('WelcomeController', WelcomeController);
 
-  function WelcomeController($scope, $state, firebaseService) {
+  function WelcomeController($scope, $state, $ionicModal, firebaseService) {
     var $ctrl = this;
 
     $ctrl.newUser = false; // set to false till we know
@@ -13,6 +15,7 @@
     };
 
     $ctrl.saveUser = saveUser;
+    $ctrl.logBackIn = logBackIn;
 
     $scope.$on('$ionicView.beforeEnter', init);
 
@@ -23,6 +26,13 @@
       else {
         $ctrl.newUser = true;
       }
+
+      $ionicModal.fromTemplateUrl('js/components/welcome/welcome-help.modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function (modal) {
+        $scope.modal = modal;
+      });
     }
 
     function saveUser() {
@@ -30,6 +40,11 @@
       firebaseService.addUser($ctrl.user).then(function (user) {
         goToOverview(user.id);
       });
+    }
+
+    function logBackIn() {
+      $scope.modal.hide();
+      $state.go('welcome-sign-in');
     }
 
     function goToOverview(id) {

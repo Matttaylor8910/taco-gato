@@ -18,6 +18,7 @@
       editTacos: editTacos,
       deleteTacos: deleteTacos,
       getUser: getUser,
+      setUser: setUser,
       clearUser: clearUser
     };
 
@@ -110,9 +111,7 @@
       // return the promise so we can wait for this add to finish
       return tacoEatersCollection.$add(user).then(function (ref) {
         user.id = ref.key;
-        service.user = user;
-        localStorage.setObject('user', user);
-        addUserRef();
+        signIn(user);
 
         return user;
       });
@@ -144,6 +143,31 @@
 
     function getUser(id) {
       return _.find(service.users, {key: id});
+    }
+
+    function setUser(userItem) {
+      signIn({
+        id: userItem.key,
+        name: userItem.name,
+        tacoEvents: cleanUpTacos(userItem.tacoEvents)
+      });
+    }
+
+    function signIn(user) {
+      service.user = user;
+      localStorage.setObject('user', user);
+      addUserRef();
+    }
+
+    function cleanUpTacos(tacoEvents) {
+      return _(tacoEvents)
+        .map(function (event) {
+          return {
+            tacos: event.tacos,
+            time: event.time,
+            initial: event.initial
+          }
+        })
     }
 
     function clearUser() {

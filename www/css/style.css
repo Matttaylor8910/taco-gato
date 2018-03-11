@@ -23,6 +23,26 @@ button.button-clear {
 #welcome .question-section h1 {
   font-size: 20px;
 }
+#welcome .user-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  padding: 8px;
+  height: 46px
+}
+#welcome .user-item button {
+  min-height: 30px;
+  line-height: 0;
+  padding-bottom: 5px;
+  display: none;
+}
+#welcome .user-item.selected {
+  background: #f3f3f3;
+}
+#welcome .user-item.selected button {
+  display: initial;
+}
 
 #overview .taco-count,
 #more-tacos .taco-count {

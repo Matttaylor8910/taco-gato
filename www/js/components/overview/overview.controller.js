@@ -5,7 +5,7 @@
     ])
     .controller('OverviewController', OverviewController);
 
-  function OverviewController($scope, $rootScope, $state, $timeout, $ionicHistory, firebaseService) {
+  function OverviewController($scope, $rootScope, $state, $timeout, firebaseService) {
     var $ctrl = this;
 
     $ctrl.tacoCounter = 0;
@@ -61,9 +61,6 @@
 
     function clearUser() {
       firebaseService.clearUser();
-      $ionicHistory.nextViewOptions({
-        animation: false
-      });
       $state.go('welcome');
     }
 

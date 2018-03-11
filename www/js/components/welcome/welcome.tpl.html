@@ -1,7 +1,11 @@
-<ion-view id="welcome">
+<ion-view id="welcome" hide-back-button="true">
   <ion-nav-title>🌮😺</ion-nav-title>
+  <ion-nav-buttons side="right">
+    <button class="button button-icon button-clear button-positive ion-help-circled" ng-click="modal.show()"></button>
+  </ion-nav-buttons>
   <ion-content class="padding">
     <div ng-if="$ctrl.newUser">
+      <h4 class="text-center padding-bottom">Welcome to Tago Gato! We just need your name and how many tacos you think you've eaten so far this month</h4>
       <div class="list">
         <label class="item item-input item-stacked-label">
           <span class="input-label">What's your name?</span>

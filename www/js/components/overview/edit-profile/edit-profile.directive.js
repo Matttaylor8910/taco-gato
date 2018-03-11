@@ -3,7 +3,7 @@
     .module('taco.overview.profile', [])
     .directive('editProfile', tacoEditor);
 
-  function tacoEditor($ionicModal, firebaseService) {
+  function tacoEditor($ionicModal, $state, firebaseService) {
     var directive = {
       restrict: 'A',
       scope: {
@@ -18,7 +18,8 @@
     function link($scope, $elem) {
 
       $scope.updateUser = updateUser;
-      $scope.isInvalid= isInvalid;
+      $scope.isInvalid = isInvalid;
+      $scope.logOut = logOut;
 
       $elem.on('click', openModal);
       init();
@@ -51,6 +52,12 @@
         else {
           return true;
         }
+      }
+
+      function logOut() {
+        firebaseService.clearUser();
+        $scope.modal.hide();
+        $state.go('welcome');
       }
     }
   }
