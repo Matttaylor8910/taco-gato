@@ -37,7 +37,8 @@
         });
       }
 
-      function openModal () {
+      function openModal ($event) {
+        $event.stopPropagation();
         $scope.confirmRemove = false;
         $scope.tacos = $scope.event ? $scope.event.tacos : 1;
         $scope.modal.show();

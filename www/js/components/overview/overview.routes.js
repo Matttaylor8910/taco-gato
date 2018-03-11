@@ -14,6 +14,16 @@
             controllerAs: '$ctrl'
           }
         }
+      })
+      .state('activity-overview', {
+        url: 'activity/overview/:userId',
+        views: {
+          'activity': {
+            templateUrl: 'js/components/overview/overview.tpl.html',
+            controller: 'OverviewController',
+            controllerAs: '$ctrl'
+          }
+        }
       });
   }
 })();

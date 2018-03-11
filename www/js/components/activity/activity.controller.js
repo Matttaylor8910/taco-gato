@@ -1,6 +1,8 @@
 (function () {
   angular
-    .module('taco.activity', [])
+    .module('taco.activity', [
+      'taco.eventDetail'
+    ])
     .controller('ActivityController', ActivityController);
 
   function ActivityController(firebaseService) {
