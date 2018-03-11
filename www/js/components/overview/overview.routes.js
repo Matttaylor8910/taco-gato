@@ -3,7 +3,7 @@
     .module('taco.overview')
     .config(config);
 
-  function config($stateProvider) {
+  function config($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('overview', {
         url: '/overview/:userId',
@@ -25,5 +25,8 @@
           }
         }
       });
+
+    // If no other routes are matched always default to fruit-list
+    $urlRouterProvider.otherwise('/overview/');
   }
 })();

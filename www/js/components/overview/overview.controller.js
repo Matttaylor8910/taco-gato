@@ -5,7 +5,7 @@
     ])
     .controller('OverviewController', OverviewController);
 
-  function OverviewController($scope, $rootScope, $state, $timeout, firebaseService) {
+  function OverviewController($scope, $rootScope, $state, $timeout, $ionicHistory, firebaseService) {
     var $ctrl = this;
 
     $ctrl.tacoCounter = 0;
@@ -13,26 +13,31 @@
 
     $ctrl.clearUser = clearUser;
 
-    init();
-
     $scope.$on('$ionicView.beforeEnter', beforeEnter);
     $rootScope.$on('firebase.usersUpdated', getUserFromFirebase);
 
-    function init() {
-      // return to welcome if this user has no user.id at all
-      if (!firebaseService.user.id) {
+    function beforeEnter() {
+      if ($state.params.userId) {
+        $ctrl.user = undefined;
+        $ctrl.userId = $state.params.userId;
+        $ctrl.you = $ctrl.firebase.user.id === $ctrl.userId;
+        $ctrl.loading = true;
+        if (firebaseService.users) {
+          getUserFromFirebase();
+        }
+      }
+      else if (firebaseService.user.id){
+        $ionicHistory.nextViewOptions({
+          disableAnimation: true,
+          disableBack: true,
+          historyRoot: true
+        });
+        $state.go('overview', {userId: firebaseService.user.id});
+      }
+      else {
         clearUser();
       }
-    }
 
-    function beforeEnter() {
-      $ctrl.user = undefined;
-      $ctrl.userId = $state.params.userId;
-      $ctrl.you = $ctrl.firebase.user.id === $ctrl.userId;
-      $ctrl.loading = true;
-      if (firebaseService.users) {
-        getUserFromFirebase();
-      }
     }
 
     function getUserFromFirebase() {

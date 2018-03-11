@@ -48,6 +48,10 @@
     }
 
     function goToOverview(id) {
+      $ionicHistory.nextViewOptions({
+        disableBack: true,
+        historyRoot: true
+      });
       $state.go('overview', {userId: id});
     }
   }

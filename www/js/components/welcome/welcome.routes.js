@@ -3,7 +3,7 @@
     .module('taco.welcome')
     .config(config);
 
-  function config($stateProvider, $urlRouterProvider) {
+  function config($stateProvider) {
     $stateProvider
       .state('welcome', {
         url: '/welcome',
@@ -25,8 +25,5 @@
           }
         }
       });
-
-    // If no other routes are matched always default to fruit-list
-    $urlRouterProvider.otherwise('/welcome');
   }
 })();
