@@ -13,6 +13,7 @@
       user: localStorage.getObject('user'),
 
       addUser: addUser,
+      editUser: editUser,
       addTacos: addTacos,
       editTacos: editTacos,
       deleteTacos: deleteTacos,
@@ -115,6 +116,12 @@
 
         return user;
       });
+    }
+
+    function editUser(user) {
+      var index = _.findIndex(tacoEatersCollection, {$id: user.key});
+      tacoEatersCollection[index].name = user.name;
+      tacoEatersCollection.$save(index);
     }
 
     function addTacos(numTacos) {
