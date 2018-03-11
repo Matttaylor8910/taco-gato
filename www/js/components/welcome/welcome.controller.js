@@ -48,7 +48,7 @@
     }
 
     function goToOverview(id) {
-      $state.go('overview', {id: id});
+      $state.go('overview', {userId: id});
     }
   }
 })();

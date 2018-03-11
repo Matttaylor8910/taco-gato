@@ -22,7 +22,7 @@
       $ionicHistory.nextViewOptions({
         disableBack: true
       });
-      $state.go('overview', {id: userItem.key});
+      $state.go('overview', {userId: userItem.key});
     }
   }
 })();
