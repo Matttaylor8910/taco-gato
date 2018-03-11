@@ -20,7 +20,8 @@
     function signIn(userItem) {
       firebaseService.setUser(userItem);
       $ionicHistory.nextViewOptions({
-        disableBack: true
+        disableBack: true,
+        historyRoot: true
       });
       $state.go('overview', {userId: userItem.key});
     }
