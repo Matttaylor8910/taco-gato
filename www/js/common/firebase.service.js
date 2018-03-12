@@ -209,7 +209,6 @@
         .sortBy('tacosToday')
         .sortBy('tacos')
         .reverse()
-        .take(10)
         .value();
 
       var leaderboard = [];

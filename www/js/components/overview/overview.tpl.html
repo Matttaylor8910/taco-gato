@@ -3,11 +3,11 @@
   <ion-nav-buttons side="right">
     <button class="button button-icon ion-person button-clear button-positive" edit-profile="$ctrl.user" ng-if="$ctrl.you"></button>
   </ion-nav-buttons>
-  <ion-content class="padding">
+  <ion-content>
 
     <ion-spinner ng-if="$ctrl.loading" icon="lines"></ion-spinner>
 
-    <div ng-if="!$ctrl.loading && !$ctrl.error">
+    <div class="padding" ng-if="!$ctrl.loading && !$ctrl.error">
       <div ng-if="$ctrl.user">
         <h3 class="text-center">{{ $ctrl.user.name }}{{$ctrl.you ? ', you have' : ' has' }} eaten</h3>
 
@@ -31,7 +31,7 @@
       </div>
     </div>
 
-    <div class="text-center" ng-if="$ctrl.error">
+    <div class="padding text-center" ng-if="$ctrl.error">
       <span>Could not load user. This is probably because you have recently been deleted. Talk to Matt or Daniel if you think you're seeing this in error.</span>
 
       <button
