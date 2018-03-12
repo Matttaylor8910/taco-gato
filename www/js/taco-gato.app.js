@@ -13,6 +13,13 @@
       'taco.editor'
     ])
 
+    // set up some default platform configurations
+    .config(function ($ionicConfigProvider) {
+      $ionicConfigProvider.navBar.alignTitle('center');
+      $ionicConfigProvider.tabs.style('standard');
+      $ionicConfigProvider.tabs.position('bottom');
+    })
+
     .run(function($ionicPlatform, firebaseConfig) {
       $ionicPlatform.ready(function() {
         if(window.cordova && window.cordova.plugins.Keyboard) {

@@ -17,6 +17,10 @@ button.button-clear {
   font-size: 24px !important;
 }
 
+.tab-item.tab-item-active {
+  color: #397df5;
+}
+
 #welcome .question-section {
   margin-bottom: 20px;
 }
