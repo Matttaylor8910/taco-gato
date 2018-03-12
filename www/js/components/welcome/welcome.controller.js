@@ -5,7 +5,7 @@
     ])
     .controller('WelcomeController', WelcomeController);
 
-  function WelcomeController($scope, $state, $ionicModal, firebaseService) {
+  function WelcomeController($scope, $state, $ionicModal, $ionicHistory, firebaseService) {
     var $ctrl = this;
 
     $ctrl.newUser = false; // set to false till we know
