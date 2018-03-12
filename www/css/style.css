@@ -61,12 +61,21 @@ button.button-clear {
   font-size: 30px;
 }
 
+leaderboard-list-item .item.leaderboard-list-item,
 taco-item .item.taco-item {
   border-top: 1px solid #ccc !important;
 }
+leaderboard-list-item.no-border .item.leaderboard-list-item,
 taco-item.no-border .item.taco-item {
   border-top: none !important;
 }
+
+.leaderboard-top-ten {
+  text-align: center;
+}
+
+.leaderboard-list-item p,
+.leaderboard-list-item,
 .taco-item,
 .taco-item p {
   white-space: normal;
@@ -74,6 +83,22 @@ taco-item.no-border .item.taco-item {
 .taco-item .ion-edit:before {
   font-size: 24px;
   color: #46240c;
+}
+
+.leaderboard-list-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.leaderboard-list-item .leaderboard-position-name {
+  display: flex;
+}
+
+.leaderboard-list-item .leaderboard-position {
+  width: 50px;
+  font-size: 2em;
+  margin-right: 10px;
+  text-align: center;
 }
 
 /*OVERRIDES*/

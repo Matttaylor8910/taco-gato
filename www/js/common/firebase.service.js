@@ -43,7 +43,8 @@
 
         // set up activity and leaderboard
         service.activity = getActivityFeed(service.users);
-        // TODO: generate leaderboard
+        console.log(service.activity);
+        service.leaderboard = getLeaderBoard(service.users);
       });
 
       // set up the user ref if we can
@@ -190,6 +191,15 @@
             events: events
           };
         })
+        .value();
+    }
+
+    function getLeaderBoard(users) {
+      return _(users)
+        .filter(removeTestUsers)
+        .sortBy('tacos')
+        .reverse()
+        .take(10)
         .value();
     }
 
