@@ -206,6 +206,7 @@
     function getLeaderBoard(users) {
       var sorted = _(users)
         .filter(removeTestUsers)
+        .sortBy('tacosToday')
         .sortBy('tacos')
         .reverse()
         .take(10)

@@ -50,6 +50,10 @@ button.button-clear {
   line-height: 150px;
   padding: 10px;
 }
+#overview .tacos-today {
+  font-size: 16px;
+  color: #39a539;
+}
 
 #more-tacos .more-tacos-container {
   display: flex;
