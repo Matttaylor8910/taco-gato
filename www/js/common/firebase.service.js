@@ -194,12 +194,27 @@
     }
 
     function getLeaderBoard(users) {
-      return _(users)
+      var sorted = _(users)
         .filter(removeTestUsers)
         .sortBy('tacos')
         .reverse()
-        .take(10)
         .value();
+
+      var leaderboard = [];
+      var rank = 1;
+
+      for (var i = 0; i < 10 && i < sorted.length; i++) {
+        if (i > 0 && sorted[i - 1].tacos === sorted[i].tacos) {
+          sorted[i].rank = sorted[i - 1].rank;
+        }
+        else {
+          sorted[i].rank = rank;
+        }
+        rank++;
+        leaderboard.push(sorted[i]);
+      }
+
+      return leaderboard;
     }
 
     function removeTestUsers(user) {
