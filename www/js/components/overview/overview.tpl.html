@@ -1,7 +1,7 @@
 <ion-view id="overview">
   <ion-nav-title>🌮😺</ion-nav-title>
   <ion-nav-buttons side="right">
-    <button class="button button-icon ion-person button-clear button-positive" edit-profile="$ctrl.user" ng-if="$ctrl.user.you"></button>
+    <button class="button button-icon ion-person button-clear button-positive" edit-profile="$ctrl.user" ng-if="$ctrl.you"></button>
   </ion-nav-buttons>
   <ion-content class="padding">
 
@@ -9,19 +9,19 @@
 
     <div ng-if="!$ctrl.loading && !$ctrl.error">
       <div ng-if="$ctrl.user">
-        <h3 class="text-center">{{ $ctrl.user.name }}{{$ctrl.user.you ? ', you have' : ' has' }} eaten</h3>
+        <h3 class="text-center">{{ $ctrl.user.name }}{{$ctrl.you ? ', you have' : ' has' }} eaten</h3>
 
         <div class="taco-count text-center">{{ $ctrl.tacoCounter }}</div>
 
         <h3 class="text-center padding-bottom">
           {{ $ctrl.tacoCounter === 1 ? 'taco' : 'tacos' }}! {{$ctrl.user.tacos === 0 ? '🙀' : '🌮🌮🌮'}}
-          <div class="tacos-today" ng-if="$ctrl.user.tacosToday">+{{$ctrl.user.tacosToday}} tacos hoy!</div>
+          <div class="tacos-today" ng-if="$ctrl.user.tacosToday">+{{$ctrl.user.tacosToday}} Hoy</div>
         </h3>
       </div>
 
       <button
         class="button button-block button-clear button-positive"
-        ng-if="$ctrl.user.you"
+        ng-if="$ctrl.you"
         taco-editor>
         Mas Tacos
       </button>
