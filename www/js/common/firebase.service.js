@@ -52,6 +52,7 @@
 
     function mapUsers(user) {
       user.tacoEvents = mapTacoEvents(user.tacoEvents, user);
+      user.tacosToday = getTacosToday(user.tacoEvents);
       user.tacos = _.sumBy(user.tacoEvents, 'tacos');
 
       return user;
@@ -87,6 +88,15 @@
 
     function roundDown(someMoment) {
       return moment(someMoment.format('MM/DD/YYYY'), 'MM/DD/YYYY');
+    }
+
+    function getTacosToday(tacoEvents) {
+      return _(tacoEvents)
+        .filter(function (event) {
+          var day = roundDown(event.moment);
+          return roundDown(moment()).diff(day, 'days') === 0 && !event.initial;
+        })
+        .sumBy('tacos');
     }
 
     function addUserRef() {
@@ -198,12 +208,13 @@
         .filter(removeTestUsers)
         .sortBy('tacos')
         .reverse()
+        .take(10)
         .value();
 
       var leaderboard = [];
       var rank = 1;
 
-      for (var i = 0; i < 10 && i < sorted.length; i++) {
+      for (var i = 0; i < sorted.length; i++) {
         if (i > 0 && sorted[i - 1].tacos === sorted[i].tacos) {
           sorted[i].rank = sorted[i - 1].rank;
         }

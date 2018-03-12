@@ -2,7 +2,7 @@
   <ion-nav-title>🌮🏆</ion-nav-title>
   <ion-content class="padding">
     <ion-spinner ng-if="!$ctrl.firebase.leaderboard" icon="lines"></ion-spinner>
-    <h3 ng-if="$ctrl.firebase.leaderboard" class="leaderboard-top-ten">Top 10</h3>
+    <h3 ng-if="$ctrl.firebase.leaderboard" class="text-center">Top 10</h3>
     <div ng-if="$ctrl.firebase.leaderboard" class="card">
       <div class="list">
         <leaderboard-list-item

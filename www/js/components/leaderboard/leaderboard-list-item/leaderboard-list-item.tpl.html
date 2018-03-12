@@ -3,6 +3,12 @@
     <div class="leaderboard-position">{{$ctrl.eater.rank}}</div>
     <div class="leaderboard-name">{{$ctrl.eater.name}}</div>
   </div>
-  <div class="leaderboard-tacos">{{$ctrl.eater.tacos}}</div>
+  <div class="leaderboard-tacos">
+    <div class="total-tacos">{{$ctrl.eater.tacos}}</div>
+    <div class="tacos-today" ng-if="$ctrl.eater.tacosToday">
+      +{{ $ctrl.eater.tacosToday }}
+      Hoy
+    </div>
+  </div>
 </ion-item>
 

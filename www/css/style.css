@@ -70,10 +70,6 @@ taco-item.no-border .item.taco-item {
   border-top: none !important;
 }
 
-.leaderboard-top-ten {
-  text-align: center;
-}
-
 .leaderboard-list-item p,
 .leaderboard-list-item,
 .taco-item,
@@ -88,17 +84,44 @@ taco-item.no-border .item.taco-item {
 .leaderboard-list-item {
   display: flex;
   justify-content: space-between;
+  padding: 16px 5px;
+  align-items: center;
 }
 
 .leaderboard-list-item .leaderboard-position-name {
   display: flex;
+  align-items: center;
+  width: 100%;
 }
-
+.leaderboard-list-item .leaderboard-name {
+  max-width: calc(100% - 125px);
+}
 .leaderboard-list-item .leaderboard-position {
   width: 50px;
   font-size: 2em;
   margin-right: 10px;
   text-align: center;
+}
+.leaderboard-list-item .leaderboard-tacos {
+  display: flex;
+  align-items: center;
+}
+.leaderboard-list-item .total-tacos {
+  position: absolute;
+  right: 35px;
+  font-size: 22px;
+}
+.leaderboard-list-item .tacos-today {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  position: absolute;
+  top: calc((100% / 2) - 15px);
+  right: 0;
+  width: 36px;
+  line-height: 15px;
+  font-size: 12px;
+  color: #39a539;
 }
 
 /*OVERRIDES*/
