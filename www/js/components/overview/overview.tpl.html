@@ -15,7 +15,7 @@
 
         <h3 class="text-center padding-bottom">
           {{ $ctrl.tacoCounter === 1 ? 'taco' : 'tacos' }}! {{$ctrl.user.tacos === 0 ? '🙀' : '🌮🌮🌮'}}
-          <div class="tacos-today" ng-if="$ctrl.user.tacosToday">+{{$ctrl.user.tacosToday}} Hoy</div>
+          <div class="tacos-today" ng-if="$ctrl.user.tacosToday">+{{$ctrl.user.tacosToday}} tacos hoy</div>
         </h3>
       </div>
 
