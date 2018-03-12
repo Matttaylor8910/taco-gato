@@ -51,6 +51,7 @@
     }
 
     function mapUsers(user) {
+      user.you = user.key === service.user.id;
       user.tacoEvents = mapTacoEvents(user.tacoEvents, user);
       user.tacosToday = getTacosToday(user.tacoEvents);
       user.tacos = _.sumBy(user.tacoEvents, 'tacos');

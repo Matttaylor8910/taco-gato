@@ -11,6 +11,9 @@ ion-spinner {
   opacity: .3;
   pointer-events: none;
 }
+.highlight-you {
+  background-color: #f3c99740 !important;
+}
 
 button.button-clear {
   font-variant: all-petite-caps;

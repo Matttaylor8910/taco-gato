@@ -20,7 +20,6 @@
       if ($state.params.userId) {
         $ctrl.user = undefined;
         $ctrl.userId = $state.params.userId;
-        $ctrl.you = $ctrl.firebase.user.id === $ctrl.userId;
         $ctrl.loading = true;
         if (firebaseService.users) {
           getUserFromFirebase();
