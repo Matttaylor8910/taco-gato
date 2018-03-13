@@ -7,6 +7,7 @@
       'angularMoment',
 
       'taco.welcome',
+      'taco.settings',
       'taco.overview',
       'taco.leaderboard',
       'taco.activity',

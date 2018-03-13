@@ -8,6 +8,7 @@
     <link rel="manifest" href="manifest.json">
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/dark-mode.css" rel="stylesheet">
 
     <!-- library js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
@@ -37,7 +38,7 @@
     <script src="js/components/welcome/sign-in/sign-in.controller.js"></script>
     <script src="js/components/overview/overview.controller.js"></script>
     <script src="js/components/overview/overview.routes.js"></script>
-    <script src="js/components/overview/edit-profile/edit-profile.directive.js"></script>
+    <script src="js/components/settings/settings.directive.js"></script>
     <script src="js/components/leaderboard/leaderboard.controller.js"></script>
     <script src="js/components/leaderboard/leaderboard.routes.js"></script>
     <script src="js/components/activity/activity.controller.js"></script>
@@ -47,8 +48,8 @@
     <script src="js/components/event-detail/event-detail.routes.js"></script>
 
   </head>
-  <body ng-app="taco" ng-controller="TacoGatoController as $ctrl">
-    <ion-nav-bar class="bar-stable">
+  <body ng-app="taco" ng-class="{'dark-mode': $ctrl.settings.darkMode}" ng-controller="TacoGatoController as $ctrl">
+    <ion-nav-bar class="bar-stable" on-hold="$ctrl.onTitleHold()">
       <ion-nav-back-button>
       </ion-nav-back-button>
     </ion-nav-bar>

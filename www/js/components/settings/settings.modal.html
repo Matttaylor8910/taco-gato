@@ -1,13 +1,16 @@
 <ion-modal-view id="more-tacos">
-  <ion-header-bar>
+  <ion-header-bar class="bar-stable">
     <button class="button button-icon icon ion-chevron-down" ng-click="modal.hide()"></button>
-    <h1 class="title">
-      Edit Profile
-    </h1>
+    <h1 class="title">Settings</h1>
     <button class="button button-clear button-assertive" ng-click="logOut()">Log Out</button>
   </ion-header-bar>
   <ion-content class="padding">
     <div class="list">
+      <ion-toggle
+        ng-change="settings.setProperty('darkMode', settings.darkMode)"
+        ng-model="settings.darkMode" toggle-class="toggle-positive">
+        Dark Mode
+      </ion-toggle>
       <label class="item item-input item-stacked-label">
         <span class="input-label">What's your name?</span>
         <input type="text" placeholder="Tap Here" ng-model="editableUser.name">

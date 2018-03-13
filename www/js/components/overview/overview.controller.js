@@ -1,8 +1,6 @@
 (function () {
   angular
-    .module('taco.overview', [
-      'taco.overview.profile'
-    ])
+    .module('taco.overview', [])
     .controller('OverviewController', OverviewController);
 
   function OverviewController($scope, $rootScope, $state, $timeout, $ionicHistory, firebaseService) {

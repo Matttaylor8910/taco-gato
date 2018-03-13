@@ -21,6 +21,10 @@ button.button-clear {
   color: #397df5;
 }
 
+.list:last-child {
+  margin-bottom: -1px;
+}
+
 #welcome .question-section {
   margin-bottom: 20px;
 }

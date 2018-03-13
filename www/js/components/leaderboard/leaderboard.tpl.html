@@ -1,5 +1,8 @@
 <ion-view id="leaderboard">
   <ion-nav-title>🌮🏆</ion-nav-title>
+  <ion-nav-buttons side="right">
+    <button settings></button>
+  </ion-nav-buttons>
   <ion-content>
     <ion-spinner ng-if="!$ctrl.firebase.leaderboard" icon="lines"></ion-spinner>
     <div ng-if="$ctrl.firebase.leaderboard" class="card">

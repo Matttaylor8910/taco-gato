@@ -5,7 +5,7 @@
 
   function settings(localStorage) {
     var service = {
-      example: setting('example', false),
+      darkMode: setting('darkMode', true),
 
       setProperty: setProperty
     };

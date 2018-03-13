@@ -128,7 +128,9 @@
     }
 
     function editUser(user) {
-      var index = _.findIndex(tacoEatersCollection, {$id: user.key});
+      var index = _.findIndex(tacoEatersCollection, {$id: user.id});
+      service.user = user;
+      localStorage.setObject('user', user);
       tacoEatersCollection[index].name = user.name;
       tacoEatersCollection.$save(index);
     }

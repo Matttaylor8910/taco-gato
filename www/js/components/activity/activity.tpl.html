@@ -1,5 +1,8 @@
 <ion-view id="activity">
   <ion-nav-title>🌮🗒</ion-nav-title>
+  <ion-nav-buttons side="right">
+    <button settings></button>
+  </ion-nav-buttons>
   <ion-content>
     <ion-spinner ng-if="!$ctrl.firebase.activity" icon="lines"></ion-spinner>
     <div class="card" ng-repeat="day in $ctrl.firebase.activity">

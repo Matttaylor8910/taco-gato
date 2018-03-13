@@ -1,21 +1,20 @@
 (function () {
   angular
-    .module('taco.overview.profile', [])
-    .directive('editProfile', tacoEditor);
+    .module('taco.settings', [])
+    .directive('settings', settings);
 
-  function tacoEditor($ionicModal, $state, firebaseService) {
+  function settings($ionicModal, $state, firebaseService, settings) {
     var directive = {
       restrict: 'A',
-      scope: {
-        user: '<editProfile'
-      },
+      replace: true,
+      template: '<button class="button button-icon ion-gear-a button-clear button-positive"></button>',
       link: link
     };
-
 
     return directive;
 
     function link($scope, $elem) {
+      $scope.settings = settings;
 
       $scope.updateUser = updateUser;
       $scope.isInvalid = isInvalid;
@@ -25,7 +24,7 @@
       init();
 
       function init() {
-        $ionicModal.fromTemplateUrl('js/components/overview/edit-profile/edit-profile.modal.html', {
+        $ionicModal.fromTemplateUrl('js/components/settings/settings.modal.html', {
           scope: $scope,
           animation: 'slide-in-up'
         }).then(function (modal) {
@@ -34,7 +33,7 @@
       }
 
       function openModal () {
-        $scope.editableUser = _.clone($scope.user);
+        $scope.editableUser = _.clone(firebaseService.user);
         $scope.modal.show();
       }
 
@@ -44,9 +43,9 @@
       }
 
       function isInvalid() {
-        if ($scope.user && $scope.editableUser) {
+        if (firebaseService.user && $scope.editableUser) {
           var nameIsEmpty = !$scope.editableUser.name;
-          var nameIsSame = $scope.user.name === $scope.editableUser.name;
+          var nameIsSame = firebaseService.user.name === $scope.editableUser.name;
           return nameIsEmpty || nameIsSame;
         }
         else {
