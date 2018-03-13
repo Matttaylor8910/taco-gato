@@ -5,12 +5,22 @@
 
   function settings(localStorage) {
     var service = {
+      isDevice: false,
       darkMode: setting('darkMode', true),
 
       setProperty: setProperty
     };
 
+    init();
+
     return service;
+
+    function init() {
+      ionic.Platform.ready(function(){
+        handleDarkModeStatusBar(service.darkMode);
+        service.isDevice = true;
+      });
+    }
 
     /**
      * Set a setting to localstorage
@@ -20,6 +30,7 @@
     function setProperty(property, value) {
       service[property] = value;
       localStorage.setObject(property, value);
+      handleDarkModeStatusBar(value);
     }
 
     /**
@@ -31,6 +42,17 @@
     function setting(property, defaultValue) {
       var setValue = localStorage.getObject(property);
       return _.isBoolean(setValue) ? setValue : defaultValue;
+    }
+
+    function handleDarkModeStatusBar(value) {
+      if (service.isDevice) {
+        if (value) {
+          StatusBar.styleLightContent();
+        }
+        else {
+          StatusBar.styleDefault();
+        }
+      }
     }
   }
 })();
