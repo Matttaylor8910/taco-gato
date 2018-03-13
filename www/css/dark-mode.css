@@ -38,9 +38,6 @@
   background-color: #181e25;
   border-bottom: 1px solid #000;
 }
-.dark-mode .item.item-input {
-  border-color: #000;
-}
 .dark-mode .item.item-input input {
   background: transparent;
   color: #fff;
