@@ -17,8 +17,8 @@
     // set up some default platform configurations
     .config(function ($ionicConfigProvider) {
       $ionicConfigProvider.navBar.alignTitle('center');
-      $ionicConfigProvider.tabs.style('standard');
-      $ionicConfigProvider.tabs.position('bottom');
+      $ionicConfigProvider.tabs.style('standard').position('bottom');
+      $ionicConfigProvider.backButton.text('').icon('ion-android-arrow-back');
     })
 
     .run(function($ionicPlatform, firebaseConfig) {

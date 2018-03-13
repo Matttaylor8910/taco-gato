@@ -25,6 +25,7 @@
 .dark-mode .item.taco-item p,
 .dark-mode .taco-count,
 .dark-mode .button:before,
+.dark-mode .button :before,
 .dark-mode .item.item-input .input-label,
 .dark-mode h3, .dark-mode h4, .dark-mode h5 {
   color: #9a9a9a;
