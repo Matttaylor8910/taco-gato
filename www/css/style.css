@@ -144,3 +144,12 @@ taco-item.no-border .item.taco-item {
 .list {
   padding-top: 0 !important;
 }
+
+
+/*MEDIA QUERIES*/
+@media screen and (min-width: 800px) {
+  ion-content {
+    padding-left: calc((100% - 800px) / 2) !important;
+    padding-right: calc((100% - 800px) / 2) !important;
+  }
+}
