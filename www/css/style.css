@@ -17,6 +17,10 @@ button.button-clear {
   font-size: 24px !important;
 }
 
+ion-content.has-tabs.no-tabs {
+  bottom: 0;
+}
+
 .tab-item.tab-item-active {
   color: #397df5;
 }

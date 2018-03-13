@@ -56,7 +56,7 @@
     <ion-nav-view></ion-nav-view>
 
     <!--hide the tabs on the welcome page-->
-    <ion-tabs class="tabs-bottom tabs-icon-top" ng-class="{'hidden': $ctrl.thisState.name === 'welcome'}">
+    <ion-tabs class="tabs-bottom tabs-icon-top" ng-class="{'hidden': $ctrl.thisState.name.includes('welcome')}">
 
       <ion-tab
         title="You"

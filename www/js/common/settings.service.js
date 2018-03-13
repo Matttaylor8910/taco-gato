@@ -46,7 +46,7 @@
 
     function handleDarkModeStatusBar(value) {
       if (service.isDevice) {
-        if (value) {
+        if (value === true || value === 'true') {
           StatusBar.styleLightContent();
         }
         else {
