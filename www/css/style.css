@@ -18,7 +18,7 @@ button.button-clear {
 }
 
 ion-content.has-tabs.no-tabs {
-  bottom: 0;
+  bottom: 0 !important;
 }
 
 .tab-item.tab-item-active {
