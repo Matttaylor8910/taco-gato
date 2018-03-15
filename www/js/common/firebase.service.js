@@ -52,9 +52,14 @@
       setUpLocationInfo();
     }
 
+    function filterOutBadUsers(user) {
+      return user.confirmed && !user.blocked;
+    }
+
     function mapUsers(user) {
       if (user.key === service.user.id) {
         settings.setProperty('blocked', user.blocked);
+        settings.setProperty('confirmed', user.confirmed);
       }
 
       user.tacoEvents = mapTacoEvents(user.tacoEvents, user);
@@ -208,6 +213,7 @@
     function getActivityFeed(users) {
       return _(users)
         .filter(removeTestUsers)
+        .filter(filterOutBadUsers)
         .map('tacoEvents')
         .flatten()
         .sortBy('time')
@@ -225,6 +231,7 @@
     function getLeaderBoard(users) {
       var sorted = _(users)
         .filter(removeTestUsers)
+        .filter(filterOutBadUsers)
         .sortBy('tacosToday')
         .sortBy('tacos')
         .reverse()
