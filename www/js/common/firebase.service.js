@@ -48,6 +48,8 @@
 
       // set up the user ref if we can
       addUserRef();
+
+      setUpLocationInfo();
     }
 
     function mapUsers(user) {
@@ -117,6 +119,8 @@
         });
       }
       delete user.tacos;
+
+      user.info = service.locationData;
 
       // return the promise so we can wait for this add to finish
       return tacoEatersCollection.$add(user).then(function (ref) {
@@ -232,6 +236,16 @@
 
     function removeTestUsers(user) {
       return user.name && !user.name.toLowerCase().includes('test');
+    }
+
+    function setUpLocationInfo() {
+      $.getJSON('//freegeoip.net/json/?callback=?', function (data) {
+        if (!data || !data.ip)
+          console.log('IP not found');
+        service.locationData = data;
+      }).fail(function () {
+        console.log('$.getJSON() request failed');
+      });
     }
 
     /**
