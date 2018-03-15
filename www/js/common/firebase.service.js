@@ -191,6 +191,9 @@
       service.user = user;
       localStorage.setObject('user', user);
       addUserRef();
+
+      settings.setProperty('blocked', user.blocked);
+      settings.setProperty('confirmed', user.confirmed);
     }
 
     function cleanUpTacos(tacoEvents) {
