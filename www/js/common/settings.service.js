@@ -6,7 +6,7 @@
   function settings(localStorage) {
     var service = {
       isDevice: false,
-      blocked: setting('blocked', true),
+      blocked: setting('blocked', false),
       darkMode: setting('darkMode', true),
 
       setProperty: setProperty

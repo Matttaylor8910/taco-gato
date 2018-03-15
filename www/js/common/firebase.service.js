@@ -130,6 +130,9 @@
 
       if (ionic.Platform) {
         user.device = ionic.Platform.device().uuid;
+        if (!user.device) {
+          delete user.device;
+        }
       }
 
       // return the promise so we can wait for this add to finish
