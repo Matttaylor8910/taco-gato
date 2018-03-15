@@ -6,6 +6,7 @@
       'firebase',
       'angularMoment',
 
+      'taco.tabs',
       'taco.welcome',
       'taco.settings',
       'taco.overview',

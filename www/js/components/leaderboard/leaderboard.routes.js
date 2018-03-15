@@ -5,7 +5,7 @@
 
   function config($stateProvider) {
     $stateProvider
-      .state('leaderboard', {
+      .state('app.leaderboard', {
         url: '/leaderboard',
         views: {
           'leaderboard' : {

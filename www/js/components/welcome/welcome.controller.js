@@ -39,7 +39,7 @@
         disableBack: true,
         historyRoot: true
       });
-      $state.go('overview', {userId: id});
+      $state.go('app.overview', {userId: id});
     }
   }
 })();

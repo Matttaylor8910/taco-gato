@@ -5,7 +5,7 @@
 
   function config($stateProvider) {
     $stateProvider
-      .state('welcome', {
+      .state('app.welcome', {
         url: '/welcome',
         views: {
           'overview' : {
@@ -15,7 +15,7 @@
           }
         }
       })
-      .state('welcome-sign-in', {
+      .state('app.welcome-sign-in', {
         url: '/welcome/sign-in',
         views: {
           'overview' : {
