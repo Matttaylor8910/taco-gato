@@ -8,6 +8,7 @@
 
       'taco.tabs',
       'taco.welcome',
+      'taco.login',
       'taco.settings',
       'taco.overview',
       'taco.leaderboard',
