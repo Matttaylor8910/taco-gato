@@ -24,7 +24,7 @@
           getUserFromFirebase();
         }
       }
-      else if (firebaseService.user.id){
+      else if (firebaseService.user.id) {
         $ionicHistory.nextViewOptions({
           disableAnimation: true,
           disableBack: true,
@@ -35,7 +35,6 @@
       else {
         clearUser();
       }
-
     }
 
     function getUserFromFirebase() {

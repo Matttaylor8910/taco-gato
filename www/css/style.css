@@ -21,6 +21,19 @@ ion-content.has-tabs.no-tabs {
   bottom: 0 !important;
 }
 
+.blocked {
+  height: 100vh;
+  width: 100vw;
+  z-index: 100;
+  background: black;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: beige;
+  font-size: 24px;
+}
+
 .tab-item.tab-item-active {
   color: #397df5;
 }

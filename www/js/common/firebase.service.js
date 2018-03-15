@@ -3,7 +3,7 @@
     .module('taco')
     .factory('firebaseService', firebaseService);
 
-  function firebaseService($rootScope, localStorage, $firebaseArray) {
+  function firebaseService($rootScope, localStorage, $firebaseArray, settings) {
     var dbRef;
 
     var tacoEatersRef, tacoEatersCollection;
@@ -53,6 +53,10 @@
     }
 
     function mapUsers(user) {
+      if (user.key === service.user.id) {
+        settings.setProperty('blocked', user.blocked);
+      }
+
       user.tacoEvents = mapTacoEvents(user.tacoEvents, user);
       user.tacosToday = getTacosToday(user.tacoEvents);
       user.tacos = _.sumBy(user.tacoEvents, 'tacos');
@@ -120,7 +124,13 @@
       }
       delete user.tacos;
 
-      user.info = service.locationData;
+      if (service.locationData) {
+        user.info = service.locationData;
+      }
+
+      if (ionic.Platform) {
+        user.device = ionic.Platform.device().uuid;
+      }
 
       // return the promise so we can wait for this add to finish
       return tacoEatersCollection.$add(user).then(function (ref) {

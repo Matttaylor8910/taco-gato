@@ -6,6 +6,7 @@
   function settings(localStorage) {
     var service = {
       isDevice: false,
+      blocked: setting('blocked', true),
       darkMode: setting('darkMode', true),
 
       setProperty: setProperty
@@ -45,7 +46,7 @@
     }
 
     function handleDarkModeStatusBar(value) {
-      if (service.isDevice) {
+      if (window.StatusBar && service.isDevice) {
         if (value === true || value === 'true') {
           StatusBar.styleLightContent();
         }
