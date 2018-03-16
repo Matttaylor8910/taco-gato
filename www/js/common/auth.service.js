@@ -23,6 +23,7 @@
         if (firebaseUser) {
           console.log("Signed in as:", firebaseUser.uid);
           if (firebaseUser.uid) {
+            // TODO: remove checking if the user is already logged-in in later builds. It's only necessary while porting everyone from build 0.0.14
             // If the user is previously logged in, we need to check whether they have linked their firebaseUser.
             // If not, then we need to simply add it.
             var isLoggedIn = !_(firebaseService.user).isEmpty();

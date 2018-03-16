@@ -12,7 +12,9 @@
         templateUrl: 'js/components/tabs/tabs.tpl.html',
         resolve: {
           'obj': function ($firebaseArray) {
-            // connect to the taco database
+            // This resolve is used to wait for firebase data to return
+            // before we continue because 'setOnAuthStateChanged' returns
+            // before firebase does.
             var dbRef = firebase.database();
             var tacoEatersRef = dbRef.ref('tacoEaters');
             return $firebaseArray(tacoEatersRef).$loaded();
