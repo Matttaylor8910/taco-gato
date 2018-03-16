@@ -15,7 +15,7 @@
     $ctrl.goToOverview = goToOverview;
 
     function goToOverview() {
-      $state.go('leaderboard-overview', {userId: $ctrl.eater.key});
+      $state.go('app.leaderboard-overview', {userId: $ctrl.eater.key});
     }
   }
 })();
