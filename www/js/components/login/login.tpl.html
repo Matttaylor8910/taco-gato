@@ -1,23 +1,11 @@
 <ion-nav-view>
-  <div>
-    <ion-nav-bar class="bar-stable">
-      <ion-nav-title>Login</ion-nav-title>
-      <ion-nav-back-button>
-      </ion-nav-back-button>
-    </ion-nav-bar>
-  </div>
-  <ion-view class="login">
+  <ion-view id="login">
     <ion-content class="padding">
+      <h4 class="text-center padding-bottom">Welcome to Taco Gato!</h4>
       <button
         class="button button-block button-positive login-facebook-button"
         ng-click="$ctrl.loginWithFacebook()">
         Login with Facebook
-      </button>
-
-      <button
-        class="button button-block button-positive login-facebook-button"
-        ng-click="$ctrl.logout()">
-        Logout
       </button>
     </ion-content>
   </ion-view>

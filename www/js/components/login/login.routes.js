@@ -11,7 +11,7 @@
         templateUrl: 'js/components/login/login.tpl.html',
         controllerAs: '$ctrl',
         resolve: {
-          'simpleObj': function($firebaseArray) {
+          'obj': function ($firebaseArray) {
             // connect to the taco database
             var dbRef = firebase.database();
             var tacoEatersRef = dbRef.ref('tacoEaters');
