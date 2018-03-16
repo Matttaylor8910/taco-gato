@@ -13,14 +13,6 @@
             controller: 'OverviewController',
             controllerAs: '$ctrl'
           }
-        },
-        resolve: {
-          'obj': function ($firebaseArray) {
-            // connect to the taco database
-            var dbRef = firebase.database();
-            var tacoEatersRef = dbRef.ref('tacoEaters');
-            return $firebaseArray(tacoEatersRef).$loaded();
-          }
         }
       })
       .state('app.leaderboard-overview', {
@@ -31,14 +23,6 @@
             controller: 'OverviewController',
             controllerAs: '$ctrl'
           }
-        },
-        resolve: {
-          'obj': function ($firebaseArray) {
-            // connect to the taco database
-            var dbRef = firebase.database();
-            var tacoEatersRef = dbRef.ref('tacoEaters');
-            return $firebaseArray(tacoEatersRef).$loaded();
-          }
         }
       })
       .state('app.activity-overview', {
@@ -48,14 +32,6 @@
             templateUrl: 'js/components/overview/overview.tpl.html',
             controller: 'OverviewController',
             controllerAs: '$ctrl'
-          }
-        },
-        resolve: {
-          'obj': function ($firebaseArray) {
-            // connect to the taco database
-            var dbRef = firebase.database();
-            var tacoEatersRef = dbRef.ref('tacoEaters');
-            return $firebaseArray(tacoEatersRef).$loaded();
           }
         }
       });
