@@ -9,6 +9,7 @@
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/dark-mode.css" rel="stylesheet">
+    <link href="js/components/login/login.css" rel="stylesheet">
 
     <!-- library js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
@@ -28,6 +29,7 @@
     <script src="js/taco-gato.constant.js"></script>
 
     <script src="js/common/firebase.service.js"></script>
+    <script src="js/common/auth.service.js"></script>
     <script src="js/common/local-storage.js"></script>
     <script src="js/common/settings.service.js"></script>
     <script src="js/common/taco.filter.js"></script>
@@ -36,7 +38,6 @@
     <script src="js/components/leaderboard/leaderboard-list-item/leaderboard-list-item.component.js"></script>
     <script src="js/components/welcome/welcome.controller.js"></script>
     <script src="js/components/welcome/welcome.routes.js"></script>
-    <script src="js/components/welcome/sign-in/sign-in.controller.js"></script>
     <script src="js/components/overview/overview.controller.js"></script>
     <script src="js/components/overview/overview.routes.js"></script>
     <script src="js/components/settings/settings.directive.js"></script>
@@ -54,10 +55,6 @@
 
   </head>
   <body ng-app="taco" ng-class="{'dark-mode': $ctrl.settings.darkMode}" ng-controller="TacoGatoController as $ctrl">
-    <ion-nav-bar class="bar-stable" on-hold="$ctrl.onTitleHold()">
-      <ion-nav-back-button>
-      </ion-nav-back-button>
-    </ion-nav-bar>
 
     <ion-nav-view></ion-nav-view>
 

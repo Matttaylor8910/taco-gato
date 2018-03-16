@@ -1,0 +1,9 @@
+.login-title {
+  height: 300px;
+  text-align: center;
+  font-size: 100px;
+}
+
+.login .button.login-facebook-button {
+  top: 43px;
+}

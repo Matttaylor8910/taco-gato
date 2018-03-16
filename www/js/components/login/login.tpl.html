@@ -1,20 +1,24 @@
-<!--<ion-nav-view>-->
-  <!--<ion-nav-bar class="bar-stable">-->
-    <!--<ion-nav-title>🌮😺</ion-nav-title>-->
-    <!--<ion-nav-buttons side="right">-->
-      <!--<button settings></button>-->
-    <!--</ion-nav-buttons>-->
-  <!--<ion-nav-back-button>-->
-  <!--</ion-nav-back-button>-->
-  <!--</ion-nav-bar>-->
-<!--</ion-nav-view>-->
+<ion-nav-view>
+  <div>
+    <ion-nav-bar class="bar-stable">
+      <ion-nav-title>Login</ion-nav-title>
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+    </ion-nav-bar>
+  </div>
+  <ion-view class="login">
+    <ion-content class="padding">
+      <button
+        class="button button-block button-positive login-facebook-button"
+        ng-click="$ctrl.loginWithFacebook()">
+        Login with Facebook
+      </button>
 
-<!--<ion-view>-->
-  <!--<ion-content>-->
-    <button
-      class="button button-block button-clear button-positive"
-      ng-click="$ctrl.hey()">
-      Login with Facebook
-    </button>
-  <!--</ion-content>-->
-<!--</ion-view>-->
+      <button
+        class="button button-block button-positive login-facebook-button"
+        ng-click="$ctrl.logout()">
+        Logout
+      </button>
+    </ion-content>
+  </ion-view>
+</ion-nav-view>

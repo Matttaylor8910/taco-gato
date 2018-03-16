@@ -3,7 +3,7 @@
     .module('taco.settings', [])
     .directive('settings', settings);
 
-  function settings($ionicModal, $state, firebaseService, settings) {
+  function settings($ionicModal, $state, firebaseService, settings, authService) {
     var directive = {
       restrict: 'A',
       replace: true,
@@ -54,9 +54,10 @@
       }
 
       function logOut() {
+        authService.logout();
         firebaseService.clearUser();
         $scope.modal.hide();
-        $state.go('welcome');
+        $state.go('login');
       }
     }
   }

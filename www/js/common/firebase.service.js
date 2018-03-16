@@ -14,10 +14,12 @@
 
       addUser: addUser,
       editUser: editUser,
+      linkUserToFirebaseUser: linkUserToFirebaseUser,
       addTacos: addTacos,
       editTacos: editTacos,
       deleteTacos: deleteTacos,
       getUser: getUser,
+      getUserWithFirebaseUserId: getUserWithFirebaseUserId,
       setUser: setUser,
       clearUser: clearUser
     };
@@ -157,6 +159,16 @@
       tacoEatersCollection.$save(index);
     }
 
+    function linkUserToFirebaseUser(user, firebaseUserId) {
+      user.firebaseUserId = firebaseUserId;
+
+      var index = _.findIndex(tacoEatersCollection, {$id: user.id});
+      service.user = user;
+      localStorage.setObject('user', user);
+      tacoEatersCollection[index].firebaseUserId = firebaseUserId;
+      tacoEatersCollection.$save(index);
+    }
+
     function addTacos(numTacos) {
       return userTacoEvents.$add({
         tacos: numTacos,
@@ -177,6 +189,10 @@
 
     function getUser(id) {
       return _.find(service.users, {key: id});
+    }
+
+    function getUserWithFirebaseUserId(id) {
+      return _.find(service.users, {firebaseUserId: id});
     }
 
     function setUser(userItem) {

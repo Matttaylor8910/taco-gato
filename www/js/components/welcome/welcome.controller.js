@@ -1,8 +1,6 @@
 (function () {
   angular
-    .module('taco.welcome', [
-      'taco.overview.signin'
-    ])
+    .module('taco.welcome', [])
     .controller('WelcomeController', WelcomeController);
 
   function WelcomeController($scope, $state, $ionicHistory, firebaseService) {
