@@ -224,7 +224,6 @@
     }
 
     function clearUser() {
-      debugger;
       console.log('CLEARED');
       localStorage.setObject('user', {});
       service.user = {};
