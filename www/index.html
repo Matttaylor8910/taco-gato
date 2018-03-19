@@ -56,10 +56,15 @@
   </head>
   <body ng-app="taco" ng-class="{'dark-mode': $ctrl.settings.darkMode}" ng-controller="TacoGatoController as $ctrl">
 
+    <ion-nav-bar class="bar-stable" on-hold="$ctrl.onTitleHold()">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+    </ion-nav-bar>
+
     <ion-nav-view></ion-nav-view>
 
-    <div class="blocked" ng-if="$ctrl.settings.blocked">
-      You're blocked. Fuck you.
+    <div class="blocked" ng-if="$ctrl.settings.blocked === true">
+      You're blocked.
     </div>
   </body>
 </html>

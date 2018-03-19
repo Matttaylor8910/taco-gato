@@ -8,10 +8,6 @@
       isDevice: false,
       darkMode: setting('darkMode', true),
 
-      // user settings
-      blocked: setting('blocked', false),
-      confirmed: setting('confirmed', false),
-
       setProperty: setProperty
     };
 
