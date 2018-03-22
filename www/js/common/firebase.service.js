@@ -225,7 +225,8 @@
         .map(function (events, grouping) {
           return {
             grouping: grouping,
-            events: events
+            events: events,
+            tacos: _.sumBy(events, 'tacos')
           };
         })
         .value();
