@@ -192,8 +192,9 @@
       localStorage.setObject('user', user);
       addUserRef();
 
-      settings.setProperty('blocked', user.blocked);
-      settings.setProperty('confirmed', user.confirmed);
+      var firebaseUser = getUser(user.id);
+      settings.setProperty('blocked', firebaseUser.blocked);
+      settings.setProperty('confirmed', firebaseUser.confirmed);
     }
 
     function cleanUpTacos(tacoEvents) {
