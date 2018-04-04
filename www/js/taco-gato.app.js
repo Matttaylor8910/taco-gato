@@ -3,11 +3,8 @@
     .module('taco', [
       'ionic',
       'ionic.utils',
-      'ionic.native',
       'firebase',
       'angularMoment',
-      'ngCordova',
-      'ngCordovaOauth',
 
       'taco.tabs',
       'taco.welcome',
