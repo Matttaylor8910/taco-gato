@@ -3,7 +3,7 @@
     .module('taco.sign-up', [])
     .controller('SignUpController', SignUpController);
 
-  function SignUpController($state, $firebaseAuth, $ionicHistory, firebaseService, authService) {
+  function SignUpController($state, $firebaseAuth, $ionicHistory, $ionicPopup, $timeout, firebaseService, authService) {
     var $ctrl = this;
 
     $ctrl.model = {
@@ -26,15 +26,34 @@
       authService.signUp($ctrl.model.email, $ctrl.model.password)
         .then(saveUser)
         .catch(function(error) {
-          console.error("Authentication failed:", error);
-
-          // todo: add banners to display errors
+          var errorMessage = "";
           switch(error.code) {
             case "auth/email-already-in-use":
+              errorMessage = "Email already in use";
+              break;
             case "auth/invalid-email":
+              errorMessage = "Invalid email";
+              break;
             case "auth/operation-not-allowed":
+              errorMessage = "Operation not allowed";
+              break;
             case "auth/weak-password":
+              errorMessage = "Too weak of password";
+              break;
+            case "auth/network-request-failed":
+              errorMessage = "Network request failed";
+              break;
           }
+
+          var myPopup = $ionicPopup.show({
+            title: 'Error',
+            subTitle: errorMessage
+          });
+
+          // close the popup after 1 second
+          $timeout(function() {
+            myPopup.close();
+          }, 1000);
         });
     }
 

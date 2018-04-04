@@ -3,7 +3,7 @@
     .module('taco.link-account', [])
     .controller('LinkAccountController', LinkAccountController);
 
-  function LinkAccountController($state, $firebaseAuth, firebaseService, authService) {
+  function LinkAccountController($state, $firebaseAuth, $ionicPopup, $timeout, firebaseService, authService) {
     var $ctrl = this;
 
     $ctrl.model = {
@@ -36,6 +36,9 @@
               break;
             case "auth/weak-password":
               errorMessage = "Too weak of password";
+              break;
+            case "auth/network-request-failed":
+              errorMessage = "Network request failed";
               break;
           }
 

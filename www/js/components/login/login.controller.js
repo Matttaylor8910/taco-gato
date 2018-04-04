@@ -3,7 +3,7 @@
     .module('taco.login', [])
     .controller('LoginController', LoginController);
 
-  function LoginController($state, $firebaseAuth, $ionicHistory, firebaseService, authService) {
+  function LoginController($state, $firebaseAuth, $ionicHistory, $ionicPopup, $timeout, firebaseService, authService) {
     var $ctrl = this;
 
     $ctrl.loginWithFacebook = authService.loginWithFacebook;
@@ -29,7 +29,37 @@
     }
 
     function loginWithEmailPassword() {
-      authService.loginWithEmailPassword($ctrl.model.email, $ctrl.model.password);
+      authService.loginWithEmailPassword($ctrl.model.email, $ctrl.model.password)
+        .catch(function (error) {
+          var errorMessage = "";
+          switch(error.code) {
+            case "auth/email-already-in-use":
+              errorMessage = "Email already in use";
+              break;
+            case "auth/invalid-email":
+              errorMessage = "Invalid email";
+              break;
+            case "auth/operation-not-allowed":
+              errorMessage = "Operation not allowed";
+              break;
+            case "auth/weak-password":
+              errorMessage = "Too weak of password";
+              break;
+            case "auth/network-request-failed":
+              errorMessage = "Network request failed";
+              break;
+          }
+
+          var myPopup = $ionicPopup.show({
+            title: 'Error',
+            subTitle: errorMessage
+          });
+
+          // close the popup after 1 second
+          $timeout(function() {
+            myPopup.close();
+          }, 1000);
+        });
     }
 
     function goToSignUp() {

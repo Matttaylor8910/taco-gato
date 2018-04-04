@@ -37,11 +37,9 @@
     }
 
     function loginWithEmailPassword(email, password) {
-      $firebaseAuth().$signInWithEmailAndPassword(email, password).then(function () {
+      return $firebaseAuth().$signInWithEmailAndPassword(email, password).then(function () {
         // Never called because of page redirect
         // Instead, use $onAuthStateChanged() to detect successful authentication
-      }).catch(function (error) {
-        console.error("Authentication failed:", error);
       });
     }
 
@@ -50,8 +48,7 @@
     }
 
     function signUp(email, password) {
-
-      return $firebaseAuth().$createUserWithEmailAndPassword(email, password)
+      return $firebaseAuth().$createUserWithEmailAndPassword(email, password);
 
     }
 
@@ -61,11 +58,6 @@
         historyRoot: true
       });
       $state.go('app.overview', {userId: firebaseUserId});
-    }
-
-    function goToWelcome(firebaseUserId) {
-      debugger;
-      $state.go('welcome', {firebaseUserId: firebaseUserId});
     }
   }
 })();
