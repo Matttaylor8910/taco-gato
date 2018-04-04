@@ -8,6 +8,7 @@
 
     $ctrl.user = {
       name: '',
+      realName: '',
       firebaseUserId: '',
       tacos: undefined
     };

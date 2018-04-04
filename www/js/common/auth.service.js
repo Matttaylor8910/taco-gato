@@ -6,8 +6,9 @@
   function authService($firebaseAuth, $ionicHistory, $state, firebaseService) {
 
     var service = {
-      loginWithFacebook: loginWithFacebook,
-      logout: logout
+      loginWithEmailPassword: loginWithEmailPassword,
+      logout: logout,
+      signUp: signUp
     };
 
     init();
@@ -23,38 +24,38 @@
         if (firebaseUser) {
           console.log("Signed in as:", firebaseUser.uid);
           if (firebaseUser.uid) {
-            // TODO: remove checking if the user is already logged-in in later builds. It's only necessary while porting everyone from build 0.0.14
-            // If the user is previously logged in, we need to check whether they have linked their firebaseUser.
-            // If not, then we need to simply add it.
-            var isLoggedIn = !_(firebaseService.user).isEmpty();
-            if (isLoggedIn) {
-              var isLinked = (!!firebaseService.user.firebaseUserId);
-              if (isLoggedIn && !isLinked) {
-                firebaseService.linkUserToFirebaseUser(firebaseService.user, firebaseUser.uid);
-              }
-
-              goToOverview(firebaseService.user.id);
-            }
-            else {
+            // // TODO: remove checking if the user is already logged-in in later builds. It's only necessary while porting everyone from build 0.0.14
+            // // If the user is previously logged in, we need to check whether they have linked their firebaseUser.
+            // // If not, then we need to simply add it.
+            // var isLoggedIn = !_(firebaseService.user).isEmpty();
+            // if (isLoggedIn) {
+            //   var isLinked = (!!firebaseService.user.firebaseUserId);
+            //   if (isLoggedIn && !isLinked) {
+            //     firebaseService.linkUserToFirebaseUser(firebaseService.user, firebaseUser.uid);
+            //   }
+            //
+            //   goToOverview(firebaseService.user.id);
+            // }
+            // else {
               var user = firebaseService.getUserWithFirebaseUserId(firebaseUser.uid);
               if (user) {
                 // existing user
                 goToOverview(user.key);
               }
-              else {
-                // new user
-                goToWelcome(firebaseUser.uid);
-              }
+              // else {
+              //   // new user
+              //   goToWelcome(firebaseUser.uid);
+              // }
             }
-          }
+          // }
         } else {
           console.log("Signed out");
         }
       });
     }
 
-    function loginWithFacebook() {
-      $firebaseAuth().$signInWithRedirect("facebook").then(function () {
+    function loginWithEmailPassword(email, password) {
+      $firebaseAuth().$signInWithEmailAndPassword(email, password).then(function () {
         // Never called because of page redirect
         // Instead, use $onAuthStateChanged() to detect successful authentication
       }).catch(function (error) {
@@ -66,6 +67,12 @@
       $firebaseAuth().$signOut();
     }
 
+    function signUp(email, password) {
+
+      return $firebaseAuth().$createUserWithEmailAndPassword(email, password)
+
+    }
+
     function goToOverview(firebaseUserId) {
       $ionicHistory.nextViewOptions({
         disableBack: true,
@@ -75,6 +82,7 @@
     }
 
     function goToWelcome(firebaseUserId) {
+      debugger;
       $state.go('welcome', {firebaseUserId: firebaseUserId});
     }
   }

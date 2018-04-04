@@ -1,0 +1,39 @@
+<ion-view id="sign-up">
+  <ion-nav-title>🌮😺</ion-nav-title>
+
+  <ion-content class="padding">
+    <h4 class="text-center padding-bottom">Welcome to Taco Gato!</h4>
+    <div class="list">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Email</span>
+        <input type="text" placeholder="Tap Here" ng-model="$ctrl.model.email">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Password</span>
+        <input type="password" placeholder="Tap Here" ng-model="$ctrl.model.password">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">What's your display name?</span>
+        <input type="text" placeholder="Tap Here" ng-model="$ctrl.user.name">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">What's your real name?</span>
+        <input type="text" placeholder="Tap Here" ng-model="$ctrl.user.realName">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">How many tacos have you eaten?</span>
+        <input type="tel" placeholder="0" ng-model="$ctrl.user.tacos">
+      </label>
+    </div>
+    <button
+      class="button button-block button-positive"
+      ng-click="$ctrl.signUp()">
+      Sign Up
+    </button>
+    <button
+      class="button button-block button-clear button-positive"
+      ng-click="$ctrl.goToLogin()">
+      Log In
+    </button>
+  </ion-content>
+</ion-view>
