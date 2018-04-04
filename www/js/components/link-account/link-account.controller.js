@@ -23,12 +23,31 @@
           console.error("Authentication failed:", error);
 
           // todo: add banners to display errors
+          var errorMessage = "";
           switch(error.code) {
             case "auth/email-already-in-use":
+              errorMessage = "Email already in use";
+              break;
             case "auth/invalid-email":
+              errorMessage = "Invalid email";
+              break;
             case "auth/operation-not-allowed":
+              errorMessage = "Operation not allowed";
+              break;
             case "auth/weak-password":
+              errorMessage = "Too weak of password";
+              break;
           }
+
+          var myPopup = $ionicPopup.show({
+            title: 'Error',
+            subTitle: errorMessage
+          });
+
+          // close the popup after 1 second
+          $timeout(function() {
+            myPopup.close();
+          }, 1000);
         });
     }
 

@@ -19,7 +19,7 @@
     // TODO: We can remove this once we finally port everyone over to the new oAuth stuff.
     // If the user was previously logged in, but not through oAuth, then we need to
     // have them link their account to an oAuth account.
-    if (firebaseService.user) {
+    if (firebaseService.user && !_(firebaseService.user).isEmpty()) {
       if (firebaseService.user.firebaseUserId) {
         goToOverview(firebaseService.user.id);
       }
