@@ -22,6 +22,7 @@
     $ctrl.goToLogin = goToLogin;
 
     function signUp() {
+      // TODO: we need to do some form validating before we sign up a user.
       authService.signUp($ctrl.model.email, $ctrl.model.password)
         .then(saveUser)
         .catch(function(error) {

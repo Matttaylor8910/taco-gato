@@ -24,30 +24,11 @@
         if (firebaseUser) {
           console.log("Signed in as:", firebaseUser.uid);
           if (firebaseUser.uid) {
-            // // TODO: remove checking if the user is already logged-in in later builds. It's only necessary while porting everyone from build 0.0.14
-            // // If the user is previously logged in, we need to check whether they have linked their firebaseUser.
-            // // If not, then we need to simply add it.
-            // var isLoggedIn = !_(firebaseService.user).isEmpty();
-            // if (isLoggedIn) {
-            //   var isLinked = (!!firebaseService.user.firebaseUserId);
-            //   if (isLoggedIn && !isLinked) {
-            //     firebaseService.linkUserToFirebaseUser(firebaseService.user, firebaseUser.uid);
-            //   }
-            //
-            //   goToOverview(firebaseService.user.id);
-            // }
-            // else {
-              var user = firebaseService.getUserWithFirebaseUserId(firebaseUser.uid);
-              if (user) {
-                // existing user
-                goToOverview(user.key);
-              }
-              // else {
-              //   // new user
-              //   goToWelcome(firebaseUser.uid);
-              // }
+            var user = firebaseService.getUserWithFirebaseUserId(firebaseUser.uid);
+            if (user) {
+              goToOverview(user.key);
             }
-          // }
+          }
         } else {
           console.log("Signed out");
         }

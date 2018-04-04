@@ -16,6 +16,18 @@
       password: ""
     };
 
+    // TODO: We can remove this once we finally port everyone over to the new oAuth stuff.
+    // If the user was previously logged in, but not through oAuth, then we need to
+    // have them link their account to an oAuth account.
+    if (firebaseService.user) {
+      if (firebaseService.user.firebaseUserId !== null) {
+        goToOverview(firebaseService.user.userId);
+      }
+      else {
+        goToLinkAccount();
+      }
+    }
+
     function loginWithEmailPassword() {
       authService.loginWithEmailPassword($ctrl.model.email, $ctrl.model.password);
     }
@@ -27,6 +39,23 @@
         disableAnimate: true
       });
       $state.go('sign-up');
+    }
+
+    function goToOverview(id) {
+      $ionicHistory.nextViewOptions({
+        disableBack: true,
+        historyRoot: true
+      });
+      $state.go('app.overview', {userId: id});
+    }
+
+    function goToLinkAccount() {
+      $ionicHistory.nextViewOptions({
+        disableBack: true,
+        historyRoot: true,
+        disableAnimate: true
+      });
+      $state.go('link-account');
     }
 
   }

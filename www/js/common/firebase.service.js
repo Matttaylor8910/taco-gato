@@ -159,13 +159,11 @@
       tacoEatersCollection.$save(index);
     }
 
-    function linkUserToFirebaseUser(user, firebaseUserId) {
-      user.firebaseUserId = firebaseUserId;
-
+    function linkUserToFirebaseUser(user) {
       var index = _.findIndex(tacoEatersCollection, {$id: user.id});
       service.user = user;
       localStorage.setObject('user', user);
-      tacoEatersCollection[index].firebaseUserId = firebaseUserId;
+      tacoEatersCollection[index].firebaseUserId = user.firebaseUserId;
       tacoEatersCollection.$save(index);
     }
 
