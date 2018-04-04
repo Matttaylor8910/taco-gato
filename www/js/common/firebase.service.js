@@ -164,6 +164,7 @@
       service.user = user;
       localStorage.setObject('user', user);
       tacoEatersCollection[index].firebaseUserId = user.firebaseUserId;
+      tacoEatersCollection[index].realName = user.realName;
       tacoEatersCollection.$save(index);
     }
 

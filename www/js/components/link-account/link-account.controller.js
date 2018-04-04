@@ -34,6 +34,7 @@
 
     function updateUser(user) {
       $ctrl.firebaseService.user.firebaseUserId = user.uid;
+      $ctrl.firebaseService.user.realName  = $ctrl.model.realName;
       firebaseService.linkUserToFirebaseUser($ctrl.firebaseService.user);
     }
 
