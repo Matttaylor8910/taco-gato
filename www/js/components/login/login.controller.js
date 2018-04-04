@@ -21,7 +21,7 @@
     // have them link their account to an oAuth account.
     if (firebaseService.user) {
       if (firebaseService.user.firebaseUserId !== null) {
-        goToOverview(firebaseService.user.userId);
+        goToOverview(firebaseService.user.id);
       }
       else {
         goToLinkAccount();
