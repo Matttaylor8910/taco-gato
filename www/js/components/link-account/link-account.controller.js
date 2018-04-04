@@ -12,6 +12,8 @@
       realName: ""
     };
 
+    $ctrl.firebaseService = firebaseService;
+
     $ctrl.signUp = signUp;
 
     function signUp() {
@@ -31,8 +33,8 @@
     }
 
     function updateUser(user) {
-      $ctrl.user.firebaseUserId = user.uid;
-      firebaseService.linkUserToFirebaseUser($ctrl.user);
+      $ctrl.firebaseService.user.firebaseUserId = user.uid;
+      firebaseService.linkUserToFirebaseUser($ctrl.firebaseService.user);
     }
 
   }
