@@ -48,6 +48,9 @@
             case "auth/network-request-failed":
               errorMessage = "Network request failed";
               break;
+            case "auth/wrong-password":
+              errorMessage = "Invalid email & password combination";
+              break;
           }
 
           var myPopup = $ionicPopup.show({
