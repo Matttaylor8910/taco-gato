@@ -10,7 +10,6 @@
     $ctrl.firebase = firebaseService;
     $ctrl.settings = settings;
 
-
     $ctrl.clearUser = clearUser;
 
     $scope.$on('$ionicView.beforeEnter', beforeEnter);
