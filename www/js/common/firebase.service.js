@@ -198,6 +198,7 @@
       signIn({
         id: userItem.key,
         name: userItem.name,
+        realName: userItem.realName,
         tacoEvents: cleanUpTacos(userItem.tacoEvents)
       });
     }
