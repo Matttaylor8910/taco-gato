@@ -12,22 +12,15 @@
     $ctrl.goToJoinGroup = goToJoinGroup;
 
     function goToCreateGroup() {
-      $state.go('create-group')
+      $state.go('app.create-group')
     }
 
     function goToFindGroup() {
-      $state.go('find-group')
+      $state.go('app.find-group')
     }
 
     function goToJoinGroup() {
-      $state.go('join-group')
-    }
-
-    function createGroup() {
-      // todo: add some type of validation.
-      var groupKey = firebaseService.createGroup($scope.group);
-      firebaseService.assignUserToGroup($scope.group);
-      $scope.modal.hide();
+      $state.go('app.join-group')
     }
   }
 })();

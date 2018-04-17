@@ -5,29 +5,45 @@
 
   function config($stateProvider) {
     $stateProvider
-      .state('group', {
+      .state('app.group', {
         url: '/group',
-        templateUrl: 'js/components/group/group.tpl.html',
-        controller: 'GroupController',
-        controllerAs: '$ctrl'
+        views: {
+          'leaderboard': {
+            templateUrl: 'js/components/group/group.tpl.html',
+            controller: 'GroupController',
+            controllerAs: '$ctrl'
+          }
+        }
       })
-      .state('create-group', {
+      .state('app.create-group', {
         url: '/create-group',
-        templateUrl: 'js/components/group/create-group/create-group.tpl.html',
-        controller: 'CreateGroupController',
-        controllerAs: '$ctrl'
+        views: {
+          'leaderboard': {
+            templateUrl: 'js/components/group/create-group/create-group.tpl.html',
+            controller: 'CreateGroupController',
+            controllerAs: '$ctrl'
+          }
+        }
       })
-      .state('find-group', {
+      .state('app.find-group', {
         url: '/find-group',
-        templateUrl: 'js/components/group/find-group/find-group.tpl.html',
-        controller: 'FindGroupController',
-        controllerAs: '$ctrl'
+        views: {
+          'leaderboard': {
+            templateUrl: 'js/components/group/find-group/find-group.tpl.html',
+            controller: 'FindGroupController',
+            controllerAs: '$ctrl'
+          }
+        }
       })
-      .state('join-group', {
+      .state('app.join-group', {
         url: '/join-group',
-        templateUrl: 'js/components/group/join-group/join-group.tpl.html',
-        controller: 'JoinGroupController',
-        controllerAs: '$ctrl'
+        views: {
+          'leaderboard': {
+            templateUrl: 'js/components/group/join-group/join-group.tpl.html',
+            controller: 'JoinGroupController',
+            controllerAs: '$ctrl'
+          }
+        }
       })
   }
 })();

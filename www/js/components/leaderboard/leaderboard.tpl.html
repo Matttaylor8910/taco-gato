@@ -7,13 +7,33 @@
     ></button>
   </ion-nav-buttons>
   <ion-content>
-    <ion-spinner ng-if="!$ctrl.firebase.leaderboard" icon="lines"></ion-spinner>
-    <div ng-if="$ctrl.firebase.leaderboard" class="card">
+    <ion-spinner ng-if="!$ctrl.leaderboard" icon="lines"></ion-spinner>
+
+    <h4 class="text-center" ng-if="!$ctrl.hasGroup">
+      Global
+    </h4>
+
+    <div class="radio-button" ng-if="$ctrl.hasGroup">
+      <button
+        class="button button-block button-clear button-positive"
+        ng-disabled="$ctrl.displayingGlobal"
+        ng-click="$ctrl.displayGlobal()">
+        Global
+      </button>
+      <button
+        class="button button-block button-clear button-positive"
+        ng-disabled="!$ctrl.displayingGlobal"
+        ng-click="$ctrl.displayGroup()">
+        Group
+      </button>
+    </div>
+
+    <div ng-if="$ctrl.leaderboard" class="card">
       <div class="list">
         <leaderboard-list-item
           ng-class="{'no-border': $index === 0}"
           eater="eater"
-          ng-repeat="eater in $ctrl.firebase.leaderboard">
+          ng-repeat="eater in $ctrl.leaderboard">
         </leaderboard-list-item>
       </div>
     </div>

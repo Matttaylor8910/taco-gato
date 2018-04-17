@@ -6,12 +6,27 @@
   function LeaderboardController(firebaseService, $state) {
     var $ctrl = this;
 
-    $ctrl.firebase = firebaseService;
+    $ctrl.leaderboard = firebaseService.globalLeaderboard;
+    $ctrl.displayingGlobal = true;
+
+    $ctrl.hasGroup = !_(firebaseService.user.groupId).isEmpty();
 
     $ctrl.goToGroup = goToGroup;
 
     function goToGroup() {
-      $state.go('group');
+      $state.go('app.group');
+    }
+
+    $ctrl.displayGlobal = displayGlobal;
+    function displayGlobal() {
+      $ctrl.leaderboard = firebaseService.globalLeaderboard;
+      $ctrl.displayingGlobal = true;
+    }
+
+    $ctrl.displayGroup = displayGroup;
+    function displayGroup() {
+      $ctrl.leaderboard = firebaseService.groupLeaderboard;
+      $ctrl.displayingGlobal = false;
     }
   }
 })();

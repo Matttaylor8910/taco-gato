@@ -16,7 +16,7 @@
         }
       })
       .state('app.leaderboard-overview', {
-        url: 'leaderboard/overview/:userId',
+        url: '/leaderboard/overview/:userId',
         views: {
           'leaderboard': {
             templateUrl: 'js/components/overview/overview.tpl.html',

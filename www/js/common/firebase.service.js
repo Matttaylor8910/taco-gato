@@ -50,7 +50,8 @@
 
         // set up activity and leaderboard
         service.activity = getActivityFeed(service.users);
-        service.leaderboard = getLeaderBoard(service.users);
+        service.globalLeaderboard = getGlobalLeaderBoard(service.users);
+        service.groupLeaderboard = getGroupLeaderBoard(service.users);
       });
 
       // wire up the groups collection
@@ -208,6 +209,7 @@
         id: userItem.key,
         name: userItem.name,
         realName: userItem.realName,
+        groupId: userItem.groupId,
         tacoEvents: cleanUpTacos(userItem.tacoEvents)
       });
     }
@@ -287,7 +289,7 @@
         .value();
     }
 
-    function getLeaderBoard(users) {
+    function getGlobalLeaderBoard(users) {
       var sorted = _(users)
         .filter(removeTestUsers)
         .filter(filterOutBadUsers)
@@ -296,6 +298,27 @@
         .reverse()
         .value();
 
+      sorted = _.cloneDeep(sorted);
+
+      return createLeaderBoardWithSorted(sorted);
+    }
+
+    function getGroupLeaderBoard(users) {
+      var sorted = _(users)
+        .filter(removeTestUsers)
+        .filter(filterOutBadUsers)
+        .filter(filterGroupUsers)
+        .sortBy('tacosToday')
+        .sortBy('tacos')
+        .reverse()
+        .value();
+
+      sorted = _.cloneDeep(sorted);
+
+      return createLeaderBoardWithSorted(sorted);
+    }
+
+    function createLeaderBoardWithSorted(sorted) {
       var leaderboard = [];
       var rank = 1;
 
@@ -315,6 +338,13 @@
 
     function removeTestUsers(user) {
       return user.name && !user.name.toLowerCase().includes('test');
+    }
+
+    function filterGroupUsers(user) {
+      var groupId = service.user.groupId;
+      if(!groupId) return true;
+
+      return user.groupId === groupId;
     }
 
     function setUpLocationInfo() {
