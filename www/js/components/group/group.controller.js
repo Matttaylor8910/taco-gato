@@ -6,7 +6,6 @@
   function GroupController($ionicModal, $state, firebaseService, $ionicHistory) {
     var $ctrl = this;
 
-    $ctrl.createGroup = createGroup;
     $ctrl.goToCreateGroup = goToCreateGroup;
     $ctrl.goToFindGroup = goToFindGroup;
     $ctrl.goToJoinGroup = goToJoinGroup;
