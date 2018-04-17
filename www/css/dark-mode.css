@@ -48,3 +48,7 @@
 .dark-mode .button.button-assertive:before {
   color: inherit;
 }
+
+.dark-mode button {
+  color: #fff;
+}

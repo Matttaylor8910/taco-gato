@@ -8,6 +8,7 @@
 
     var tacoEatersRef, tacoEatersCollection;
     var userRef, userTacoEvents;
+    var groupsRef, groupsCollection;
 
     var service = {
       user: localStorage.getObject('user'),
@@ -21,7 +22,11 @@
       getUser: getUser,
       getUserWithFirebaseUserId: getUserWithFirebaseUserId,
       setUser: setUser,
-      clearUser: clearUser
+      clearUser: clearUser,
+      createGroup: createGroup,
+      editGroup: editGroup,
+      deleteGroup: deleteGroup,
+      assignUserToGroup: assignUserToGroup
     };
 
     init();
@@ -47,6 +52,10 @@
         service.activity = getActivityFeed(service.users);
         service.leaderboard = getLeaderBoard(service.users);
       });
+
+      // wire up the groups collection
+      groupsRef = dbRef.ref('groups');
+      groupsCollection = $firebaseArray(groupsRef);
 
       // set up the user ref if we can
       addUserRef();
@@ -228,6 +237,35 @@
       console.log('CLEARED');
       localStorage.setObject('user', {});
       service.user = {};
+    }
+
+    function createGroup(group, user) {
+      return groupsCollection.$add({
+        name: group.name,
+        creator: user.id
+      });
+    }
+
+    function editGroup(group) {
+      var index = _.findIndex(groupsCollection, {$id: group.id});
+      groupsCollection[index].name = group.name;
+      groupsCollection[index].members = group.members;
+      groupsCollection.$save(index);
+    }
+
+    function deleteGroup(group) {
+      // Check if user has admin ability
+      groupsCollection[index].name = group.name;
+      groupsCollection.$save(index);
+    }
+
+    function assignUserToGroup(user, groupId) {
+      user.groupId = groupId;
+      var index = _.findIndex(tacoEatersCollection, {$id: user.id});
+      service.user = user;
+      localStorage.setObject('user', user);
+      tacoEatersCollection[index].groupId = user.groupId;
+      tacoEatersCollection.$save(index);
     }
 
     function getActivityFeed(users) {
