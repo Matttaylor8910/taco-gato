@@ -27,8 +27,16 @@
         Mas Tacos
       </button>
 
-      <div class="card" ng-if="$ctrl.user.tacoEvents.length > 0">
-        <taco-item ng-class="{'no-border': $index === 0}" event="event" ng-repeat="event in $ctrl.user.tacoEvents"></taco-item>
+      <div ng-if="$ctrl.activity.length > 0">
+        <div class="card" ng-repeat="day in $ctrl.activity">
+          <div  class="list">
+            <div class="item item-divider">
+              <span>{{day.grouping}}</span>
+              <span class="item-note">{{day.tacos}} {{day.tacos === 1 ? 'taco' : 'tacos'}}</span>
+            </div>
+            <taco-item ng-class="{'no-border': $index === 0}" event="event" ng-repeat="event in day.events"></taco-item>
+          </div>
+        </div>
       </div>
     </div>
 
