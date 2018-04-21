@@ -18,6 +18,7 @@
     function beforeEnter() {
       if ($state.params.userId) {
         $ctrl.user = undefined;
+        $ctrl.activity = undefined;
         $ctrl.userId = $state.params.userId;
         $ctrl.you = $ctrl.firebase.user.id === $ctrl.userId;
         $ctrl.loading = true;
@@ -43,6 +44,20 @@
       if ($ctrl.user) {
         updateTacoCounter();
         $ctrl.error = false;
+
+        $ctrl.activity = _($ctrl.user.tacoEvents)
+          .flatten()
+          .sortBy("time")
+          .reverse()
+          .groupBy("grouping")
+          .map(function (events, grouping) {
+            return {
+              grouping: grouping,
+              events: events,
+              tacos: _.sumBy(events, 'tacos')
+            };
+          })
+          .value();
       }
       else {
         $ctrl.error = true;
