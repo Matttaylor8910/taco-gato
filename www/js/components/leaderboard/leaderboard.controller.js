@@ -9,7 +9,19 @@
     $ctrl.leaderboard = firebaseService.globalLeaderboard;
     $ctrl.displayingGlobal = true;
 
-    $ctrl.hasGroup = !_(firebaseService.user.groupId).isEmpty();
+    $ctrl.hasGroup = hasGroup;
+
+    function hasGroup() {
+      return !_(firebaseService.user.groupId).isEmpty();
+    }
+
+    $ctrl.groupName = groupName;
+    function groupName() {
+      if (!hasGroup()) return '';
+
+      var group = firebaseService.getGroup(firebaseService.user.groupId);
+      return group.name;
+    }
 
     $ctrl.goToGroup = goToGroup;
 
@@ -18,12 +30,14 @@
     }
 
     $ctrl.displayGlobal = displayGlobal;
+
     function displayGlobal() {
       $ctrl.leaderboard = firebaseService.globalLeaderboard;
       $ctrl.displayingGlobal = true;
     }
 
     $ctrl.displayGroup = displayGroup;
+
     function displayGroup() {
       $ctrl.leaderboard = firebaseService.groupLeaderboard;
       $ctrl.displayingGlobal = false;

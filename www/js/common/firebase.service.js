@@ -23,6 +23,7 @@
       getUserWithFirebaseUserId: getUserWithFirebaseUserId,
       setUser: setUser,
       clearUser: clearUser,
+      getGroup: getGroup,
       createGroup: createGroup,
       editGroup: editGroup,
       deleteGroup: deleteGroup,
@@ -241,6 +242,11 @@
       service.user = {};
     }
 
+    function getGroup(groupId) {
+      var index = _.findIndex(groupsCollection, {$id: groupId});
+      return groupsCollection[index];
+    }
+
     function createGroup(group, user) {
       return groupsCollection.$add({
         name: group.name,
@@ -296,6 +302,7 @@
         .sortBy('tacosToday')
         .sortBy('tacos')
         .reverse()
+        .take(10)
         .value();
 
       sorted = _.cloneDeep(sorted);
