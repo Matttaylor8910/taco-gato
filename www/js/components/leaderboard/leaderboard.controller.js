@@ -11,6 +11,7 @@
 
     $ctrl.hasGroup = firebaseService.hasGroup;
 
+    // todo: refactor with groupController.
     $ctrl.groupName = groupName;
     function groupName() {
       if (!firebaseService.hasGroup()) return '';

@@ -28,7 +28,8 @@
       createGroup: createGroup,
       editGroup: editGroup,
       deleteGroup: deleteGroup,
-      assignUserToGroup: assignUserToGroup
+      assignUserToGroup: assignUserToGroup,
+      unassignUserFromGroup: unassignUserFromGroup
     };
 
     init();
@@ -273,12 +274,19 @@
       groupsCollection.$save(index);
     }
 
-    function assignUserToGroup(user, groupId) {
-      user.groupId = groupId;
-      var index = _.findIndex(tacoEatersCollection, {$id: user.id});
-      service.user = user;
-      localStorage.setObject('user', user);
+    function assignUserToGroup(groupId) {
+      service.user.groupId = groupId;
+      var index = _.findIndex(tacoEatersCollection, {$id: service.user.id});
+      localStorage.setObject('user', service.user);
       tacoEatersCollection[index].groupId = user.groupId;
+      tacoEatersCollection.$save(index);
+    }
+
+    function unassignUserFromGroup() {
+      delete service.user.groupId;
+      var index = _.findIndex(tacoEatersCollection, {$id: service.user.id});
+      localStorage.setObject('user', service.user);
+      delete tacoEatersCollection[index].groupId;
       tacoEatersCollection.$save(index);
     }
 

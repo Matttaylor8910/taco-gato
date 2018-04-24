@@ -1,11 +1,11 @@
 <ion-view id="group">
   <ion-nav-title>Group</ion-nav-title>
   <ion-content class="padding">
-    <h4 class="text-center padding-bottom">
-      What would you like to do?
-    </h4>
 
-    <div>
+    <div ng-if="!$ctrl.hasGroup()">
+      <h4 class="text-center padding-bottom">
+        What would you like to do?
+      </h4>
       <button
         class="button button-block button-clear button-positive"
         ng-click="$ctrl.goToCreateGroup()">
@@ -22,6 +22,20 @@
         class="button button-block button-clear button-positive"
         ng-click="$ctrl.goToJoinGroup()">
         Group Code
+      </button>
+    </div>
+
+    <div ng-if="$ctrl.hasGroup()">
+      <h4 class="text-center padding-bottom">
+        You are in group
+      </h4>
+      <h4 class="text-center padding-bottom">
+        {{$ctrl.groupName()}}
+      </h4>
+      <button
+        class="button button-block button-clear button-positive"
+        ng-click="$ctrl.leaveGroup()">
+        Leave Group
       </button>
     </div>
   </ion-content>
