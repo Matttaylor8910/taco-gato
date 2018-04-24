@@ -9,15 +9,11 @@
     $ctrl.leaderboard = firebaseService.globalLeaderboard;
     $ctrl.displayingGlobal = true;
 
-    $ctrl.hasGroup = hasGroup;
-
-    function hasGroup() {
-      return !_(firebaseService.user.groupId).isEmpty();
-    }
+    $ctrl.hasGroup = firebaseService.hasGroup;
 
     $ctrl.groupName = groupName;
     function groupName() {
-      if (!hasGroup()) return '';
+      if (!firebaseService.hasGroup()) return '';
 
       var group = firebaseService.getGroup(firebaseService.user.groupId);
       return group.name;

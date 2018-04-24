@@ -24,6 +24,7 @@
       setUser: setUser,
       clearUser: clearUser,
       getGroup: getGroup,
+      hasGroup: hasGroup,
       createGroup: createGroup,
       editGroup: editGroup,
       deleteGroup: deleteGroup,
@@ -247,10 +248,15 @@
       return groupsCollection[index];
     }
 
+    function hasGroup() {
+      return !_(firebaseService.user.groupId).isEmpty();
+    }
+
     function createGroup(group, user) {
       return groupsCollection.$add({
         name: group.name,
-        creator: user.id
+        creatorId: user.id,
+        created: Date.now()
       });
     }
 

@@ -2,7 +2,8 @@
   <ion-nav-title>🌮🏆</ion-nav-title>
   <ion-nav-buttons side="right">
     <button
-      class="button button-icon ion-plus button-clear button-positive"
+      class="button button-icon button-clear button-positive"
+      ng-class="($ctrl.hasGroup())? 'ion-gear-a' : 'ion-plus'"
       ng-click="$ctrl.goToGroup()"
     ></button>
   </ion-nav-buttons>
