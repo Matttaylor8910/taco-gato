@@ -2,19 +2,21 @@
   <ion-nav-title>Find Group</ion-nav-title>
   <ion-content class="padding">
     <h4 class="text-center padding-bottom">
-      What would you like to do?
+      Pick a group to join.
     </h4>
 
-    <button
-      class="button button-block button-clear button-positive"
-      ng-click="$ctrl.goToCreateGroup()">
-      Create Group
-    </button>
+    <div class="list">
 
-    <button
-      class="button button-block button-clear button-positive"
-      ng-click="$ctrl.goToJoinGroup()">
-      Group Code
-    </button>
+      <div
+        ng-repeat="group in $ctrl.groups"
+        class="item item-button-right group-item">
+            {{group.name}}
+            <p>Created by: {{$ctrl.getGroupCreatorName(group)}}</p>
+            <button class="button button-positive" ng-click="$ctrl.joinGroup(group)">
+              <i class="icon ion-arrow-right-b"></i>
+            </button>
+      </div>
+
+    </div>
   </ion-content>
 </ion-view>

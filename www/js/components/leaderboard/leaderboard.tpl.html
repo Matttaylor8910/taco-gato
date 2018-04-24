@@ -13,15 +13,15 @@
     <div class="radio-button" ng-if="$ctrl.hasGroup()">
       <button
         class="button button-block button-clear button-positive"
-        ng-disabled="$ctrl.displayingGlobal"
-        ng-click="$ctrl.displayGlobal()">
-        Global
-      </button>
-      <button
-        class="button button-block button-clear button-positive"
         ng-disabled="!$ctrl.displayingGlobal"
         ng-click="$ctrl.displayGroup()">
         {{ $ctrl.groupName() }}
+      </button>
+      <button
+        class="button button-block button-clear button-positive"
+        ng-disabled="$ctrl.displayingGlobal"
+        ng-click="$ctrl.displayGlobal()">
+        Global
       </button>
     </div>
 

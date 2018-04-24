@@ -1,0 +1,4 @@
+/* Use to center the button vertically */
+#find-group .group-item .button {
+  top: 18px !important;
+}

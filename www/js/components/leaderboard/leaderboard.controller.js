@@ -3,13 +3,19 @@
     .module('taco.leaderboard', [])
     .controller('LeaderboardController', LeaderboardController);
 
-  function LeaderboardController(firebaseService, $state) {
+  function LeaderboardController($scope, firebaseService, $state) {
     var $ctrl = this;
 
-    $ctrl.leaderboard = firebaseService.globalLeaderboard;
-    $ctrl.displayingGlobal = true;
-
     $ctrl.hasGroup = firebaseService.hasGroup;
+
+    $scope.$on('$ionicView.beforeEnter', beforeEnter);
+    function beforeEnter() {
+      if (!firebaseService.hasGroup()) {
+        displayGlobal()
+      } else {
+        displayGroup();
+      }
+    }
 
     // todo: refactor with groupController.
     $ctrl.groupName = groupName;

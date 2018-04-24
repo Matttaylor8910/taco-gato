@@ -60,6 +60,11 @@
       // wire up the groups collection
       groupsRef = dbRef.ref('groups');
       groupsCollection = $firebaseArray(groupsRef);
+      groupsRef.on('value', function(snapshot) {
+        var eaters = snapshotToArray(snapshot);
+        service.groups = _.map(eaters, mapUsers);
+        $rootScope.$broadcast('firebase.groupsUpdated');
+      });
 
       // set up the user ref if we can
       addUserRef();
@@ -278,7 +283,7 @@
       service.user.groupId = groupId;
       var index = _.findIndex(tacoEatersCollection, {$id: service.user.id});
       localStorage.setObject('user', service.user);
-      tacoEatersCollection[index].groupId = user.groupId;
+      tacoEatersCollection[index].groupId = service.user.groupId;
       tacoEatersCollection.$save(index);
     }
 
