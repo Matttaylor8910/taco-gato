@@ -249,7 +249,7 @@
     }
 
     function hasGroup() {
-      return !_(firebaseService.user.groupId).isEmpty();
+      return !_(service.user.groupId).isEmpty();
     }
 
     function createGroup(group, user) {
