@@ -7,28 +7,22 @@
       ng-click="$ctrl.goToGroup()"
     ></button>
   </ion-nav-buttons>
-  <ion-content>
+  <div class="tabs tabs-top">
+    <a class="tab-item"
+       ng-class="(!$ctrl.displayingGlobal)? 'tab-item-active' : ''"
+       ng-click="$ctrl.displayGroup()"
+    >
+      {{ $ctrl.groupName() }}
+    </a>
+    <a class="tab-item"
+       ng-class="($ctrl.displayingGlobal)? 'tab-item-active' : ''"
+       ng-click="$ctrl.displayGlobal()"
+    >
+      Global Top 10
+    </a>
+  </div>
+  <ion-content class="has-tabs-top">
     <ion-spinner ng-if="!$ctrl.leaderboard" icon="lines"></ion-spinner>
-
-    <div class="radio-button" ng-if="$ctrl.hasGroup()">
-      <button
-        class="button button-block button-clear button-positive"
-        ng-disabled="!$ctrl.displayingGlobal"
-        ng-click="$ctrl.displayGroup()">
-        {{ $ctrl.groupName() }}
-      </button>
-      <button
-        class="button button-block button-clear button-positive"
-        ng-disabled="$ctrl.displayingGlobal"
-        ng-click="$ctrl.displayGlobal()">
-        Global
-      </button>
-    </div>
-
-    <h4 class="text-center">
-      {{ ($ctrl.displayingGlobal)? 'Global Top 10' : $ctrl.groupName() }}
-    </h4>
-
     <div ng-if="$ctrl.leaderboard" class="card">
       <div class="list">
         <leaderboard-list-item
