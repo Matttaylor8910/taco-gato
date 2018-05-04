@@ -3,7 +3,7 @@
     .module('taco.leaderboard', [])
     .controller('LeaderboardController', LeaderboardController);
 
-  function LeaderboardController($scope, firebaseService, $state) {
+  function LeaderboardController($scope, firebaseService, $state, $ionicScrollDelegate) {
     var $ctrl = this;
 
     $ctrl.hasGroup = firebaseService.hasGroup;
@@ -37,6 +37,7 @@
     function displayGlobal() {
       $ctrl.leaderboard = firebaseService.globalLeaderboard;
       $ctrl.displayingGlobal = true;
+      $ionicScrollDelegate.resize();
     }
 
     $ctrl.displayGroup = displayGroup;
@@ -44,6 +45,7 @@
     function displayGroup() {
       $ctrl.leaderboard = firebaseService.groupLeaderboard;
       $ctrl.displayingGlobal = false;
+      $ionicScrollDelegate.resize();
     }
   }
 })();
