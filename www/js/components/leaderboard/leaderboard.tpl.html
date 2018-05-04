@@ -11,6 +11,7 @@
     <a class="tab-item"
        ng-class="(!$ctrl.displayingGlobal)? 'tab-item-active' : ''"
        ng-click="$ctrl.displayGroup()"
+       ng-if="$ctrl.hasGroup()"
     >
       {{ $ctrl.groupName() }}
     </a>
