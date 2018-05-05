@@ -10,6 +10,7 @@
     $ctrl.goToFindGroup = goToFindGroup;
     $ctrl.goToJoinGroup = goToJoinGroup;
     $ctrl.hasGroup = firebaseService.hasGroup;
+    $ctrl.groupName = firebaseService.getGroupName;
 
     function goToCreateGroup() {
       $state.go('app.create-group')
@@ -34,13 +35,5 @@
       $state.go('app.leaderboard');
     }
 
-    // todo: refactor with leaderboard.controller
-    $ctrl.groupName = groupName;
-    function groupName() {
-      if (!firebaseService.hasGroup()) return '';
-
-      var group = firebaseService.getGroup(firebaseService.user.groupId);
-      return group.name;
-    }
   }
 })();

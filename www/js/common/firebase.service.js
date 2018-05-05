@@ -25,6 +25,7 @@
       clearUser: clearUser,
       getGroup: getGroup,
       hasGroup: hasGroup,
+      getGroupName: getGroupName,
       createGroup: createGroup,
       editGroup: editGroup,
       deleteGroup: deleteGroup,
@@ -49,12 +50,13 @@
       tacoEatersRef.on('value', function (snapshot) {
         var eaters = snapshotToArray(snapshot);
         service.users = _.map(eaters, mapUsers);
-        $rootScope.$broadcast('firebase.usersUpdated');
 
         // set up activity and leaderboard
         service.activity = getActivityFeed(service.users);
         service.globalLeaderboard = getGlobalLeaderBoard(service.users);
         service.groupLeaderboard = getGroupLeaderBoard(service.users);
+
+        $rootScope.$broadcast('firebase.usersUpdated');
       });
 
       // wire up the groups collection
@@ -257,6 +259,13 @@
 
     function hasGroup() {
       return !_(service.user.groupId).isEmpty();
+    }
+
+    function getGroupName() {
+      if (!hasGroup()) return '';
+
+      var group = getGroup(service.user.groupId);
+      return group.name;
     }
 
     function createGroup(group, user) {

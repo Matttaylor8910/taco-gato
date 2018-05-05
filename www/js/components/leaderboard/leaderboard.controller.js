@@ -3,12 +3,14 @@
     .module('taco.leaderboard', [])
     .controller('LeaderboardController', LeaderboardController);
 
-  function LeaderboardController($scope, firebaseService, $state, $ionicScrollDelegate) {
+  function LeaderboardController($rootScope, $scope, firebaseService, $state, $ionicScrollDelegate) {
     var $ctrl = this;
 
     $ctrl.hasGroup = firebaseService.hasGroup;
+    $ctrl.groupName = firebaseService.getGroupName;
 
     $scope.$on('$ionicView.beforeEnter', beforeEnter);
+
     function beforeEnter() {
       if (!firebaseService.hasGroup()) {
         displayGlobal()
@@ -17,13 +19,13 @@
       }
     }
 
-    // todo: refactor with groupController.
-    $ctrl.groupName = groupName;
-    function groupName() {
-      if (!firebaseService.hasGroup()) return '';
-
-      var group = firebaseService.getGroup(firebaseService.user.groupId);
-      return group.name;
+    $rootScope.$on('firebase.usersUpdated', reloadData);
+    function reloadData() {
+      if ($ctrl.displayingGlobal) {
+        $ctrl.displayGlobal();
+      } else {
+        $ctrl.displayGroup();
+      }
     }
 
     $ctrl.goToGroup = goToGroup;
