@@ -174,6 +174,7 @@
       service.user = user;
       localStorage.setObject('user', user);
       tacoEatersCollection[index].name = user.name;
+      tacoEatersCollection[index].realName = user.realName;
       tacoEatersCollection.$save(index);
     }
 
