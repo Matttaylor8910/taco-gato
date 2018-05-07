@@ -63,8 +63,8 @@
       groupsRef = dbRef.ref('groups');
       groupsCollection = $firebaseArray(groupsRef);
       groupsRef.on('value', function(snapshot) {
-        var eaters = snapshotToArray(snapshot);
-        service.groups = _.map(eaters, mapUsers);
+        var groups = snapshotToArray(snapshot);
+        service.groups = _.sortBy(groups, 'created').reverse();
         $rootScope.$broadcast('firebase.groupsUpdated');
       });
 

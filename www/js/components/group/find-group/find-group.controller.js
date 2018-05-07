@@ -8,6 +8,11 @@
 
     $ctrl.groups = firebaseService.groups;
 
+    $rootScope.$on('firebase.groupsUpdated', reloadData);
+    function reloadData() {
+      $ctrl.groups = firebaseService.groups;
+    }
+
     $ctrl.getGroupCreatorName = getGroupCreatorName;
     function getGroupCreatorName(group) {
       if (!group.creatorId) return 'TacoGato Staff';
