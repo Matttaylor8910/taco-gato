@@ -1,0 +1,46 @@
+<ion-view id="group">
+  <ion-nav-title>Group</ion-nav-title>
+  <ion-content class="padding">
+
+    <h4 class="text-center padding-bottom">
+      In TacoGato, you can connect with your mates and participate in casual competitions of gorging yourself with tacos.
+    </h4>
+    <h5 class="text-center padding-bottom">
+      Currently you can only join one group at a time.
+    </h5>
+
+    <div ng-if="!$ctrl.hasGroup()">
+      <button
+        class="button icon icon-left ion-plus button-block button-positive"
+        ng-click="$ctrl.goToCreateGroup()">
+        Create Group
+      </button>
+
+      <button
+        class="button icon icon-left ion-search button-block button-positive"
+        ng-click="$ctrl.goToFindGroup()">
+        Find Group
+      </button>
+
+      <!--<button-->
+        <!--class="button button-block button-clear button-positive"-->
+        <!--ng-click="$ctrl.goToJoinGroup()">-->
+        <!--Group Code-->
+      <!--</button>-->
+    </div>
+
+    <div ng-if="$ctrl.hasGroup()">
+      <h4 class="text-center padding-bottom">
+        You are in group
+      </h4>
+      <h4 class="text-center padding-bottom">
+        {{$ctrl.groupName()}}
+      </h4>
+      <button
+        class="button icon icon-left ion-log-out button-block button-positive"
+        ng-click="$ctrl.leaveGroup()">
+        Leave Group
+      </button>
+    </div>
+  </ion-content>
+</ion-view>

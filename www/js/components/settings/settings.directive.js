@@ -46,7 +46,9 @@
         if (firebaseService.user && $scope.editableUser) {
           var nameIsEmpty = !$scope.editableUser.name;
           var nameIsSame = firebaseService.user.name === $scope.editableUser.name;
-          return nameIsEmpty || nameIsSame;
+          var realNameIsEmpty = !$scope.editableUser.realName;
+          var realNameIsSame = firebaseService.user.realName === $scope.editableUser.realName;
+          return (nameIsEmpty || nameIsSame) && (realNameIsEmpty || realNameIsSame);
         }
         else {
           return true;

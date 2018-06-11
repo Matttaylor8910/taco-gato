@@ -10,6 +10,12 @@
 
     <div class="padding" ng-if="!$ctrl.loading && !$ctrl.error">
       <div ng-if="$ctrl.user">
+        <h4
+          ng-if="!$ctrl.you"
+          class="text-center">
+          {{ $ctrl.user.realName }}
+        </h4>
+
         <h3 class="text-center">{{ $ctrl.user.name }}{{$ctrl.you ? ', you have' : ' has' }} eaten</h3>
 
         <div class="taco-count text-center">{{ $ctrl.tacoCounter }}</div>
