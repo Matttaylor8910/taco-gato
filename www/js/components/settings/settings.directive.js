@@ -3,7 +3,7 @@
     .module('taco.settings', [])
     .directive('settings', settings);
 
-  function settings($ionicModal, $state, firebaseService, settings) {
+  function settings($ionicModal, $state, firebaseService, settings, authService, $ionicHistory) {
     var directive = {
       restrict: 'A',
       replace: true,
@@ -46,7 +46,9 @@
         if (firebaseService.user && $scope.editableUser) {
           var nameIsEmpty = !$scope.editableUser.name;
           var nameIsSame = firebaseService.user.name === $scope.editableUser.name;
-          return nameIsEmpty || nameIsSame;
+          var realNameIsEmpty = !$scope.editableUser.realName;
+          var realNameIsSame = firebaseService.user.realName === $scope.editableUser.realName;
+          return (nameIsEmpty || nameIsSame) && (realNameIsEmpty || realNameIsSame);
         }
         else {
           return true;
@@ -54,9 +56,15 @@
       }
 
       function logOut() {
+        authService.logout();
         firebaseService.clearUser();
         $scope.modal.hide();
-        $state.go('welcome');
+
+        $ionicHistory.nextViewOptions({
+          disableBack: true,
+          historyRoot: true
+        });
+        $state.go('login');
       }
     }
   }

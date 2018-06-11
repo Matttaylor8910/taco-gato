@@ -1,0 +1,26 @@
+<!--hide the tabs on the welcome page-->
+<ion-tabs class="tabs-bottom tabs-icon-top">
+
+  <ion-tab
+    title="You"
+    icon="ion-person"
+    ui-sref="app.overview({id: $ctrl.firebaseUser.uid})">
+    <ion-nav-view name="overview"></ion-nav-view>
+  </ion-tab>
+
+  <ion-tab
+    title="Leaderboard"
+    icon="ion-trophy"
+    ui-sref="app.leaderboard">
+    <ion-nav-view name="leaderboard"></ion-nav-view>
+  </ion-tab>
+
+  <ion-tab
+    title="Activity"
+    icon="ion-ios-paper"
+    ui-sref="app.activity">
+    <ion-nav-view name="activity"></ion-nav-view>
+  </ion-tab>
+
+</ion-tabs>
+

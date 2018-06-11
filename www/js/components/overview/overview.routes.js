@@ -3,9 +3,9 @@
     .module('taco.overview')
     .config(config);
 
-  function config($stateProvider, $urlRouterProvider) {
+  function config($stateProvider) {
     $stateProvider
-      .state('overview', {
+      .state('app.overview', {
         url: '/overview/:userId',
         views: {
           'overview': {
@@ -15,8 +15,8 @@
           }
         }
       })
-      .state('leaderboard-overview', {
-        url: 'leaderboard/overview/:userId',
+      .state('app.leaderboard-overview', {
+        url: '/leaderboard/overview/:userId',
         views: {
           'leaderboard': {
             templateUrl: 'js/components/overview/overview.tpl.html',
@@ -25,7 +25,7 @@
           }
         }
       })
-      .state('activity-overview', {
+      .state('app.activity-overview', {
         url: 'activity/overview/:userId',
         views: {
           'activity': {
@@ -35,8 +35,5 @@
           }
         }
       });
-
-    // If no other routes are matched always default to fruit-list
-    $urlRouterProvider.otherwise('/overview/');
   }
 })();

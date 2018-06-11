@@ -86,4 +86,6 @@
     <icon src="resources/ios/icon/icon-small@3x.png" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
     <engine name="ios" spec="4.5.4" />
+    <allow-navigation href="http://172.20.10.3:8101" />
+    <allow-navigation href="http://10.104.8.24:8101" />
 </widget>

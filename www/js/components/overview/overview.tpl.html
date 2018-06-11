@@ -10,6 +10,12 @@
 
     <div class="padding" ng-if="!$ctrl.loading && !$ctrl.error">
       <div ng-if="$ctrl.user">
+        <h4
+          ng-if="!$ctrl.you"
+          class="text-center">
+          {{ $ctrl.user.realName }}
+        </h4>
+
         <h3 class="text-center">{{ $ctrl.user.name }}{{$ctrl.you ? ', you have' : ' has' }} eaten</h3>
 
         <div class="taco-count text-center">{{ $ctrl.tacoCounter }}</div>
@@ -26,10 +32,6 @@
         taco-editor>
         Mas Tacos
       </button>
-
-      <div class="unconfirmed-warning" ng-if="!$ctrl.settings.confirmed">
-        You must text Matt your user name so he can confirm who you are. You will be filtered from the leaderboard and activity until then.
-      </div>
 
       <div ng-if="$ctrl.activity.length > 0">
         <div class="card" ng-repeat="day in $ctrl.activity">

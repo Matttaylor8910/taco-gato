@@ -6,12 +6,17 @@
       'firebase',
       'angularMoment',
 
+      'taco.tabs',
       'taco.welcome',
+      'taco.login',
+      'taco.sign-up',
+      'taco.link-account',
       'taco.settings',
       'taco.overview',
       'taco.leaderboard',
       'taco.activity',
-      'taco.editor'
+      'taco.editor',
+      'taco.group'
     ])
 
     // set up some default platform configurations
@@ -40,6 +45,8 @@
 
       // connect to firebase
       firebase.initializeApp(firebaseConfig);
+
+
     });
 
 })();

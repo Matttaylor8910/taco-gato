@@ -5,7 +5,7 @@
 
   function config($stateProvider) {
     $stateProvider
-      .state('activity-event-detail', {
+      .state('app.activity-event-detail', {
         url: '/activity/event/:eventId',
         views: {
           'activity': {

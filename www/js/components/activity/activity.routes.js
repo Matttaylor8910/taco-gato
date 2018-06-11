@@ -5,7 +5,7 @@
 
   function config($stateProvider) {
     $stateProvider
-      .state('activity', {
+      .state('app.activity', {
         url: '/activity',
         views: {
           'activity' : {
