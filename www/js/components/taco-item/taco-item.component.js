@@ -26,7 +26,7 @@
 
     function goToEventDetail() {
       if (!$state.current.name.includes('overview')) {
-        $state.go('activity-overview', {userId: $ctrl.event.userId});
+        $state.go('app.activity-overview', {userId: $ctrl.event.userId});
       }
       // $state.go($state.current.name + '-event-detail', {eventId: $ctrl.event.id});
     }
