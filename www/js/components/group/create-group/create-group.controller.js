@@ -15,7 +15,7 @@
       // todo: add some type of validation.
       firebaseService.createGroup($ctrl.group, firebaseService.user)
         .then(function (group) {
-          firebaseService.assignUserToGroup(group.key);
+          firebaseService.assignUserToGroup(group.id);
         });
 
       $ionicHistory.nextViewOptions({

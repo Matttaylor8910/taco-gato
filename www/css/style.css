@@ -19,6 +19,14 @@ ion-content, body {
   background: #d9d9db;
 }
 
+#login ion-content,
+#link-account ion-content,
+#more-tacos ion-content,
+#sign-up ion-content,
+#settings ion-content {
+  background: #fff;
+}
+
 ion-spinner {
   display: flex;
   justify-content: center;
@@ -95,13 +103,6 @@ ion-content.has-tabs.no-tabs {
 #overview .tacos-today {
   font-size: 16px;
   color: #39a539;
-}
-#overview .unconfirmed-warning {
-  background-color: #f2db1c;
-  border: 3px solid #e8b557;
-  border-radius: 10px;
-  padding: 10px;
-  text-align: center;
 }
 
 #more-tacos .more-tacos-container {

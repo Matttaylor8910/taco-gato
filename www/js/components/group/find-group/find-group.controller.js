@@ -27,7 +27,7 @@
 
     $ctrl.joinGroup = joinGroup;
     function joinGroup(group) {
-      firebaseService.assignUserToGroup(group.key);
+      firebaseService.assignUserToGroup(group.id);
 
       $ionicHistory.nextViewOptions({
         disableBack: true,

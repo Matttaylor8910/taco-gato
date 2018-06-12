@@ -49,12 +49,13 @@ body.dark-mode,
 .dark-mode .button.button-assertive:before {
   color: inherit;
 }
-
 .dark-mode button {
   color: #fff;
 }
-
 .dark-mode #leaderboard .tab-item-active {
   border-bottom: 1px solid #fff;
   color: #fff;
+}
+.dark-mode #leaderboard .you ion-item {
+  background: #64696d;
 }

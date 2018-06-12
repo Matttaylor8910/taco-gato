@@ -8,6 +8,7 @@
 
     $ctrl.hasGroup = firebaseService.hasGroup;
     $ctrl.groupName = firebaseService.getGroupName;
+    $ctrl.firebase = firebaseService;
 
     $scope.$on('$ionicView.beforeEnter', beforeEnter);
 

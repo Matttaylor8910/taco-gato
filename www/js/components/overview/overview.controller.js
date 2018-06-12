@@ -32,7 +32,7 @@
           disableBack: true,
           historyRoot: true
         });
-        $state.go('overview', {userId: firebaseService.user.id});
+        $state.go('app.overview', {userId: firebaseService.user.id});
       }
       else {
         clearUser();

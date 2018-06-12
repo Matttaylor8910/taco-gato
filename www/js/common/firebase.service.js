@@ -51,10 +51,7 @@
         var eaters = snapshotToArray(snapshot);
         service.users = _.map(eaters, mapUsers);
 
-        // set up activity and leaderboard
-        service.activity = getActivityFeed(service.users);
-        service.globalLeaderboard = getGlobalLeaderBoard(service.users);
-        service.groupLeaderboard = getGroupLeaderBoard(service.users);
+        setUpActivityAndLeaderboard();
 
         $rootScope.$broadcast('firebase.usersUpdated');
       });
@@ -74,14 +71,19 @@
       setUpLocationInfo();
     }
 
+    function setUpActivityAndLeaderboard() {
+      service.activity = getActivityFeed(service.users);
+      service.globalLeaderboard = getGlobalLeaderBoard(service.users);
+      service.groupLeaderboard = getGroupLeaderBoard(service.users);
+    }
+
     function filterOutBadUsers(user) {
-      return user.confirmed && !user.blocked;
+      return !user.blocked;
     }
 
     function mapUsers(user) {
-      if (user.key === service.user.id) {
+      if (user.id === service.user.id) {
         settings.setProperty('blocked', user.blocked);
-        settings.setProperty('confirmed', user.confirmed);
       }
 
       user.tacoEvents = mapTacoEvents(user.tacoEvents, user);
@@ -101,7 +103,7 @@
         event.moment = moment.unix(event.time);
         event.grouping = getGrouping(event.moment);
         event.userName = user.name;
-        event.userId = user.key;
+        event.userId = user.id;
       });
 
       return tacoEvents;
@@ -164,7 +166,7 @@
 
       // return the promise so we can wait for this add to finish
       return tacoEatersCollection.$add(user).then(function (ref) {
-        user.id = ref.key;
+        user.id = ref.id;
         signIn(user);
 
         return user;
@@ -208,7 +210,7 @@
     }
 
     function getUser(id) {
-      return _.find(service.users, {key: id});
+      return _.find(service.users, {id: id});
     }
 
     function getUserWithFirebaseUserId(id) {
@@ -217,7 +219,7 @@
 
     function setUser(userItem) {
       signIn({
-        id: userItem.key,
+        id: userItem.id,
         name: userItem.name,
         realName: userItem.realName,
         groupId: userItem.groupId,
@@ -232,7 +234,8 @@
 
       var firebaseUser = getUser(user.id);
       settings.setProperty('blocked', firebaseUser.blocked);
-      settings.setProperty('confirmed', firebaseUser.confirmed);
+
+      setUpActivityAndLeaderboard();
     }
 
     function cleanUpTacos(tacoEvents) {
@@ -331,12 +334,16 @@
         .sortBy('tacosToday')
         .sortBy('tacos')
         .reverse()
-        .take(10)
         .value();
 
       sorted = _.cloneDeep(sorted);
 
-      return createLeaderBoardWithSorted(sorted);
+      var fullLeaderboard = createLeaderBoardWithSorted(sorted);
+      return _.filter(fullLeaderboard, limitGlobalLeaderboard);
+    }
+
+    function limitGlobalLeaderboard(user, index) {
+      return index < 10 || user.id === service.user.id;
     }
 
     function getGroupLeaderBoard(users) {
@@ -349,23 +356,21 @@
         .reverse()
         .value();
 
-      sorted = _.cloneDeep(sorted);
+      sorted = _.cloneDeep(sorted); 
 
       return createLeaderBoardWithSorted(sorted);
     }
 
     function createLeaderBoardWithSorted(sorted) {
       var leaderboard = [];
-      var rank = 1;
 
       for (var i = 0; i < sorted.length; i++) {
         if (i > 0 && sorted[i - 1].tacos === sorted[i].tacos) {
           sorted[i].rank = sorted[i - 1].rank;
         }
         else {
-          sorted[i].rank = rank;
+          sorted[i].rank = i + 1;
         }
-        rank++;
         leaderboard.push(sorted[i]);
       }
 
@@ -378,7 +383,7 @@
 
     function filterGroupUsers(user) {
       var groupId = service.user.groupId;
-      if(!groupId) return true;
+      if (!groupId) return true;
 
       return user.groupId === groupId;
     }
@@ -404,7 +409,7 @@
 
       snapshot.forEach(function (childSnapshot) {
         var item = childSnapshot.val();
-        item.key = childSnapshot.key;
+        item.id = childSnapshot.key;
         returnArr.push(item);
       });
 

@@ -1,5 +1,5 @@
 <ion-item class="item taco-item" ng-class="{'item-icon-right': $ctrl.you}" ng-click="$ctrl.goToEventDetail()">
-  {{$ctrl.you ? 'You' : $ctrl.event.userName}} {{ $ctrl.event.initial ? 'joined Kaizen with' : 'ate' }} {{ $ctrl.event.tacos === 1 ? 'a' : $ctrl.event.tacos }} {{ $ctrl.event.tacos === 1 ? 'taco' : 'tacos' }}
+  {{$ctrl.you ? 'You' : $ctrl.event.userName}} {{ $ctrl.event.initial ? 'joined Taco Gato with' : 'ate' }} {{ $ctrl.event.tacos === 1 ? 'a' : $ctrl.event.tacos }} {{ $ctrl.event.tacos === 1 ? 'taco' : 'tacos' }}
   <p am-time-ago="$ctrl.event.moment"></p>
   <p class="tacos" ng-bind="$ctrl.event.tacos | tacoFilter"></p>
   <i class="icon ion-edit" ng-if="$ctrl.you" taco-editor event="$ctrl.event"></i>

@@ -27,7 +27,7 @@
             var user = firebaseService.getUserWithFirebaseUserId(firebaseUser.uid);
             if (user) {
               firebaseService.setUser(user);
-              goToOverview(user.key);
+              goToOverview(user.id);
             }
           }
         } else {
