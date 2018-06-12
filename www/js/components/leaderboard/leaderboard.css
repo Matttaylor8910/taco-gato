@@ -1,3 +1,7 @@
 #leaderboard .radio-button {
   display: flex;
 }
+#leaderboard .tab-item-active {
+  border-bottom: 1px solid #000;
+  color: #000;
+}

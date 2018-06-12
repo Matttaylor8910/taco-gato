@@ -2,6 +2,23 @@ ion-tabs.tabs-bottom.hidden .tabs {
   display: none;
 }
 
+/*fixes bar on iPhone X*/
+.bar-subheader .tabs {
+  height: 49px !important;
+  padding-bottom: 0 !important;
+}
+.bar-subheader {
+  padding: 0;
+}
+.has-tabs-top {
+  top: 89px !important;
+  top: calc(env(safe-area-inset-top) + 89px) !important;
+}
+
+ion-content {
+  background: #d9d9db;
+}
+
 ion-spinner {
   display: flex;
   justify-content: center;

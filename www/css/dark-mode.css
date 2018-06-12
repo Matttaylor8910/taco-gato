@@ -52,3 +52,8 @@
 .dark-mode button {
   color: #fff;
 }
+
+.dark-mode #leaderboard .tab-item-active {
+  border-bottom: 1px solid #fff;
+  color: #fff;
+}
