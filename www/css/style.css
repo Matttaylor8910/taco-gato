@@ -15,7 +15,7 @@ ion-tabs.tabs-bottom.hidden .tabs {
   top: calc(env(safe-area-inset-top) + 89px) !important;
 }
 
-ion-content {
+ion-content, body {
   background: #d9d9db;
 }
 
