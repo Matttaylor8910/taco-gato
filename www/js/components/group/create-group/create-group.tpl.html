@@ -1,18 +1,22 @@
 <ion-view id="create-group">
   <ion-nav-title>Create Group</ion-nav-title>
   <ion-content class="padding">
-    <div class="list">
-      <label class="item item-input item-stacked-label">
-        <span class="input-label">What's the group name?</span>
-        <input type="text" placeholder="Tap Here" ng-model="$ctrl.group.name" autocomplete="off" autocorrect="off" autocapitalize="on" spellcheck="false">
-      </label>
-    </div>
+    <form ng-submit="$ctrl.createGroup()">
+      <div class="list">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">What's the group name?</span>
+          <input type="text" placeholder="Tap Here" ng-model="$ctrl.group.name" autocomplete="off" autocorrect="off"
+                 autocapitalize="on" spellcheck="false">
+        </label>
+      </div>
 
-    <button
-      class="button button-block button-clear button-positive"
-      ng-disabled="isInvalid()"
-      ng-click="$ctrl.createGroup()">
-      Create
-    </button>
+      <button
+        type="submit"
+        class="button button-block button-clear button-positive"
+        ng-disabled="isInvalid()"
+        ng-click="$ctrl.createGroup()">
+        Create
+      </button>
+    </form>
   </ion-content>
 </ion-view>

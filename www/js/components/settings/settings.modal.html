@@ -5,27 +5,33 @@
     <button class="button button-clear button-assertive" ng-click="logOut()">Log Out</button>
   </ion-header-bar>
   <ion-content class="padding">
-    <div class="list">
-      <ion-toggle
-        ng-change="settings.setProperty('darkMode', settings.darkMode)"
-        ng-model="settings.darkMode" toggle-class="toggle-positive">
-        Dark Mode
-      </ion-toggle>
-      <label class="item item-input item-stacked-label">
-        <span class="input-label">What's your name?</span>
-        <input type="text" placeholder="Tap Here" ng-model="editableUser.name" autocomplete="off" autocorrect="off" autocapitalize="on" spellcheck="false">
-      </label>
-      <label class="item item-input item-stacked-label">
-        <span class="input-label">What's your real name?</span>
-        <input type="text" placeholder="Tap Here" ng-model="editableUser.realName" autocomplete="off" autocorrect="off" autocapitalize="on" spellcheck="false">
-      </label>
-    </div>
 
-    <button
-      class="button button-block button-clear button-positive"
-      ng-disabled="isInvalid()"
-      ng-click="updateUser()">
-      Save
-    </button>
+    <form>
+      <div class="list">
+        <ion-toggle
+          ng-change="settings.setProperty('darkMode', settings.darkMode)"
+          ng-model="settings.darkMode" toggle-class="toggle-positive">
+          Dark Mode
+        </ion-toggle>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">What's your name?</span>
+          <input type="text" placeholder="Tap Here" ng-model="editableUser.name" autocomplete="off" autocorrect="off"
+                 autocapitalize="on" spellcheck="false">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">What's your real name?</span>
+          <input type="text" placeholder="Tap Here" ng-model="editableUser.realName" autocomplete="off"
+                 autocorrect="off" autocapitalize="on" spellcheck="false">
+        </label>
+      </div>
+
+      <button
+        type="submit"
+        class="button button-block button-clear button-positive"
+        ng-disabled="isInvalid()"
+        ng-click="updateUser()">
+        Save
+      </button>
+    </form>
   </ion-content>
 </ion-modal-view>
