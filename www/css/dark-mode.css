@@ -1,7 +1,7 @@
 body.dark-mode,
 .dark-mode ion-content,
 .dark-mode .card {
-  background-color: #20262d;
+  background-color: #20262d !important;
 }
 .dark-mode .item {
   background-color: #3a4046;
