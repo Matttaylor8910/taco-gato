@@ -3,26 +3,30 @@
 
   <ion-content class="padding">
     <h4 class="text-center padding-bottom">Welcome to Taco Gato!</h4>
-    <div class="list">
-      <label class="item item-input item-stacked-label">
-        <span class="input-label">Email</span>
-        <input type="text" ng-model="$ctrl.model.email">
-      </label>
-      <label class="item item-input item-stacked-label">
-        <span class="input-label">Password</span>
-        <input type="password" ng-model="$ctrl.model.password">
-      </label>
-    </div>
-    <button
-      class="button button-block button-positive login-facebook-button"
-      ng-click="$ctrl.loginWithEmailPassword()">
-      Log In
-    </button>
-    <button
-      class="button button-block button-clear button-positive"
-      ng-click="$ctrl.goToSignUp()">
-      Sign Up
-    </button>
+
+    <form ng-submit="$ctrl.loginWithEmailPassword()">
+      <div class="list">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Email</span>
+          <input type="text" ng-model="$ctrl.model.email" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Password</span>
+          <input type="password" ng-model="$ctrl.model.password" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </label>
+      </div>
+      <button
+        type="submit"
+        class="button button-block button-positive login-facebook-button"
+        ng-click="$ctrl.loginWithEmailPassword()">
+        Log In
+      </button>
+      <button
+        class="button button-block button-clear button-positive"
+        ng-click="$ctrl.goToSignUp()">
+        Sign Up
+      </button>
+    </form>
 
   </ion-content>
 </ion-view>
