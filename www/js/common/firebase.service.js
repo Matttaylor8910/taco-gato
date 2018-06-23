@@ -165,12 +165,18 @@
       }
 
       // return the promise so we can wait for this add to finish
-      return tacoEatersCollection.$add(user).then(function (ref) {
-        user.id = ref.id;
-        signIn(user);
+      return tacoEatersCollection.$add(user)
+        .then(function (ref) {
+          user.id = ref.id;
+          signIn(user);
 
-        return user;
-      });
+          tacoEatersRef.trigger('value');
+
+          return user;
+        })
+        .catch(function (reason) {
+          console.log(reason);
+        });
     }
 
     function editUser(user) {
@@ -356,7 +362,7 @@
         .reverse()
         .value();
 
-      sorted = _.cloneDeep(sorted); 
+      sorted = _.cloneDeep(sorted);
 
       return createLeaderBoardWithSorted(sorted);
     }

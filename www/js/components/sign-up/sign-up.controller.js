@@ -60,6 +60,10 @@
     function saveUser(user) {
       $ctrl.user.tacos = parseInt($ctrl.user.tacos || 0);
       $ctrl.user.firebaseUserId = user.uid;
+
+      // Random 'id' key on user.
+      delete $ctrl.user.id;
+
       firebaseService.addUser($ctrl.user);
     }
 

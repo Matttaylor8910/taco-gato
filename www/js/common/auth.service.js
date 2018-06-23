@@ -32,6 +32,7 @@
           }
         } else {
           console.log("Signed out");
+          firebaseService.clearUser();
         }
       });
     }
