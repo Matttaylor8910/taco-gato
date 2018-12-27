@@ -30,12 +30,23 @@
       editGroup: editGroup,
       deleteGroup: deleteGroup,
       assignUserToGroup: assignUserToGroup,
-      unassignUserFromGroup: unassignUserFromGroup
+      unassignUserFromGroup: unassignUserFromGroup,
+
+      // temp migration step
+      migrateTacos: migrateTacos
     };
 
     init();
 
     return service;
+
+    function migrateTacos() {
+      console.log('GROUPS', service.groups);
+      console.log('USERS', service.users);
+      console.log('EVENTS', _(service.users).map('tacoEvents').flatten().value());
+
+      
+    }
 
     /**
      * Initialize the firebase objects and collections

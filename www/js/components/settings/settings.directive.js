@@ -19,6 +19,7 @@
       $scope.updateUser = updateUser;
       $scope.isInvalid = isInvalid;
       $scope.logOut = logOut;
+      $scope.migrateTacos = migrateTacos;
 
       $elem.on('click', openModal);
       init();
@@ -65,6 +66,10 @@
           historyRoot: true
         });
         $state.go('login');
+      }
+
+      function migrateTacos() {
+        firebaseService.migrateTacos();
       }
     }
   }
