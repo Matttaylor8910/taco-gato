@@ -1,4 +1,4 @@
-<ion-view id="create-group">
+<ion-view id="create-group" cache-view="false">
   <ion-nav-title>Create Group</ion-nav-title>
   <ion-content class="padding">
     <form ng-submit="$ctrl.createGroup()">
@@ -13,7 +13,7 @@
       <button
         type="submit"
         class="button button-block button-clear button-positive"
-        ng-disabled="isInvalid()">
+        ng-disabled="$ctrl.isInvalid()">
         Create
       </button>
     </form>

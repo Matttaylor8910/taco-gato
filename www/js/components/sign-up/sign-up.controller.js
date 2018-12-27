@@ -6,6 +6,9 @@
   function SignUpController($state, $firebaseAuth, $ionicHistory, $ionicPopup, $timeout, firebaseService, authService) {
     var $ctrl = this;
 
+    // disallow double taps
+    $ctrl.created = false;
+
     $ctrl.model = {
       email: "",
       password: ""
@@ -22,6 +25,10 @@
     $ctrl.goToLogin = goToLogin;
 
     function signUp() {
+      // short-circuit in case anything fucky is happening
+      if ($ctrl.created) return;
+      else $ctrl.created = true;
+
       // TODO: we need to do some form validating before we sign up a user.
       authService.signUp($ctrl.model.email, $ctrl.model.password)
         .then(saveUser)
@@ -52,6 +59,7 @@
 
           // close the popup after 1 second
           $timeout(function() {
+            $ctrl.created = false;
             myPopup.close();
           }, 1000);
         });

@@ -10,22 +10,16 @@
     $ctrl.groupName = firebaseService.getGroupName;
     $ctrl.firebase = firebaseService;
 
-    $scope.$on('$ionicView.beforeEnter', beforeEnter);
-
-    function beforeEnter() {
-      if (!firebaseService.hasGroup()) {
-        displayGlobal()
-      } else {
-        displayGroup();
-      }
-    }
-
+    $scope.$on('$ionicView.beforeEnter', reloadData);
     $rootScope.$on('firebase.usersUpdated', reloadData);
+    $rootScope.$on('firebase.joinedGroup', displayGroup);
+
     function reloadData() {
-      if ($ctrl.displayingGlobal) {
-        $ctrl.displayGlobal();
+      console.log('reload');
+      if (firebaseService.hasGroup() && !$ctrl.displayingGlobal) {
+        displayGroup();
       } else {
-        $ctrl.displayGroup();
+        displayGlobal();
       }
     }
 

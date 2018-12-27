@@ -167,10 +167,13 @@
       // return the promise so we can wait for this add to finish
       return tacoEatersCollection.$add(user)
         .then(function (ref) {
-          user.id = ref.id;
+          user.id = ref.key;
           signIn(user);
 
-          tacoEatersRef.trigger('value');
+          // I don't know what tacoEatersRef.trigger is all about
+          if (tacoEatersRef.trigger) {
+            tacoEatersRef.trigger('value');
+          }
 
           return user;
         })
@@ -304,6 +307,7 @@
       localStorage.setObject('user', service.user);
       tacoEatersCollection[index].groupId = service.user.groupId;
       tacoEatersCollection.$save(index);
+      $rootScope.$broadcast('firebase.joinedGroup');
     }
 
     function unassignUserFromGroup() {

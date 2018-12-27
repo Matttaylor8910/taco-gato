@@ -15,10 +15,11 @@
 
       <div
         ng-repeat="group in $ctrl.groups | filter:search"
+        ng-click="$ctrl.joinGroup(group)"
         class="item item-button-right group-item">
             {{group.name}}
             <p>Created by: {{$ctrl.getGroupCreatorName(group)}}</p>
-            <button class="button button-positive" ng-click="$ctrl.joinGroup(group)">
+            <button class="button button-positive">
               <i class="icon ion-arrow-right-b"></i>
             </button>
       </div>

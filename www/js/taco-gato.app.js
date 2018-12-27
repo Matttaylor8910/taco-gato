@@ -10,7 +10,6 @@
       'taco.welcome',
       'taco.login',
       'taco.sign-up',
-      'taco.link-account',
       'taco.settings',
       'taco.overview',
       'taco.leaderboard',
