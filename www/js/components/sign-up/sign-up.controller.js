@@ -10,8 +10,8 @@
     $ctrl.created = false;
 
     $ctrl.model = {
-      email: "",
-      password: ""
+      email: '',
+      password: ''
     };
 
     $ctrl.user = {
@@ -32,22 +32,22 @@
       authService.signUp($ctrl.model.email, $ctrl.model.password)
         .then(saveUser)
         .catch(function(error) {
-          var errorMessage = "";
+          var errorMessage = '';
           switch(error.code) {
-            case "auth/email-already-in-use":
-              errorMessage = "Email already in use";
+            case 'auth/email-already-in-use':
+              errorMessage = 'Email already in use';
               break;
-            case "auth/invalid-email":
-              errorMessage = "Invalid email";
+            case 'auth/invalid-email':
+              errorMessage = 'Invalid email';
               break;
-            case "auth/operation-not-allowed":
-              errorMessage = "Operation not allowed";
+            case 'auth/operation-not-allowed':
+              errorMessage = 'Operation not allowed';
               break;
-            case "auth/weak-password":
-              errorMessage = "Too weak of password";
+            case 'auth/weak-password':
+              errorMessage = 'Too weak of password';
               break;
-            case "auth/network-request-failed":
-              errorMessage = "Network request failed";
+            case 'auth/network-request-failed':
+              errorMessage = 'Network request failed';
               break;
           }
 
