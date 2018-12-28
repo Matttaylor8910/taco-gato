@@ -187,6 +187,27 @@ taco-item.no-border .item.taco-item {
   padding-top: 0 !important;
 }
 
+ion-popover-view ion-content.scroll-content.ionic-scroll {
+  margin: 0 !important;
+}
+ion-popover-view.fit {
+  height: auto !important;
+  overflow: none;
+}
+ion-popover-view.fit ion-header-bar {
+  position: relative !important;
+}
+ion-popover-view.fit ion-content {
+  position: relative !important;
+  top: 0 !important;
+}
+ion-popover-view.fit ion-content ion-item:first-of-type {
+  border-radius: 10px 10px 0 0;
+}
+ion-popover-view.fit ion-content ion-item:last-of-type {
+  border-radius: 0 0 10px 10px;
+}
+
 
 /*MEDIA QUERIES*/
 @media screen and (min-width: 800px) {

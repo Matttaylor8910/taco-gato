@@ -8,3 +8,7 @@
 #leaderboard .you ion-item {
   background: #fffcc1;
 }
+
+#leaderboard-popover .ion-checkmark {
+  font-size: 19px;
+}

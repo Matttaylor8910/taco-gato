@@ -30,7 +30,8 @@
       editGroup: editGroup,
       deleteGroup: deleteGroup,
       assignUserToGroup: assignUserToGroup,
-      unassignUserFromGroup: unassignUserFromGroup
+      unassignUserFromGroup: unassignUserFromGroup,
+      setUpActivityAndLeaderboard: setUpActivityAndLeaderboard
     };
 
     init();
@@ -51,7 +52,8 @@
         var eaters = snapshotToArray(snapshot);
         service.users = _.map(eaters, mapUsers);
 
-        setUpActivityAndLeaderboard();
+        // set up the leaderboards with last 30 days by default
+        setUpActivityAndLeaderboard(true);
 
         $rootScope.$broadcast('firebase.usersUpdated');
       });
@@ -69,10 +71,10 @@
       addUserRef();
     }
 
-    function setUpActivityAndLeaderboard() {
+    function setUpActivityAndLeaderboard(last30Days) {
       service.activity = getActivityFeed(service.users);
-      service.globalLeaderboard = getGlobalLeaderBoard(service.users);
-      service.groupLeaderboard = getGroupLeaderBoard(service.users);
+      service.globalLeaderboard = getGlobalLeaderBoard(service.users, last30Days);
+      service.groupLeaderboard = getGroupLeaderBoard(service.users, last30Days);
     }
 
     function filterOutBadUsers(user) {
@@ -87,6 +89,9 @@
       user.tacoEvents = mapTacoEvents(user.tacoEvents, user);
       user.tacosToday = getTacosToday(user.tacoEvents);
       user.tacos = _.sumBy(user.tacoEvents, 'tacos');
+      user.tacos30Days = _(user.tacoEvents)
+        .filter(function(event) { return event.daysFromToday < 30 })
+        .sumBy('tacos');
 
       return user;
     }
@@ -97,9 +102,14 @@
 
       // add the moment for date stuff and userName to each event
       _.each(tacoEvents, function (event, index) {
-        event.index = index;
+        // date and time stuff
         event.moment = moment.unix(event.time);
-        event.grouping = getGrouping(event.moment);
+        var day = roundDown(event.moment);
+        event.daysFromToday = roundDown(moment()).diff(day, 'days');
+        event.grouping = getGrouping(day, event.daysFromToday);
+
+        // info about the user and index
+        event.index = index;
         event.userName = user.name;
         event.userId = user.id;
       });
@@ -107,10 +117,7 @@
       return tacoEvents;
     }
 
-    function getGrouping(thisMoment) {
-      var day = roundDown(thisMoment);
-      var daysFromToday = roundDown(moment()).diff(day, 'days');
-
+    function getGrouping(day, daysFromToday) {
       // Special cases
       if (daysFromToday === 0) return 'Today';
       if (daysFromToday === 1) return 'Yesterday';
@@ -242,7 +249,8 @@
       var firebaseUser = getUser(user.id);
       settings.setProperty('blocked', firebaseUser.blocked);
 
-      setUpActivityAndLeaderboard();
+      // set up the leaderboards with last 30 days by default
+      setUpActivityAndLeaderboard(true);
     }
 
     function cleanUpTacos(tacoEvents) {
@@ -335,18 +343,18 @@
         .value();
     }
 
-    function getGlobalLeaderBoard(users) {
+    function getGlobalLeaderBoard(users, last30Days) {
       var sorted = _(users)
         .filter(removeTestUsers)
         .filter(filterOutBadUsers)
         .sortBy('tacosToday')
-        .sortBy('tacos')
+        .sortBy(last30Days ? 'tacos30Days' : 'tacos')
         .reverse()
         .value();
 
       sorted = _.cloneDeep(sorted);
 
-      var fullLeaderboard = createLeaderBoardWithSorted(sorted);
+      var fullLeaderboard = createLeaderBoardWithSorted(sorted, last30Days);
       return _.filter(fullLeaderboard, limitGlobalLeaderboard);
     }
 
@@ -354,31 +362,33 @@
       return index < 10 || user.id === service.user.id;
     }
 
-    function getGroupLeaderBoard(users) {
+    function getGroupLeaderBoard(users, last30Days) {
       var sorted = _(users)
         .filter(removeTestUsers)
         .filter(filterOutBadUsers)
         .filter(filterGroupUsers)
         .sortBy('tacosToday')
-        .sortBy('tacos')
+        .sortBy(last30Days ? 'tacos30Days' : 'tacos')
         .reverse()
         .value();
 
       sorted = _.cloneDeep(sorted);
 
-      return createLeaderBoardWithSorted(sorted);
+      return createLeaderBoardWithSorted(sorted, last30Days);
     }
 
-    function createLeaderBoardWithSorted(sorted) {
+    function createLeaderBoardWithSorted(sorted, last30Days) {
       var leaderboard = [];
+      var prop = last30Days ? 'tacos30Days' : 'tacos';
 
       for (var i = 0; i < sorted.length; i++) {
-        if (i > 0 && sorted[i - 1].tacos === sorted[i].tacos) {
+        if (i > 0 && sorted[i - 1][prop] === sorted[i][prop]) {
           sorted[i].rank = sorted[i - 1].rank;
         }
         else {
           sorted[i].rank = i + 1;
         }
+        sorted[i].displayTacos = sorted[i][prop];
         leaderboard.push(sorted[i]);
       }
 
