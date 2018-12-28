@@ -3,7 +3,7 @@
     .module('taco.welcome', [])
     .controller('WelcomeController', WelcomeController);
 
-  function WelcomeController($scope, $state, $ionicHistory, firebaseService) {
+  function WelcomeController(firebaseService, authService) {
     var $ctrl = this;
   }
 })();
