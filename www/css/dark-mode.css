@@ -3,7 +3,7 @@ body.dark-mode,
 .dark-mode .card {
   background-color: #20262d !important;
 }
-.dark-mode .item {
+.dark-mode .item:not(.item-divider) {
   background-color: #3a4046 !important;
   border-color: #333 !important;
   color: #fff !important;
