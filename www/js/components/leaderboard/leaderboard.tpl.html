@@ -1,7 +1,9 @@
 <ion-view id="leaderboard">
-  <ion-nav-title ng-click="$ctrl.showPopover($event)">
-    🌮🏆 {{ $ctrl.last30Days ? '30 Days' : 'All Time' }}
+  <ion-nav-title id="leaderboard-header" ng-click="$ctrl.showPopover($event)">
+    🌮 
+    {{ $ctrl.last30Days ? '30 Days' : 'All Time' }} 
     <i class="icon ion-chevron-down"></i>
+    🏆
   </ion-nav-title>
   <ion-nav-buttons side="right">
     <button

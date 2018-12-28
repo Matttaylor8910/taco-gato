@@ -11,33 +11,36 @@
     $ctrl.logout = authService.logout;
 
     $ctrl.model = {
-      email: "",
-      password: ""
+      email: '',
+      password: ''
     };
 
     function loginWithEmailPassword() {
       authService.loginWithEmailPassword($ctrl.model.email, $ctrl.model.password)
         .catch(function (error) {
-          var errorMessage = "";
+          var errorMessage = '';
           switch(error.code) {
-            case "auth/email-already-in-use":
-              errorMessage = "Email already in use";
+            case 'auth/email-already-in-use':
+              errorMessage = 'Email already in use';
               break;
-            case "auth/invalid-email":
-              errorMessage = "Invalid email";
+            case 'auth/invalid-email':
+              errorMessage = 'Invalid email';
               break;
-            case "auth/operation-not-allowed":
-              errorMessage = "Operation not allowed";
+            case 'auth/operation-not-allowed':
+              errorMessage = 'Operation not allowed';
               break;
-            case "auth/weak-password":
-              errorMessage = "Too weak of password";
+            case 'auth/weak-password':
+              errorMessage = 'Too weak of password';
               break;
-            case "auth/network-request-failed":
-              errorMessage = "Network request failed";
+            case 'auth/network-request-failed':
+              errorMessage = 'Network request failed';
               break;
-            case "auth/wrong-password":
-              errorMessage = "Invalid email & password combination";
+            case 'auth/wrong-password':
+              errorMessage = 'Invalid email & password combination';
               break;
+            case 'auth/user-disabled':
+            errorMessage = 'Your account has been disabled';
+            break;
           }
 
           var myPopup = $ionicPopup.show({
@@ -48,7 +51,7 @@
           // close the popup after 1 second
           $timeout(function() {
             myPopup.close();
-          }, 1000);
+          }, 2000);
         });
     }
   }

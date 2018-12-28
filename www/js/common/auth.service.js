@@ -22,17 +22,22 @@
     function setOnAuthStateChanged() {
       $firebaseAuth().$onAuthStateChanged(function (firebaseUser) {
         if (firebaseUser) {
-          console.log("Signed in as:", firebaseUser.uid);
           if (firebaseUser.uid) {
             var user = firebaseService.getUserWithFirebaseUserId(firebaseUser.uid);
-            if (user) {
+          if (user) {
               firebaseService.setUser(user);
               goToOverview(user.id);
             }
           }
         } else {
-          console.log("Signed out");
           firebaseService.clearUser();
+          
+          // if views is defined, the user is viewing a page in the app, 
+          // so we need to kick them back to the welcome page
+          if ($state.current.views) {
+            $ionicHistory.nextViewOptions({historyRoot: true});
+            $state.go('welcome');
+          }
         }
       });
     }

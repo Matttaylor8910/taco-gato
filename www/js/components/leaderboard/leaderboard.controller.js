@@ -21,13 +21,11 @@
     init();
 
     function init() {
-      console.log('loading');
       $ionicPopover.fromTemplateUrl('js/components/leaderboard/leaderboard-date-popover.tpl.html', {
         scope: $scope
       }).then(function(popover) {
         $scope.$ctrl = $ctrl;
         $scope.popover = popover;
-        console.log('loaded');
       });    
     }
 
