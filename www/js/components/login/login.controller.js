@@ -3,13 +3,12 @@
     .module('taco.login', [])
     .controller('LoginController', LoginController);
 
-  function LoginController($state, $firebaseAuth, $ionicHistory, $ionicPopup, $timeout, firebaseService, authService) {
+  function LoginController($ionicPopup, $timeout, authService) {
     var $ctrl = this;
 
     $ctrl.loginWithFacebook = authService.loginWithFacebook;
     $ctrl.loginWithEmailPassword = loginWithEmailPassword;
     $ctrl.logout = authService.logout;
-    $ctrl.goToSignUp = goToSignUp;
 
     $ctrl.model = {
       email: "",
@@ -51,15 +50,6 @@
             myPopup.close();
           }, 1000);
         });
-    }
-
-    function goToSignUp() {
-      $ionicHistory.nextViewOptions({
-        disableBack: true,
-        historyRoot: true,
-        disableAnimate: true
-      });
-      $state.go('sign-up');
     }
   }
 })();

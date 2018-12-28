@@ -64,7 +64,7 @@
           disableBack: true,
           historyRoot: true
         });
-        $state.go('login');
+        $state.go('welcome');
       }
     }
   }

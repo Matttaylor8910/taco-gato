@@ -3,7 +3,7 @@
     .module('taco.sign-up', [])
     .controller('SignUpController', SignUpController);
 
-  function SignUpController($state, $firebaseAuth, $ionicHistory, $ionicPopup, $timeout, firebaseService, authService) {
+  function SignUpController($ionicPopup, $timeout, firebaseService, authService) {
     var $ctrl = this;
 
     // disallow double taps
@@ -22,7 +22,6 @@
     };
 
     $ctrl.signUp = signUp;
-    $ctrl.goToLogin = goToLogin;
 
     function signUp() {
       // short-circuit in case anything fucky is happening
@@ -73,15 +72,6 @@
       delete $ctrl.user.id;
 
       firebaseService.addUser($ctrl.user);
-    }
-
-    function goToLogin() {
-      $ionicHistory.nextViewOptions({
-        disableBack: true,
-        historyRoot: true,
-        disableAnimate: true
-      });
-      $state.go('login');
     }
   }
 })();

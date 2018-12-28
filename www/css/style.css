@@ -19,6 +19,7 @@ ion-content, body {
   background: #d9d9db;
 }
 
+#welcome ion-content,
 #login ion-content,
 #more-tacos ion-content,
 #sign-up ion-content,
@@ -175,6 +176,10 @@ taco-item.no-border .item.taco-item {
   line-height: 15px;
   font-size: 12px;
   color: #39a539;
+}
+
+#welcome img.taco {
+  width: 100%;
 }
 
 /*OVERRIDES*/

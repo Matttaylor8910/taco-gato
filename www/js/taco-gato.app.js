@@ -44,7 +44,6 @@
 
       // connect to firebase
       firebase.initializeApp(firebaseConfig);
-
     });
 
 })();

@@ -6,7 +6,7 @@
   function config($stateProvider) {
     $stateProvider
       .state('welcome', {
-        url: '/welcome/:firebaseUserId',
+        url: '/welcome',
         templateUrl: 'js/components/welcome/welcome.tpl.html',
         controller: 'WelcomeController',
         controllerAs: '$ctrl',
