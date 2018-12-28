@@ -15,7 +15,6 @@
     $rootScope.$on('firebase.joinedGroup', displayGroup);
 
     function reloadData() {
-      console.log('reload');
       if (firebaseService.hasGroup() && !$ctrl.displayingGlobal) {
         displayGroup();
       } else {
