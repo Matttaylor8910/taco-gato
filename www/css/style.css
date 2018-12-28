@@ -201,10 +201,13 @@ ion-popover-view.fit ion-content {
   position: relative !important;
   top: 0 !important;
 }
-ion-popover-view.fit ion-content ion-item:first-of-type {
+.platform-android ion-popover-view {
+  margin-top: 12px !important;
+}
+.platform-ios ion-popover-view.fit ion-content ion-item:first-of-type {
   border-radius: 10px 10px 0 0;
 }
-ion-popover-view.fit ion-content ion-item:last-of-type {
+.platform-ios ion-popover-view.fit ion-content ion-item:last-of-type {
   border-radius: 0 0 10px 10px;
 }
 
