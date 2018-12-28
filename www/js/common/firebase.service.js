@@ -67,8 +67,6 @@
 
       // set up the user ref if we can
       addUserRef();
-
-      setUpLocationInfo();
     }
 
     function setUpActivityAndLeaderboard() {
@@ -396,16 +394,6 @@
       if (!groupId) return true;
 
       return user.groupId === groupId;
-    }
-
-    function setUpLocationInfo() {
-      $.getJSON('//freegeoip.net/json/?callback=?', function (data) {
-        if (!data || !data.ip)
-          console.log('IP not found');
-        service.locationData = data;
-      }).fail(function () {
-        console.log('$.getJSON() request failed');
-      });
     }
 
     /**
