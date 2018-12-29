@@ -3,10 +3,11 @@ body.dark-mode,
 .dark-mode .card {
   background-color: #20262d !important;
 }
-.dark-mode .item:not(.item-divider) {
-  background-color: #3a4046 !important;
-  border-color: #333 !important;
-  color: #fff !important;
+.dark-mode .item,
+.dark-mode.platform-android .popover .item {
+  background-color: #3a4046;
+  border-color: #333;
+  color: #fff;
 }
 .dark-mode .item.item-divider {
   color: #94979f;
