@@ -1,7 +1,10 @@
 <ion-item class="item leaderboard-list-item" ng-click="$ctrl.goToOverview()">
   <div class="leaderboard-position-name">
     <div class="leaderboard-position">{{$ctrl.eater.rank}}</div>
-    <div class="leaderboard-name">{{$ctrl.eater.name}}</div>
+    <div class="leaderboard-name">
+      <div class="name" ng-bind="$ctrl.eater.name"></div>
+      <div class="group" ng-bind="$ctrl.getGroupName()" ng-if="$ctrl.showGroupName"></div>
+    </div>
   </div>
   <div class="leaderboard-tacos">
     <div class="total-tacos">{{$ctrl.eater.displayTacos}}</div>

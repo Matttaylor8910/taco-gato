@@ -8,6 +8,14 @@
 #leaderboard .you ion-item {
   background: #fffcc1;
 }
+#leaderboard .leaderboard-name .group {
+  font-size: 12px;
+  color: #ddd;
+}
+#leaderboard .item.leaderboard-list-item {
+  height: 58px;
+}
+
 #leaderboard-header .ion-chevron-down {
   margin-right: 3px;
   font-size: 14px;
