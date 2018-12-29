@@ -1,15 +1,18 @@
 <ion-view id="leaderboard">
+  <ion-nav-buttons side="left">
+    <button
+      class="button button-icon button-clear button-positive"
+      ng-class="($ctrl.hasGroup())? 'ion-person-stalker' : 'ion-plus'"
+      ng-click="$ctrl.goToGroup()"
+    ></button>
+  </ion-nav-buttons>
   <ion-nav-title id="leaderboard-header" ng-click="$ctrl.showPopover($event)">
     {{ $ctrl.last30Days ? '30 Days' : 'All Time' }} 
     <i class="icon ion-chevron-down"></i>
     🌮🏆
   </ion-nav-title>
   <ion-nav-buttons side="right">
-    <button
-      class="button button-icon button-clear button-positive"
-      ng-class="($ctrl.hasGroup())? 'ion-gear-a' : 'ion-plus'"
-      ng-click="$ctrl.goToGroup()"
-    ></button>
+    <button settings></button>
   </ion-nav-buttons>
 
   <div class="bar bar-subheader">

@@ -13,6 +13,11 @@
           ng-model="settings.darkMode" toggle-class="toggle-positive">
           Dark Mode
         </ion-toggle>
+        <ion-toggle
+          ng-change="settings.setProperty('last30Days', settings.last30Days)"
+          ng-model="settings.last30Days" toggle-class="toggle-positive">
+          Default to Last 30 Days
+        </ion-toggle>
         <label class="item item-input item-stacked-label">
           <span class="input-label">What's your name?</span>
           <input type="text" placeholder="Tap Here" ng-model="editableUser.name" autocomplete="off" autocorrect="off"

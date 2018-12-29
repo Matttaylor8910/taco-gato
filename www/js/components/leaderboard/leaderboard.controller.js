@@ -3,13 +3,13 @@
     .module('taco.leaderboard', [])
     .controller('LeaderboardController', LeaderboardController);
 
-  function LeaderboardController($rootScope, $scope, $timeout, $state, firebaseService, $ionicPopover, $ionicScrollDelegate) {
+  function LeaderboardController($rootScope, $scope, $timeout, $state, firebaseService, settings, $ionicPopover, $ionicScrollDelegate) {
     var $ctrl = this;
 
     $ctrl.hasGroup = firebaseService.hasGroup;
     $ctrl.groupName = firebaseService.getGroupName;
     $ctrl.firebase = firebaseService;
-    $ctrl.last30Days = true;
+    $ctrl.last30Days = settings.last30Days;
 
     $ctrl.showPopover = showPopover;
     $ctrl.changeDateSelection = changeDateSelection;

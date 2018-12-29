@@ -8,6 +8,9 @@
       isDevice: false,
       darkMode: setting('darkMode', true),
 
+      // set up the leaderboards with last 30 days by default
+      last30Days: setting('last30Days', true),
+
       setProperty: setProperty
     };
 

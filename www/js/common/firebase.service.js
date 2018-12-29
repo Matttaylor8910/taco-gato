@@ -52,8 +52,7 @@
         var eaters = snapshotToArray(snapshot);
         service.users = _.map(eaters, mapUsers);
 
-        // set up the leaderboards with last 30 days by default
-        setUpActivityAndLeaderboard(true);
+        setUpActivityAndLeaderboard(settings.last30Days);
 
         $rootScope.$broadcast('firebase.usersUpdated');
       });
@@ -249,8 +248,7 @@
       var firebaseUser = getUser(user.id);
       settings.setProperty('blocked', firebaseUser.blocked);
 
-      // set up the leaderboards with last 30 days by default
-      setUpActivityAndLeaderboard(true);
+      setUpActivityAndLeaderboard(settings.last30Days);
     }
 
     function cleanUpTacos(tacoEvents) {
