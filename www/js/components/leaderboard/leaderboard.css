@@ -5,13 +5,30 @@
   border-bottom: 1px solid #000;
   color: #000;
 }
+/* highlight "you" */
 #leaderboard .you ion-item {
   background: #fffcc1;
 }
+/* name will only wrap for 2 lines then hide */
+#leaderboard .leaderboard-name .name {
+  max-height: 42px;
+  line-height: 20px;
+  overflow: hidden;
+}
+/* group name is smaller font */
 #leaderboard .leaderboard-name .group {
   font-size: 12px;
-  color: #ddd;
+  color: #777;
 }
+/* if a group is present, we need to stick to one line and ellipsis */
+#leaderboard .leaderboard-name .name.has-group,
+#leaderboard .leaderboard-name .group {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-right: 5px;
+}
+/* fix the leaderboard list item height */
 #leaderboard .item.leaderboard-list-item {
   height: 58px;
 }

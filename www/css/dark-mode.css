@@ -60,6 +60,12 @@ body.dark-mode,
 .dark-mode #leaderboard .you ion-item {
   background: #64696d;
 }
+.dark-mode #leaderboard .leaderboard-name .group {
+  color: #ddd;
+}
 .dark-mode.platform-ios .popover-arrow:after {
   background-color: #394046 !important;
+}
+.dark-mode #find-group .item p {
+  color: #ddd;
 }

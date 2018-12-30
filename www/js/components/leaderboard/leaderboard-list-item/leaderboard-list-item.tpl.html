@@ -2,7 +2,7 @@
   <div class="leaderboard-position-name">
     <div class="leaderboard-position">{{$ctrl.eater.rank}}</div>
     <div class="leaderboard-name">
-      <div class="name" ng-bind="$ctrl.eater.name"></div>
+      <div class="name" ng-class="{'has-group': $ctrl.showGroupName && $ctrl.getGroupName()}" ng-bind="$ctrl.eater.name"></div>
       <div class="group" ng-bind="$ctrl.getGroupName()" ng-if="$ctrl.showGroupName"></div>
     </div>
   </div>
