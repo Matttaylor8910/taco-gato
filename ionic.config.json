@@ -1,6 +1,5 @@
 {
   "name": "taco-cat",
-  "app_id": "",
   "integrations": {
     "cordova": {},
     "gulp": {}

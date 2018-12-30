@@ -1,11 +1,18 @@
 <ion-view id="leaderboard">
-  <ion-nav-title>🌮🏆</ion-nav-title>
-  <ion-nav-buttons side="right">
+  <ion-nav-buttons side="left">
     <button
       class="button button-icon button-clear button-positive"
-      ng-class="($ctrl.hasGroup())? 'ion-gear-a' : 'ion-plus'"
+      ng-class="($ctrl.hasGroup())? 'ion-person-stalker' : 'ion-person-add'"
       ng-click="$ctrl.goToGroup()"
     ></button>
+  </ion-nav-buttons>
+  <ion-nav-title id="leaderboard-header" ng-click="$ctrl.showPopover($event)">
+    {{ $ctrl.last30Days ? '30 Days' : 'All Time' }} 
+    <i class="icon ion-chevron-down"></i>
+    🌮🏆
+  </ion-nav-title>
+  <ion-nav-buttons side="right">
+    <button settings></button>
   </ion-nav-buttons>
 
   <div class="bar bar-subheader">
@@ -33,6 +40,7 @@
         <leaderboard-list-item
           ng-class="{'no-border': $index === 0, 'you': eater.id === $ctrl.firebase.user.id}"
           eater="eater"
+          show-group-name="$ctrl.displayingGlobal"
           ng-repeat="eater in $ctrl.leaderboard">
         </leaderboard-list-item>
       </div>

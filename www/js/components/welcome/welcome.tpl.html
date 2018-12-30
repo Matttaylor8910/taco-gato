@@ -1,20 +1,23 @@
-<ion-nav-view>
-  <ion-view id="welcome" hide-back-button="true">
-    <ion-content class="padding no-tabs">
-      <div>
-        <h4 class="text-center padding-bottom">
-          We just need your name and how many tacos you think you've eaten so far this month
-        </h4>
-        <div class="list">
-        </div>
+<ion-view id="welcome">
+  <ion-nav-title>🌮😺</ion-nav-title>
 
-        <button
-          class="button button-block button-clear button-positive"
-          ng-disabled="!$ctrl.user.name || !$ctrl.user.realName"
-          ng-click="$ctrl.saveUser()">
-          Join Kaizen
-        </button>
-      </div>
-    </ion-content>
-  </ion-view>
-</ion-nav-view>
+  <ion-content class="padding">
+    <h4 class="text-center padding-bottom">Welcome to Taco Gato!</h4>
+
+    <img class="taco" src="./img/Taco.png">
+
+    <button
+      type="submit"
+      class="button button-block button-positive"
+      ui-sref="sign-up">
+      Get Started
+    </button>
+    <button
+      type="button"
+      class="button button-block button-clear button-positive"
+      ui-sref="login">
+      Already a member?
+    </button>
+
+  </ion-content>
+</ion-view>

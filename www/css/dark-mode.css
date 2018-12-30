@@ -3,7 +3,8 @@ body.dark-mode,
 .dark-mode .card {
   background-color: #20262d !important;
 }
-.dark-mode .item {
+.dark-mode .item,
+.dark-mode.platform-android .popover .item {
   background-color: #3a4046;
   border-color: #333;
   color: #fff;
@@ -58,4 +59,13 @@ body.dark-mode,
 }
 .dark-mode #leaderboard .you ion-item {
   background: #64696d;
+}
+.dark-mode #leaderboard .leaderboard-name .group {
+  color: #ddd;
+}
+.dark-mode.platform-ios .popover-arrow:after {
+  background-color: #394046 !important;
+}
+.dark-mode #find-group .item p {
+  color: #ddd;
 }

@@ -31,7 +31,8 @@
       deleteGroup: deleteGroup,
       assignUserToGroup: assignUserToGroup,
       unassignUserFromGroup: unassignUserFromGroup,
-
+      setUpActivityAndLeaderboard: setUpActivityAndLeaderboard,
+      
       // temp migration step
       migrateTacos: migrateTacos
     };
@@ -62,7 +63,7 @@
         var eaters = snapshotToArray(snapshot);
         service.users = _.map(eaters, mapUsers);
 
-        setUpActivityAndLeaderboard();
+        setUpActivityAndLeaderboard(settings.last30Days);
 
         $rootScope.$broadcast('firebase.usersUpdated');
       });
@@ -78,14 +79,12 @@
 
       // set up the user ref if we can
       addUserRef();
-
-      setUpLocationInfo();
     }
 
-    function setUpActivityAndLeaderboard() {
+    function setUpActivityAndLeaderboard(last30Days) {
       service.activity = getActivityFeed(service.users);
-      service.globalLeaderboard = getGlobalLeaderBoard(service.users);
-      service.groupLeaderboard = getGroupLeaderBoard(service.users);
+      service.globalLeaderboard = getGlobalLeaderBoard(service.users, last30Days);
+      service.groupLeaderboard = getGroupLeaderBoard(service.users, last30Days);
     }
 
     function filterOutBadUsers(user) {
@@ -100,6 +99,9 @@
       user.tacoEvents = mapTacoEvents(user.tacoEvents, user);
       user.tacosToday = getTacosToday(user.tacoEvents);
       user.tacos = _.sumBy(user.tacoEvents, 'tacos');
+      user.tacos30Days = _(user.tacoEvents)
+        .filter(function(event) { return event.daysFromToday < 30 })
+        .sumBy('tacos');
 
       return user;
     }
@@ -110,9 +112,14 @@
 
       // add the moment for date stuff and userName to each event
       _.each(tacoEvents, function (event, index) {
-        event.index = index;
+        // date and time stuff
         event.moment = moment.unix(event.time);
-        event.grouping = getGrouping(event.moment);
+        var day = roundDown(event.moment);
+        event.daysFromToday = roundDown(moment()).diff(day, 'days');
+        event.grouping = getGrouping(day, event.daysFromToday);
+
+        // info about the user and index
+        event.index = index;
         event.userName = user.name;
         event.userId = user.id;
       });
@@ -120,10 +127,7 @@
       return tacoEvents;
     }
 
-    function getGrouping(thisMoment) {
-      var day = roundDown(thisMoment);
-      var daysFromToday = roundDown(moment()).diff(day, 'days');
-
+    function getGrouping(day, daysFromToday) {
       // Special cases
       if (daysFromToday === 0) return 'Today';
       if (daysFromToday === 1) return 'Yesterday';
@@ -178,10 +182,13 @@
       // return the promise so we can wait for this add to finish
       return tacoEatersCollection.$add(user)
         .then(function (ref) {
-          user.id = ref.id;
+          user.id = ref.key;
           signIn(user);
 
-          tacoEatersRef.trigger('value');
+          // I don't know what tacoEatersRef.trigger is all about
+          if (tacoEatersRef.trigger) {
+            tacoEatersRef.trigger('value');
+          }
 
           return user;
         })
@@ -252,7 +259,7 @@
       var firebaseUser = getUser(user.id);
       settings.setProperty('blocked', firebaseUser.blocked);
 
-      setUpActivityAndLeaderboard();
+      setUpActivityAndLeaderboard(settings.last30Days);
     }
 
     function cleanUpTacos(tacoEvents) {
@@ -267,7 +274,6 @@
     }
 
     function clearUser() {
-      console.log('CLEARED');
       localStorage.setObject('user', {});
       service.user = {};
     }
@@ -315,6 +321,7 @@
       localStorage.setObject('user', service.user);
       tacoEatersCollection[index].groupId = service.user.groupId;
       tacoEatersCollection.$save(index);
+      $rootScope.$broadcast('firebase.joinedGroup');
     }
 
     function unassignUserFromGroup() {
@@ -344,18 +351,18 @@
         .value();
     }
 
-    function getGlobalLeaderBoard(users) {
+    function getGlobalLeaderBoard(users, last30Days) {
       var sorted = _(users)
         .filter(removeTestUsers)
         .filter(filterOutBadUsers)
         .sortBy('tacosToday')
-        .sortBy('tacos')
+        .sortBy(last30Days ? 'tacos30Days' : 'tacos')
         .reverse()
         .value();
 
       sorted = _.cloneDeep(sorted);
 
-      var fullLeaderboard = createLeaderBoardWithSorted(sorted);
+      var fullLeaderboard = createLeaderBoardWithSorted(sorted, last30Days);
       return _.filter(fullLeaderboard, limitGlobalLeaderboard);
     }
 
@@ -363,31 +370,33 @@
       return index < 10 || user.id === service.user.id;
     }
 
-    function getGroupLeaderBoard(users) {
+    function getGroupLeaderBoard(users, last30Days) {
       var sorted = _(users)
         .filter(removeTestUsers)
         .filter(filterOutBadUsers)
         .filter(filterGroupUsers)
         .sortBy('tacosToday')
-        .sortBy('tacos')
+        .sortBy(last30Days ? 'tacos30Days' : 'tacos')
         .reverse()
         .value();
 
       sorted = _.cloneDeep(sorted);
 
-      return createLeaderBoardWithSorted(sorted);
+      return createLeaderBoardWithSorted(sorted, last30Days);
     }
 
-    function createLeaderBoardWithSorted(sorted) {
+    function createLeaderBoardWithSorted(sorted, last30Days) {
       var leaderboard = [];
+      var prop = last30Days ? 'tacos30Days' : 'tacos';
 
       for (var i = 0; i < sorted.length; i++) {
-        if (i > 0 && sorted[i - 1].tacos === sorted[i].tacos) {
+        if (i > 0 && sorted[i - 1][prop] === sorted[i][prop]) {
           sorted[i].rank = sorted[i - 1].rank;
         }
         else {
           sorted[i].rank = i + 1;
         }
+        sorted[i].displayTacos = sorted[i][prop];
         leaderboard.push(sorted[i]);
       }
 
@@ -403,16 +412,6 @@
       if (!groupId) return true;
 
       return user.groupId === groupId;
-    }
-
-    function setUpLocationInfo() {
-      $.getJSON('//freegeoip.net/json/?callback=?', function (data) {
-        if (!data || !data.ip)
-          console.log('IP not found');
-        service.locationData = data;
-      }).fail(function () {
-        console.log('$.getJSON() request failed');
-      });
     }
 
     /**

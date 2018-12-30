@@ -16,11 +16,11 @@ ion-tabs.tabs-bottom.hidden .tabs {
 }
 
 ion-content, body {
-  background: #d9d9db;
+  background: #f4f2f5;
 }
 
+#welcome ion-content,
 #login ion-content,
-#link-account ion-content,
 #more-tacos ion-content,
 #sign-up ion-content,
 #settings ion-content {
@@ -178,9 +178,37 @@ taco-item.no-border .item.taco-item {
   color: #39a539;
 }
 
+#welcome img.taco {
+  width: 100%;
+}
+
 /*OVERRIDES*/
 .list {
   padding-top: 0 !important;
+}
+
+ion-popover-view ion-content.scroll-content.ionic-scroll {
+  margin: 0 !important;
+}
+ion-popover-view.fit {
+  height: auto !important;
+  overflow: none;
+}
+ion-popover-view.fit ion-header-bar {
+  position: relative !important;
+}
+ion-popover-view.fit ion-content {
+  position: relative !important;
+  top: 0 !important;
+}
+.platform-android ion-popover-view {
+  margin-top: 12px !important;
+}
+.platform-ios ion-popover-view.fit ion-content ion-item:first-of-type {
+  border-radius: 10px 10px 0 0;
+}
+.platform-ios ion-popover-view.fit ion-content ion-item:last-of-type {
+  border-radius: 0 0 10px 10px;
 }
 
 

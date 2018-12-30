@@ -3,12 +3,15 @@
     .module('taco.sign-up', [])
     .controller('SignUpController', SignUpController);
 
-  function SignUpController($state, $firebaseAuth, $ionicHistory, $ionicPopup, $timeout, firebaseService, authService) {
+  function SignUpController($ionicPopup, $timeout, firebaseService, authService) {
     var $ctrl = this;
 
+    // disallow double taps
+    $ctrl.created = false;
+
     $ctrl.model = {
-      email: "",
-      password: ""
+      email: '',
+      password: ''
     };
 
     $ctrl.user = {
@@ -19,29 +22,32 @@
     };
 
     $ctrl.signUp = signUp;
-    $ctrl.goToLogin = goToLogin;
 
     function signUp() {
+      // short-circuit in case anything fucky is happening
+      if ($ctrl.created) return;
+      else $ctrl.created = true;
+
       // TODO: we need to do some form validating before we sign up a user.
       authService.signUp($ctrl.model.email, $ctrl.model.password)
         .then(saveUser)
         .catch(function(error) {
-          var errorMessage = "";
+          var errorMessage = '';
           switch(error.code) {
-            case "auth/email-already-in-use":
-              errorMessage = "Email already in use";
+            case 'auth/email-already-in-use':
+              errorMessage = 'Email already in use';
               break;
-            case "auth/invalid-email":
-              errorMessage = "Invalid email";
+            case 'auth/invalid-email':
+              errorMessage = 'Invalid email';
               break;
-            case "auth/operation-not-allowed":
-              errorMessage = "Operation not allowed";
+            case 'auth/operation-not-allowed':
+              errorMessage = 'Operation not allowed';
               break;
-            case "auth/weak-password":
-              errorMessage = "Too weak of password";
+            case 'auth/weak-password':
+              errorMessage = 'Too weak of password';
               break;
-            case "auth/network-request-failed":
-              errorMessage = "Network request failed";
+            case 'auth/network-request-failed':
+              errorMessage = 'Network request failed';
               break;
           }
 
@@ -52,6 +58,7 @@
 
           // close the popup after 1 second
           $timeout(function() {
+            $ctrl.created = false;
             myPopup.close();
           }, 1000);
         });
@@ -65,15 +72,6 @@
       delete $ctrl.user.id;
 
       firebaseService.addUser($ctrl.user);
-    }
-
-    function goToLogin() {
-      $ionicHistory.nextViewOptions({
-        disableBack: true,
-        historyRoot: true,
-        disableAnimate: true
-      });
-      $state.go('login');
     }
   }
 })();

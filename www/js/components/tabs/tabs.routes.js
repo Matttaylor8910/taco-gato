@@ -23,6 +23,6 @@
       });
 
     // If no other routes are matched always default to login
-    $urlRouterProvider.otherwise('/sign-up');
+    $urlRouterProvider.otherwise('/welcome');
   }
 })();

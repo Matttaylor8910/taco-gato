@@ -6,16 +6,23 @@
   function CreateGroupController($ionicModal, $state, firebaseService, $ionicHistory) {
     var $ctrl = this;
 
+    // disallow double taps
+    $ctrl.created = false;
+
     $ctrl.createGroup = createGroup;
+    $ctrl.isInvalid = isInvalid;
     $ctrl.group = {
       name: ''
     };
 
     function createGroup() {
-      // todo: add some type of validation.
+      // short-circuit in case anything fucky is happening
+      if ($ctrl.created) return;
+      else $ctrl.created = true;
+
       firebaseService.createGroup($ctrl.group, firebaseService.user)
         .then(function (group) {
-          firebaseService.assignUserToGroup(group.id);
+          firebaseService.assignUserToGroup(group.key);
         });
 
       $ionicHistory.nextViewOptions({
@@ -23,6 +30,10 @@
         historyRoot: true
       });
       $state.go('app.leaderboard');
+    }
+
+    function isInvalid() {
+      return !$ctrl.group.name;
     }
   }
 })();
