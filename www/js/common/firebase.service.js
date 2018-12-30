@@ -45,8 +45,6 @@
       console.log('GROUPS', service.groups);
       console.log('USERS', service.users);
       console.log('EVENTS', _(service.users).map('tacoEvents').flatten().value());
-
-      
     }
 
     /**
