@@ -3,26 +3,22 @@
     .module('taco.tabs')
     .config(config);
 
-  function config($stateProvider, $urlRouterProvider) {
+  function config($stateProvider, $urlRouterProvider, localStorageProvider) {
     $stateProvider
       .state('app', {
         url: '/app',
         abstract: true,
         controller: 'TabsController',
-        templateUrl: 'js/components/tabs/tabs.tpl.html',
-        resolve: {
-          'obj': function ($firebaseArray) {
-            // This resolve is used to wait for firebase data to return
-            // before we continue because 'setOnAuthStateChanged' returns
-            // before firebase does.
-            var dbRef = firebase.database();
-            var tacoEatersRef = dbRef.ref('tacoEaters');
-            return $firebaseArray(tacoEatersRef).$loaded();
-          }
-        }
+        templateUrl: 'js/components/tabs/tabs.tpl.html'
       });
 
-    // If no other routes are matched always default to login
-    $urlRouterProvider.otherwise('/welcome');
+    // If no other routes are matched always default to login if not signed in
+    var user = localStorageProvider.$get().getObject('user');
+    if (user.id) {
+      $urlRouterProvider.otherwise('/app/overview/' + user.id); 
+    }
+    else {
+      $urlRouterProvider.otherwise('/welcome');
+    }
   }
 })();

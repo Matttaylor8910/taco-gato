@@ -12,6 +12,8 @@
 
     var service = {
       user: localStorage.getObject('user'),
+      globalLeaderboard: localStorage.getObject('globalLeaderboard'),
+      groupLeaderboard: localStorage.getObject('groupLeaderboard'),
 
       addUser: addUser,
       editUser: editUser,
@@ -81,6 +83,8 @@
       service.activity = getActivityFeed(service.users);
       service.globalLeaderboard = getGlobalLeaderBoard(service.users, service.last30Days);
       service.groupLeaderboard = getGroupLeaderBoard(service.users, service.last30Days);
+      localStorage.setObject('globalLeaderboard', service.globalLeaderboard);
+      localStorage.setObject('groupLeaderboard', service.groupLeaderboard);
       $rootScope.$broadcast('firebase.leaderboardUpdated');
     }
 
@@ -288,7 +292,10 @@
       if (!hasGroup()) return '';
 
       var group = getGroup(service.user.groupId);
-      return group.name;
+      if (group) {
+        localStorage.set('groupName', group.name);
+      }
+      return localStorage.get('groupName');
     }
 
     function createGroup(group, user) {
