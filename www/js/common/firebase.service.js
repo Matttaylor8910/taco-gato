@@ -31,6 +31,9 @@
       deleteGroup: deleteGroup,
       assignUserToGroup: assignUserToGroup,
       unassignUserFromGroup: unassignUserFromGroup,
+
+      setLast30Days: setLast30Days,
+      last30Days: settings.last30Days,
       setUpActivityAndLeaderboard: setUpActivityAndLeaderboard
     };
 
@@ -52,7 +55,7 @@
         var eaters = snapshotToArray(snapshot);
         service.users = _.map(eaters, mapUsers);
 
-        setUpActivityAndLeaderboard(settings.last30Days);
+        setUpActivityAndLeaderboard();
 
         $rootScope.$broadcast('firebase.usersUpdated');
       });
@@ -70,10 +73,15 @@
       addUserRef();
     }
 
-    function setUpActivityAndLeaderboard(last30Days) {
+    function setLast30Days(last30Days) {
+      service.last30Days = last30Days;
+    }
+
+    function setUpActivityAndLeaderboard() {
       service.activity = getActivityFeed(service.users);
-      service.globalLeaderboard = getGlobalLeaderBoard(service.users, last30Days);
-      service.groupLeaderboard = getGroupLeaderBoard(service.users, last30Days);
+      service.globalLeaderboard = getGlobalLeaderBoard(service.users, service.last30Days);
+      service.groupLeaderboard = getGroupLeaderBoard(service.users, service.last30Days);
+      $rootScope.$broadcast('firebase.leaderboardUpdated');
     }
 
     function filterOutBadUsers(user) {
@@ -248,7 +256,7 @@
       var firebaseUser = getUser(user.id);
       settings.setProperty('blocked', firebaseUser.blocked);
 
-      setUpActivityAndLeaderboard(settings.last30Days);
+      setUpActivityAndLeaderboard();
     }
 
     function cleanUpTacos(tacoEvents) {

@@ -7,7 +7,7 @@
     ></button>
   </ion-nav-buttons>
   <ion-nav-title id="leaderboard-header" ng-click="$ctrl.showPopover($event)">
-    {{ $ctrl.last30Days ? '30 Days' : 'All Time' }} 
+    {{ $ctrl.firebase.last30Days ? '30 Days' : 'All Time' }} 
     <i class="icon ion-chevron-down"></i>
     🌮🏆
   </ion-nav-title>

@@ -3,13 +3,12 @@
     .module('taco.leaderboard', [])
     .controller('LeaderboardController', LeaderboardController);
 
-  function LeaderboardController($rootScope, $scope, $timeout, $state, firebaseService, settings, $ionicPopover, $ionicScrollDelegate) {
+  function LeaderboardController($rootScope, $scope, $timeout, $state, firebaseService, $ionicPopover, $ionicScrollDelegate) {
     var $ctrl = this;
 
     $ctrl.hasGroup = firebaseService.hasGroup;
     $ctrl.groupName = firebaseService.getGroupName;
     $ctrl.firebase = firebaseService;
-    $ctrl.last30Days = settings.last30Days;
 
     $ctrl.showPopover = showPopover;
     $ctrl.changeDateSelection = changeDateSelection;
@@ -18,7 +17,7 @@
     $ctrl.displayGroup = displayGroup;
 
     $scope.$on('$ionicView.beforeEnter', reloadData);
-    $rootScope.$on('firebase.usersUpdated', reloadData);
+    $rootScope.$on('firebase.leaderboardUpdated', reloadData);
     $rootScope.$on('firebase.joinedGroup', displayGroup);
 
     init();
@@ -40,11 +39,10 @@
       $scope.popover.hide();
       
       // if they picked the opposite selection, update the leaderboards and reload data
-      if (last30Days !== $ctrl.last30Days) {
+      if (last30Days !== firebaseService.last30Days) {
         $timeout(function() {
-          $ctrl.last30Days = last30Days;
-          firebaseService.setUpActivityAndLeaderboard(last30Days);
-          reloadData();
+          firebaseService.setLast30Days(last30Days);
+          firebaseService.setUpActivityAndLeaderboard();
         });
       }
     }
