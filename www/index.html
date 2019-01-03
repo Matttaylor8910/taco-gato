@@ -78,7 +78,7 @@
 
     <ion-nav-view></ion-nav-view>
 
-    <div class="blocked" ng-if="$ctrl.settings.blocked === true">
+    <div class="blocked" ng-class="{'block-active': $ctrl.settings.blocked === true}">
       You're blocked.
     </div>
   </body>

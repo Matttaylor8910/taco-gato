@@ -52,11 +52,14 @@ ion-content.has-tabs.no-tabs {
   z-index: 100;
   background: black;
   position: absolute;
-  display: flex;
   justify-content: center;
   align-items: center;
   color: beige;
   font-size: 24px;
+  display: none;
+}
+.blocked.block-active {
+  display: flex;
 }
 
 .tab-item.tab-item-active {
