@@ -1,9 +1,9 @@
 (function () {
   angular
-    .module('taco.leaderboard', [])
+    .module('taco.leaderboard', ['ngCordova'])
     .controller('LeaderboardController', LeaderboardController);
 
-  function LeaderboardController($rootScope, $scope, $timeout, $state, firebaseService, $ionicPopover, $ionicScrollDelegate) {
+  function LeaderboardController($rootScope, $scope, $timeout, $state, firebaseService, $ionicPopover, $ionicScrollDelegate, $cordovaSocialSharing) {
     var $ctrl = this;
 
     $ctrl.hasGroup = firebaseService.hasGroup;
@@ -15,6 +15,7 @@
     $ctrl.goToGroup = goToGroup;
     $ctrl.displayGlobal = displayGlobal;
     $ctrl.displayGroup = displayGroup;
+    $ctrl.inviteFriends = inviteFriends;
 
     $scope.$on('$ionicView.beforeEnter', reloadData);
     $rootScope.$on('firebase.leaderboardUpdated', reloadData);
@@ -69,6 +70,21 @@
       $ctrl.leaderboard = firebaseService.groupLeaderboard;
       $ctrl.displayingGlobal = false;
       $ionicScrollDelegate.resize();
+    }
+
+    function inviteFriends() {
+      var message = 'Try to eat more tacos than me on Taco Gato! Join my group: ' + $ctrl.groupName();
+      var subject = message;
+      var file = null;
+      var link = 'https://tacogato.app/';
+
+      $cordovaSocialSharing
+        .share(message, subject, file, link) // Share via native share sheet
+        .then(function(result) {
+          // Success!
+        }, function(err) {
+          // An error occured. Show a message to the user
+        });
     }
   }
 })();

@@ -51,5 +51,11 @@
         </leaderboard-list-item>
       </div>
     </div>
+
+    <div class="invite" ng-if="$ctrl.leaderboard.length === 1" ng-click="$ctrl.inviteFriends()">
+      Want to compete with your friends? 
+      <button class="button button-block button-positive">Invite them to Taco Gato!</button>
+    </div>
+
   </ion-content>
 </ion-view>
