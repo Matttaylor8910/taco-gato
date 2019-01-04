@@ -17,11 +17,11 @@
     $ctrl.user = {
       name: '',
       realName: '',
-      firebaseUserId: '',
-      tacos: undefined
+      firebaseUserId: ''
     };
 
     $ctrl.signUp = signUp;
+    $ctrl.isValid = isValid;
 
     function signUp() {
       // short-circuit in case anything fucky is happening
@@ -62,6 +62,10 @@
             myPopup.close();
           }, 1000);
         });
+    }
+
+    function isValid() {
+      return !$ctrl.created && $ctrl.user.name && $ctrl.user.realName && $ctrl.model.email && $ctrl.model.password;
     }
 
     function saveUser(user) {
