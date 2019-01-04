@@ -381,13 +381,18 @@
       var prop = last30Days ? 'tacos30Days' : 'tacos';
 
       for (var i = 0; i < sorted.length; i++) {
-        if (i > 0 && sorted[i - 1][prop] === sorted[i][prop]) {
+        sorted[i].displayTacos = sorted[i][prop];
+        
+        if (sorted[i].displayTacos === 0) {
+          sorted[i].rank = '-';
+        }
+        else if (i > 0 && sorted[i - 1][prop] === sorted[i][prop]) {
           sorted[i].rank = sorted[i - 1].rank;
         }
         else {
           sorted[i].rank = i + 1;
         }
-        sorted[i].displayTacos = sorted[i][prop];
+
         leaderboard.push(sorted[i]);
       }
 
