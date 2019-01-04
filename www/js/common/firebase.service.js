@@ -57,6 +57,13 @@
         var eaters = snapshotToArray(snapshot);
         service.users = _.map(eaters, mapUsers);
 
+        // make sure we update the user when there are changes
+        // this is necessary to make the group update correctly
+        if (service.user) {
+          service.user = getUser(service.user.id);
+          localStorage.setObject('user', service.user);
+        }
+
         setUpActivityAndLeaderboard();
 
         $rootScope.$broadcast('firebase.usersUpdated');
