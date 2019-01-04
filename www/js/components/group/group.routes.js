@@ -34,16 +34,6 @@
             controllerAs: '$ctrl'
           }
         }
-      })
-      .state('app.join-group', {
-        url: '/join-group',
-        views: {
-          'leaderboard': {
-            templateUrl: 'js/components/group/join-group/join-group.tpl.html',
-            controller: 'JoinGroupController',
-            controllerAs: '$ctrl'
-          }
-        }
-      })
+      });
   }
 })();

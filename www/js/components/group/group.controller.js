@@ -1,14 +1,13 @@
 (function () {
   angular
-    .module('taco.group', ['taco.create-group', 'taco.find-group', 'taco.join-group'])
+    .module('taco.group', ['taco.create-group', 'taco.find-group'])
     .controller('GroupController', GroupController);
 
-  function GroupController($ionicModal, $state, firebaseService, $ionicHistory) {
+  function GroupController($state, firebaseService, $ionicHistory) {
     var $ctrl = this;
 
     $ctrl.goToCreateGroup = goToCreateGroup;
     $ctrl.goToFindGroup = goToFindGroup;
-    $ctrl.goToJoinGroup = goToJoinGroup;
     $ctrl.hasGroup = firebaseService.hasGroup;
     $ctrl.groupName = firebaseService.getGroupName;
 
@@ -18,10 +17,6 @@
 
     function goToFindGroup() {
       $state.go('app.find-group')
-    }
-
-    function goToJoinGroup() {
-      $state.go('app.join-group')
     }
 
     $ctrl.leaveGroup = leaveGroup;
