@@ -24,7 +24,11 @@
           $ctrl.user = localStorage.getObject('overviewUser');
           $ctrl.activity = localStorage.getObject('overviewActivity');
           $ctrl.loading = !$ctrl.user;
-          updateTacoCounter();
+          
+          // only update the counter if there are tacos to update
+          if ($ctrl.user && $ctrl.user.tacos) {
+            updateTacoCounter();
+          }
         }
         else {
           $ctrl.user = undefined;
