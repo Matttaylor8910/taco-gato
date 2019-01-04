@@ -116,6 +116,7 @@
         // date and time stuff
         event.moment = moment.unix(event.time);
         var day = roundDown(event.moment);
+        event.timeAmPm = event.moment.format('h:mm a');
         event.daysFromToday = roundDown(moment()).diff(day, 'days');
         event.grouping = getGrouping(day, event.daysFromToday);
 
