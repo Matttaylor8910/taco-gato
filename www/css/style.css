@@ -186,6 +186,15 @@ taco-item.no-border .item.taco-item {
 }
 
 /*OVERRIDES*/
+.skinny-button {
+  display: block;
+  margin: auto;
+  min-height: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-transform: uppercase;
+}
+
 .list {
   padding-top: 0 !important;
 }

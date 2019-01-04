@@ -10,7 +10,7 @@
       <div class="list">
         <label class="item item-input item-stacked-label">
           <span class="input-label">Email</span>
-          <input type="text" placeholder="(Required)" ng-model="$ctrl.model.email" autocomplete="off" autocorrect="off"
+          <input type="email" placeholder="(Required)" ng-model="$ctrl.model.email" autocomplete="off" autocorrect="off"
                  autocapitalize="off" spellcheck="false">
         </label>
         <label class="item item-input item-stacked-label">
@@ -33,7 +33,7 @@
         type="submit"
         class="button button-block button-positive"
         ng-disabled="!$ctrl.isValid()">
-        Get Started
+        {{ $ctrl.created ? 'Preparing tacos... 🌮' : 'Get Started' }}
       </button>
     </form>
   </ion-content>

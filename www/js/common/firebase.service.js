@@ -100,7 +100,7 @@
     }
 
     function mapUsers(user) {
-      if (user.id === service.user.id) {
+      if (service.user && user.id === service.user.id) {
         settings.setProperty('blocked', user.blocked);
       }
 
@@ -159,7 +159,7 @@
     }
 
     function addUserRef() {
-      if (service.user.id) {
+      if (service.user && service.user.id) {
         userRef = dbRef.ref('tacoEaters/' + service.user.id + '/tacoEvents');
         userTacoEvents = $firebaseArray(userRef);
       }
@@ -280,7 +280,7 @@
     }
 
     function hasGroup() {
-      return !_(service.user.groupId).isEmpty();
+      return service.user && !_(service.user.groupId).isEmpty();
     }
 
     function getGroupName() {
@@ -366,7 +366,7 @@
     }
 
     function limitGlobalLeaderboard(user, index) {
-      return index < 10 || user.id === service.user.id;
+      return index < 10 || (service.user && user.id === service.user.id);
     }
 
     function getGroupLeaderBoard(users, last30Days) {
@@ -412,7 +412,7 @@
     }
 
     function filterGroupUsers(user) {
-      var groupId = service.user.groupId;
+      var groupId = service.user ? service.user.groupId : '';
       if (!groupId) return true;
 
       return user.groupId === groupId;
