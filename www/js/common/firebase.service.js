@@ -159,20 +159,7 @@
 
     function addUser(user) {
       user.tacoEvents = [];
-      // only create a tacoEvent if this user started with some tacos
-      if (user.tacos > 0) {
-        user.tacoEvents.push({
-          initial: true, // a marker we can key off for how many you started with
-          tacos: user.tacos,
-          time: moment().unix()
-        });
-      }
-      delete user.tacos;
-
-      if (service.locationData) {
-        user.info = service.locationData;
-      }
-
+      
       if (ionic.Platform) {
         user.device = ionic.Platform.device().uuid;
         if (!user.device) {
