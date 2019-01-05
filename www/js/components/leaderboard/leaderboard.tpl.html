@@ -1,13 +1,13 @@
 <ion-view id="leaderboard">
   <ion-nav-buttons side="left">
     <button
-      class="button button-icon button-clear button-positive"
-      ng-class="($ctrl.hasGroup())? 'ion-person-stalker' : 'ion-person-add'"
+      class="button button-icon button-clear button-positive ion-person-stalker"
+      ng-if="$ctrl.hasGroup()"
       ng-click="$ctrl.goToGroup()"
     ></button>
   </ion-nav-buttons>
   <ion-nav-title id="leaderboard-header" ng-click="$ctrl.showPopover($event)">
-    {{ $ctrl.last30Days ? '30 Days' : 'All Time' }} 
+    {{ $ctrl.firebase.last30Days ? '30 Days' : 'All Time' }} 
     <i class="icon ion-chevron-down"></i>
     🌮🏆
   </ion-nav-title>
@@ -23,6 +23,12 @@
          ng-if="$ctrl.hasGroup()"
       >
         {{ $ctrl.groupName() }}
+      </a>
+      <a class="tab-item join-group-item"
+         ng-click="$ctrl.goToGroup()"
+         ng-if="!$ctrl.hasGroup()"
+      >
+        <i class="icon ion-person-add">Join Group</i>
       </a>
       <a class="tab-item"
          ng-class="($ctrl.displayingGlobal)? 'tab-item-active' : ''"
@@ -45,5 +51,11 @@
         </leaderboard-list-item>
       </div>
     </div>
+
+    <div class="invite" ng-if="$ctrl.leaderboard.length === 1" ng-click="$ctrl.inviteFriends()">
+      Want to compete with your friends? 
+      <button class="button button-block button-positive">Invite them to Taco Gato!</button>
+    </div>
+
   </ion-content>
 </ion-view>

@@ -10,7 +10,7 @@
       <div class="list">
         <label class="item item-input item-stacked-label">
           <span class="input-label">Email</span>
-          <input type="text" placeholder="(Required)" ng-model="$ctrl.model.email" autocomplete="off" autocorrect="off"
+          <input type="email" placeholder="(Required)" ng-model="$ctrl.model.email" autocomplete="off" autocorrect="off"
                  autocapitalize="off" spellcheck="false">
         </label>
         <label class="item item-input item-stacked-label">
@@ -19,7 +19,7 @@
                  autocorrect="off" autocapitalize="off" spellcheck="false">
         </label>
         <label class="item item-input item-stacked-label">
-          <span class="input-label">What's your display name?</span>
+          <span class="input-label">What's your taco name?</span>
           <input type="text" placeholder="(e.g. Tacopolis)" ng-model="$ctrl.user.name" autocomplete="off"
                  autocorrect="off" autocapitalize="on" spellcheck="false">
         </label>
@@ -28,16 +28,12 @@
           <input type="text" placeholder="(e.g. John Doe)" ng-model="$ctrl.user.realName" autocomplete="off"
                  autocorrect="off" autocapitalize="on" spellcheck="false">
         </label>
-        <!-- <label class="item item-input item-stacked-label">
-          <span class="input-label">How many tacos have you eaten?</span>
-          <input type="number" placeholder="0" ng-model="$ctrl.user.tacos">
-        </label> -->
       </div>
       <button
         type="submit"
         class="button button-block button-positive"
-        ng-disabled="$ctrl.created">
-        Get Started
+        ng-disabled="!$ctrl.isValid()">
+        {{ $ctrl.created ? 'Preparing tacos... 🌮' : 'Get Started' }}
       </button>
     </form>
   </ion-content>

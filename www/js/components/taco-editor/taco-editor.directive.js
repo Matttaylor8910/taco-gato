@@ -45,13 +45,14 @@
       }
 
       function save(tacos) {
-        if ($scope.event) {
-          firebaseService.editTacos($scope.event, tacos);
-        }
-        else {
-          firebaseService.addTacos(tacos);
-        }
-        $scope.modal.hide();
+        $scope.modal.hide().then(function() {
+          if ($scope.event) {
+            firebaseService.editTacos($scope.event, tacos);
+          }
+          else {
+            firebaseService.addTacos(tacos);
+          }
+        });
       }
 
       function setConfirmRemove(remove) {
@@ -59,8 +60,9 @@
       }
 
       function remove() {
-        firebaseService.deleteTacos($scope.event);
-        $scope.modal.hide();
+        $scope.modal.hide().then(function() {
+          firebaseService.deleteTacos($scope.event);
+        });
       }
 
       function increment() {

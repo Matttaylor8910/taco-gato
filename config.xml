@@ -14,6 +14,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <preference name="orientation" value="portrait" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
@@ -88,6 +89,9 @@
     <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
     <icon src="resources/ios/icon/icon-small@3x.png" />
     <allow-navigation href="http://10.0.255.69:8100" />
+    <plugin name="cordova-plugin-x-socialsharing" spec="https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git">
+        <variable name="ANDROID_SUPPORT_V4_VERSION" value="24.1.1+" />
+    </plugin>
     <engine name="ios" spec="4.5.4" />
     <engine name="android" spec="7.0.0" />
 </widget>

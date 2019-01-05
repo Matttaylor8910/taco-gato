@@ -5,6 +5,12 @@
   border-bottom: 1px solid #000;
   color: #000;
 }
+#leaderboard .join-group-item i {
+  font-size: 14px;
+}
+#leaderboard .join-group-item i:before {
+  margin-right: 5px;
+}
 /* highlight "you" */
 #leaderboard .you ion-item {
   background: #fffcc1;
@@ -31,6 +37,16 @@
 /* fix the leaderboard list item height */
 #leaderboard .item.leaderboard-list-item {
   height: 58px;
+}
+#leaderboard .invite {
+  margin: 50px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 16px;
+}
+#leaderboard .invite button {
+  margin-top: 15px;
 }
 
 #leaderboard-header .ion-chevron-down {

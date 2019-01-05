@@ -5,7 +5,7 @@ See it live: https://tacogato.app/
 
 taco-gato.keystore
 
-Keystone password: tacogato
+Keystore password: tacogato
 
 What is your first and last name?
   [Unknown]:  Daniel Ryan

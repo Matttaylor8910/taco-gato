@@ -12,6 +12,8 @@
 
     var service = {
       user: localStorage.getObject('user'),
+      globalLeaderboard: localStorage.getObject('globalLeaderboard'),
+      groupLeaderboard: localStorage.getObject('groupLeaderboard'),
 
       addUser: addUser,
       editUser: editUser,
@@ -31,8 +33,10 @@
       deleteGroup: deleteGroup,
       assignUserToGroup: assignUserToGroup,
       unassignUserFromGroup: unassignUserFromGroup,
+      setLast30Days: setLast30Days,
+      last30Days: settings.last30Days,
       setUpActivityAndLeaderboard: setUpActivityAndLeaderboard,
-      
+
       // temp migration step
       migrateTacos: migrateTacos
     };
@@ -61,7 +65,14 @@
         var eaters = snapshotToArray(snapshot);
         service.users = _.map(eaters, mapUsers);
 
-        setUpActivityAndLeaderboard(settings.last30Days);
+        // make sure we update the user when there are changes
+        // this is necessary to make the group update correctly
+        if (service.user) {
+          service.user = getUser(service.user.id);
+          localStorage.setObject('user', service.user);
+        }
+
+        setUpActivityAndLeaderboard();
 
         $rootScope.$broadcast('firebase.usersUpdated');
       });
@@ -79,10 +90,17 @@
       addUserRef();
     }
 
-    function setUpActivityAndLeaderboard(last30Days) {
+    function setLast30Days(last30Days) {
+      service.last30Days = last30Days;
+    }
+
+    function setUpActivityAndLeaderboard() {
       service.activity = getActivityFeed(service.users);
-      service.globalLeaderboard = getGlobalLeaderBoard(service.users, last30Days);
-      service.groupLeaderboard = getGroupLeaderBoard(service.users, last30Days);
+      service.globalLeaderboard = getGlobalLeaderBoard(service.users, service.last30Days);
+      service.groupLeaderboard = getGroupLeaderBoard(service.users, service.last30Days);
+      localStorage.setObject('globalLeaderboard', service.globalLeaderboard);
+      localStorage.setObject('groupLeaderboard', service.groupLeaderboard);
+      $rootScope.$broadcast('firebase.leaderboardUpdated');
     }
 
     function filterOutBadUsers(user) {
@@ -90,7 +108,7 @@
     }
 
     function mapUsers(user) {
-      if (user.id === service.user.id) {
+      if (service.user && user.id === service.user.id) {
         settings.setProperty('blocked', user.blocked);
       }
 
@@ -113,6 +131,7 @@
         // date and time stuff
         event.moment = moment.unix(event.time);
         var day = roundDown(event.moment);
+        event.timeAmPm = event.moment.format('h:mm a');
         event.daysFromToday = roundDown(moment()).diff(day, 'days');
         event.grouping = getGrouping(day, event.daysFromToday);
 
@@ -148,7 +167,7 @@
     }
 
     function addUserRef() {
-      if (service.user.id) {
+      if (service.user && service.user.id) {
         userRef = dbRef.ref('tacoEaters/' + service.user.id + '/tacoEvents');
         userTacoEvents = $firebaseArray(userRef);
       }
@@ -156,20 +175,7 @@
 
     function addUser(user) {
       user.tacoEvents = [];
-      // only create a tacoEvent if this user started with some tacos
-      if (user.tacos > 0) {
-        user.tacoEvents.push({
-          initial: true, // a marker we can key off for how many you started with
-          tacos: user.tacos,
-          time: moment().unix()
-        });
-      }
-      delete user.tacos;
-
-      if (service.locationData) {
-        user.info = service.locationData;
-      }
-
+      
       if (ionic.Platform) {
         user.device = ionic.Platform.device().uuid;
         if (!user.device) {
@@ -257,7 +263,7 @@
       var firebaseUser = getUser(user.id);
       settings.setProperty('blocked', firebaseUser.blocked);
 
-      setUpActivityAndLeaderboard(settings.last30Days);
+      setUpActivityAndLeaderboard();
     }
 
     function cleanUpTacos(tacoEvents) {
@@ -282,14 +288,17 @@
     }
 
     function hasGroup() {
-      return !_(service.user.groupId).isEmpty();
+      return service.user && !_(service.user.groupId).isEmpty();
     }
 
     function getGroupName() {
       if (!hasGroup()) return '';
 
       var group = getGroup(service.user.groupId);
-      return group.name;
+      if (group) {
+        localStorage.set('groupName', group.name);
+      }
+      return localStorage.get('groupName');
     }
 
     function createGroup(group, user) {
@@ -365,7 +374,7 @@
     }
 
     function limitGlobalLeaderboard(user, index) {
-      return index < 10 || user.id === service.user.id;
+      return index < 10 || (service.user && user.id === service.user.id);
     }
 
     function getGroupLeaderBoard(users, last30Days) {
@@ -388,13 +397,18 @@
       var prop = last30Days ? 'tacos30Days' : 'tacos';
 
       for (var i = 0; i < sorted.length; i++) {
-        if (i > 0 && sorted[i - 1][prop] === sorted[i][prop]) {
+        sorted[i].displayTacos = sorted[i][prop];
+        
+        if (sorted[i].displayTacos === 0) {
+          sorted[i].rank = '-';
+        }
+        else if (i > 0 && sorted[i - 1][prop] === sorted[i][prop]) {
           sorted[i].rank = sorted[i - 1].rank;
         }
         else {
           sorted[i].rank = i + 1;
         }
-        sorted[i].displayTacos = sorted[i][prop];
+
         leaderboard.push(sorted[i]);
       }
 
@@ -406,7 +420,7 @@
     }
 
     function filterGroupUsers(user) {
-      var groupId = service.user.groupId;
+      var groupId = service.user ? service.user.groupId : '';
       if (!groupId) return true;
 
       return user.groupId === groupId;

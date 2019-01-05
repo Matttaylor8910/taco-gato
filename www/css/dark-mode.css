@@ -63,6 +63,9 @@ body.dark-mode,
 .dark-mode #leaderboard .leaderboard-name .group {
   color: #ddd;
 }
+.dark-mode #leaderboard .invite {
+  color: #fff;
+}
 .dark-mode.platform-ios .popover-arrow:after {
   background-color: #394046 !important;
 }

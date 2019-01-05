@@ -3,7 +3,7 @@
     .module('taco.overview', [])
     .controller('OverviewController', OverviewController);
 
-  function OverviewController($scope, $rootScope, $state, $timeout, $ionicHistory, firebaseService, settings) {
+  function OverviewController($scope, $rootScope, $state, $timeout, $ionicHistory, firebaseService, settings, localStorage) {
     var $ctrl = this;
 
     $ctrl.tacoCounter = 0;
@@ -17,11 +17,25 @@
 
     function beforeEnter() {
       if ($state.params.userId) {
-        $ctrl.user = undefined;
-        $ctrl.activity = undefined;
         $ctrl.userId = $state.params.userId;
         $ctrl.you = $ctrl.firebase.user.id === $ctrl.userId;
-        $ctrl.loading = true;
+
+        if ($ctrl.you) {
+          $ctrl.user = localStorage.getObject('overviewUser');
+          $ctrl.activity = localStorage.getObject('overviewActivity');
+          $ctrl.loading = !$ctrl.user;
+          
+          // only update the counter if there are tacos to update
+          if ($ctrl.user && $ctrl.user.tacos) {
+            updateTacoCounter();
+          }
+        }
+        else {
+          $ctrl.user = undefined;
+          $ctrl.activity = undefined;
+          $ctrl.loading = true;
+        }
+
         if (firebaseService.users) {
           getUserFromFirebase();
         }
@@ -40,12 +54,9 @@
     }
 
     function getUserFromFirebase() {
-      $ctrl.user = firebaseService.getUser($ctrl.userId);
-      if ($ctrl.user) {
-        updateTacoCounter();
-        $ctrl.error = false;
-
-        $ctrl.activity = _($ctrl.user.tacoEvents)
+      var user = firebaseService.getUser($ctrl.userId);
+      if (user) {
+        var activity = _(user.tacoEvents)
           .flatten()
           .sortBy("time")
           .reverse()
@@ -58,6 +69,25 @@
             };
           })
           .value();
+        
+        // if the tacos for each event in activity has changed from what is cached, update it
+        if (JSON.stringify(_.map(activity, 'tacos')) !== JSON.stringify(_.map($ctrl.activity, 'tacos'))) {
+          $ctrl.activity = activity;
+        }
+
+        // if anything about the user has changed, update the user
+        if (JSON.stringify(user) !== JSON.stringify($ctrl.user)) {
+          $ctrl.user = user;
+        }
+
+        // if we're looking at the user's overview, cache the data
+        if ($ctrl.you) {
+          localStorage.setObject('overviewUser', $ctrl.user);
+          localStorage.setObject('overviewActivity', $ctrl.activity);
+        }
+
+        $ctrl.error = false;
+        updateTacoCounter();
       }
       else {
         $ctrl.error = true;
@@ -66,15 +96,20 @@
     }
 
     function updateTacoCounter() {
+      // don't allow two functions to update the counter at the same time
+      if ($ctrl.tacoCounterStarted) {
+        return;
+      }
+
       // if the taco counter is at 0 and we're definitely going to increment it,
       // start the counter at 1 so it never incorrectly shows that you have 0 tacos
-      if ($ctrl.tacoCounter === 0 && $ctrl.user.tacos) {
+      if ($ctrl.tacoCounter === 0 && $ctrl.user.tacos > 0) {
         $ctrl.tacoCounter = 1;
       }
 
       // only add the tacos that aren't accounted for yet in the counter
-      var tacosToIncrement = $ctrl.user.tacos - $ctrl.tacoCounter;
-      incrementTacoDelay(tacosToIncrement);
+      $ctrl.tacoCounterStarted = true;
+      incrementTacoDelay();
     }
 
     function clearUser() {
@@ -82,22 +117,27 @@
       $state.go('welcome');
     }
 
-    function incrementTacoDelay(tacosRemaining, delay) {
+    function incrementTacoDelay(delay) {
       // set a delay that ensures the counter is correct within 1 second, but only
       // if there is no delay passed in (from recursive call)
+      var tacosRemaining = $ctrl.user.tacos - $ctrl.tacoCounter;
       var DELAY = delay || (1000 / Math.abs(tacosRemaining));
 
-      if (tacosRemaining !== 0) {
+      // stop if there are no more tacos to update the counter
+      if (tacosRemaining === 0) {
+        $ctrl.tacoCounterStarted = false;
+      }
+
+      // otherwise update the counter and call the function again
+      else {
         $timeout(function () {
           if (tacosRemaining > 0) {
             $ctrl.tacoCounter++;
-            tacosRemaining--;
           }
           else {
             $ctrl.tacoCounter--;
-            tacosRemaining++;
           }
-          incrementTacoDelay(tacosRemaining, DELAY);
+          incrementTacoDelay(DELAY);
         }, DELAY);
       }
     }

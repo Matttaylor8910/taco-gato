@@ -15,7 +15,7 @@
 
     $ctrl.getGroupCreatorName = getGroupCreatorName;
     function getGroupCreatorName(group) {
-      if (!group.creatorId) return 'TacoGato Staff';
+      if (!group.creatorId) return 'Taco Gato Staff';
 
       var user = _(firebaseService.users)
         .find(function (user) {

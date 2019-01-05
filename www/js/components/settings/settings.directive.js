@@ -16,6 +16,7 @@
     function link($scope, $elem) {
       $scope.settings = settings;
 
+      $scope.setLast30Days = setLast30Days;
       $scope.updateUser = updateUser;
       $scope.isInvalid = isInvalid;
       $scope.logOut = logOut;
@@ -36,6 +37,12 @@
       function openModal () {
         $scope.editableUser = _.clone(firebaseService.user);
         $scope.modal.show();
+      }
+
+      function setLast30Days(last30Days) {
+        settings.setProperty('last30Days', last30Days);
+        firebaseService.setLast30Days(last30Days);
+        firebaseService.setUpActivityAndLeaderboard();
       }
 
       function updateUser() {

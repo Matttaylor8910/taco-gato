@@ -7,6 +7,14 @@ body {
   color: #fff;
 }
 
+.privacy {
+  max-width: 800px;
+  margin: 20px;
+}
+.privacy a {
+  color: #fff;
+}
+
 h1 {
   text-transform: uppercase;
   font-size: 50px;

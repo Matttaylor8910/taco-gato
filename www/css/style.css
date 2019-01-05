@@ -52,11 +52,14 @@ ion-content.has-tabs.no-tabs {
   z-index: 100;
   background: black;
   position: absolute;
-  display: flex;
   justify-content: center;
   align-items: center;
   color: beige;
   font-size: 24px;
+  display: none;
+}
+.blocked.block-active {
+  display: flex;
 }
 
 .tab-item.tab-item-active {
@@ -183,6 +186,15 @@ taco-item.no-border .item.taco-item {
 }
 
 /*OVERRIDES*/
+.skinny-button {
+  display: block;
+  margin: auto;
+  min-height: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-transform: uppercase;
+}
+
 .list {
   padding-top: 0 !important;
 }

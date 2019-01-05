@@ -17,18 +17,18 @@
     $ctrl.user = {
       name: '',
       realName: '',
-      firebaseUserId: '',
-      tacos: undefined
+      firebaseUserId: ''
     };
 
     $ctrl.signUp = signUp;
+    $ctrl.isValid = isValid;
 
     function signUp() {
       // short-circuit in case anything fucky is happening
       if ($ctrl.created) return;
       else $ctrl.created = true;
 
-      // TODO: we need to do some form validating before we sign up a user.
+      // sign up the user with the info provided and catch any errors
       authService.signUp($ctrl.model.email, $ctrl.model.password)
         .then(saveUser)
         .catch(function(error) {
@@ -64,8 +64,11 @@
         });
     }
 
+    function isValid() {
+      return !$ctrl.created && $ctrl.user.name && $ctrl.user.realName && $ctrl.model.email && $ctrl.model.password;
+    }
+
     function saveUser(user) {
-      $ctrl.user.tacos = parseInt($ctrl.user.tacos || 0);
       $ctrl.user.firebaseUserId = user.uid;
 
       // Random 'id' key on user.
