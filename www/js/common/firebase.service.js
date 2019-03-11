@@ -116,7 +116,10 @@
 
     function mapTacoEvents(events, user) {
       // reverse the order so newest are displayed first
-      var tacoEvents = _.reverse(_.map(events));
+      var tacoEvents = _(events)
+        .sortBy('time')
+        .reverse()
+        .value();
 
       // add the moment for date stuff and userName to each event
       _.each(tacoEvents, function (event, index) {
@@ -211,16 +214,17 @@
       tacoEatersCollection.$save(index);
     }
 
-    function addTacos(numTacos) {
+    function addTacos(numTacos, time) {
       return userTacoEvents.$add({
         tacos: numTacos,
-        time: moment().unix()
+        time: time
       });
     }
 
-    function editTacos(event, tacos) {
+    function editTacos(event, tacos, time) {
       var index = _.findIndex(userTacoEvents, {time: event.time});
       userTacoEvents[index].tacos = tacos;
+      userTacoEvents[index].time = time;
       userTacoEvents.$save(index);
     }
 

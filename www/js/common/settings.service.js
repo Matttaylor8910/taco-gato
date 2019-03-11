@@ -3,7 +3,7 @@
     .module('taco')
     .factory('settings', settings);
 
-  function settings(localStorage) {
+  function settings($timeout, $ionicPlatform, localStorage) {
     var service = {
       isDevice: false,
       darkMode: setting('darkMode', true),
@@ -15,14 +15,14 @@
       setProperty: setProperty
     };
 
-    init();
+    $ionicPlatform.ready(init);
 
     return service;
 
     function init() {
-      ionic.Platform.ready(function(){
-        handleDarkModeStatusBar(service.darkMode);
+      $timeout(function() {
         service.isDevice = true;
+        handleDarkModeStatusBar(service.darkMode);
       });
     }
 
@@ -34,7 +34,10 @@
     function setProperty(property, value) {
       service[property] = value;
       localStorage.setObject(property, value);
-      handleDarkModeStatusBar(value);
+
+      if (property === 'darkMode') {
+        handleDarkModeStatusBar(value);
+      }
     }
 
     /**

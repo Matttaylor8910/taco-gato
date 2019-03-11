@@ -17,6 +17,16 @@
     </div>
 
     <div ng-class="{'disabled': confirmRemove}">
+      <div class="time-picker-container">
+        <label>Cuando?</label>
+        <span class="time-text" ng-bind="time.text"></span>
+        <input type="datetime-local" ng-model="time.value" ng-change="timeChanged()">
+      </div>
+
+      <div class="future-disclaimer" ng-if="future">
+        That date and time is in the future!
+      </div>
+
       <div class="more-tacos-container">
         <button
           class="button button-icon ion-minus"
@@ -34,7 +44,7 @@
 
       <button
         class="button button-block button-clear button-positive"
-        ng-disabled="tacos === 0 || tacos === event.tacos"
+        ng-disabled="isDisabled()"
         ng-click="save(tacos)">
         {{ event ? 'Listo' : 'Bueno' }}
       </button>

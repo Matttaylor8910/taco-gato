@@ -185,6 +185,38 @@ taco-item.no-border .item.taco-item {
   width: 100%;
 }
 
+/* time picker */
+.time-picker-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+.time-picker-container label {
+  font-size: 24px;
+}
+.time-picker-container input {
+  opacity: 0;
+}
+.time-picker-container .time-text {
+  position: absolute;
+  right: 20px;
+  font-size: 18px;
+  color: #397df5;
+  border: 2px solid #397df5;
+  border-radius: 20px;
+  padding: 5px 15px;
+  min-width: 120px;
+  text-align: center;
+}
+.future-disclaimer {
+  text-align: center;
+  font-size: 16px;
+  color: #ef473a;
+}
+
+
+
 /*OVERRIDES*/
 .skinny-button {
   display: block;
@@ -229,5 +261,15 @@ ion-popover-view.fit ion-content {
   ion-content {
     padding-left: calc((100% - 800px) / 2) !important;
     padding-right: calc((100% - 800px) / 2) !important;
+  }
+}
+@media screen and (max-width: 350px) {
+  .time-picker-container {
+    padding: 15px 10px;
+  }
+  .time-picker-container .time-text {
+    right: 10px;
+    padding: 5px 10px;
+    font-size: 16px;
   }
 }

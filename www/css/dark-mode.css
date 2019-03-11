@@ -30,7 +30,8 @@ body.dark-mode,
 .dark-mode .button :before,
 .dark-mode .error-text,
 .dark-mode .item.item-input .input-label,
-.dark-mode h3, .dark-mode h4, .dark-mode h5 {
+.dark-mode h3, .dark-mode h4, .dark-mode h5,
+.dark-mode .time-picker-container {
   color: #9a9a9a;
 }
 .dark-mode ion-tabs.tabs-bottom .tabs {

@@ -58,9 +58,9 @@
       if (user) {
         var activity = _(user.tacoEvents)
           .flatten()
-          .sortBy("time")
+          .sortBy('time')
           .reverse()
-          .groupBy("grouping")
+          .groupBy('grouping')
           .map(function (events, grouping) {
             return {
               grouping: grouping,
@@ -70,13 +70,13 @@
           })
           .value();
         
-        // if the tacos for each event in activity has changed from what is cached, update it
-        if (JSON.stringify(_.map(activity, 'tacos')) !== JSON.stringify(_.map($ctrl.activity, 'tacos'))) {
+        // if the tacos for each event (or any of the times) in activity has changed from what is cached, update it
+        if (isAnythingDifferent(_.map(activity, 'tacos'), _.map($ctrl.activity, 'tacos')) || isAnythingDifferent(_.map(activity, 'time'), _.map($ctrl.activity, 'time'))) {
           $ctrl.activity = activity;
         }
 
         // if anything about the user has changed, update the user
-        if (JSON.stringify(user) !== JSON.stringify($ctrl.user)) {
+        if (isAnythingDifferent(user, $ctrl.user)) {
           $ctrl.user = user;
         }
 
@@ -93,6 +93,10 @@
         $ctrl.error = true;
       }
       $ctrl.loading = false;
+    }
+
+    function isAnythingDifferent(obj1, obj2) {
+      return JSON.stringify(obj1) !== JSON.stringify(obj2)
     }
 
     function updateTacoCounter() {
