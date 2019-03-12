@@ -118,10 +118,12 @@ ion-content.has-tabs.no-tabs {
   font-size: 30px;
 }
 
+groups-leaderboard-list-item .item.leaderboard-list-item,
 leaderboard-list-item .item.leaderboard-list-item,
 taco-item .item.taco-item {
   border-top: 1px solid #ccc !important;
 }
+groups-leaderboard-list-item.no-border .item.leaderboard-list-item,
 leaderboard-list-item.no-border .item.leaderboard-list-item,
 taco-item.no-border .item.taco-item {
   border-top: none !important;

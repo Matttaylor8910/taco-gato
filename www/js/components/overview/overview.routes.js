@@ -34,6 +34,16 @@
             controllerAs: '$ctrl'
           }
         }
+      })
+      .state('app.groups-leaderboard-overview', {
+        url: '/groups/overview/:userId',
+        views: {
+          'groups' : {
+            templateUrl: 'js/components/overview/overview.tpl.html',
+            controller: 'OverviewController',
+            controllerAs: '$ctrl'
+          }
+        }
       });
   }
 })();

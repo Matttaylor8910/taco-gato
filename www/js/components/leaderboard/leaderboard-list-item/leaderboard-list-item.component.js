@@ -17,7 +17,11 @@
     $ctrl.getGroupName = getGroupName;
 
     function goToOverview() {
-      $state.go('app.leaderboard-overview', {userId: $ctrl.eater.id});
+      var stateName = $state.current.name.includes('group') ?
+        'app.groups-leaderboard-overview' :
+        'app.leaderboard-overview';
+
+      $state.go(stateName, {userId: $ctrl.eater.id});
     }
 
     function getGroupName() {

@@ -1,0 +1,17 @@
+<ion-view id="leaderboard">
+  <ion-nav-title>🌮🤼</ion-nav-title>
+  <ion-nav-buttons side="right">
+    <button settings></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div ng-if="$ctrl.firebase.groupAggregate" class="card">
+      <div class="list">
+        <groups-leaderboard-list-item
+          ng-class="{'no-border': $index === 0, 'you': group.groupId === $ctrl.firebase.user.groupId}"
+          group="group"
+          ng-repeat="group in $ctrl.firebase.groupAggregate">
+        </groups-leaderboard-list-item>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

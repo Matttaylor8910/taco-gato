@@ -14,6 +14,7 @@
       user: localStorage.getObject('user'),
       globalLeaderboard: localStorage.getObject('globalLeaderboard'),
       groupLeaderboard: localStorage.getObject('groupLeaderboard'),
+      activity: undefined,
 
       addUser: addUser,
       editUser: editUser,
@@ -28,6 +29,7 @@
       getGroup: getGroup,
       hasGroup: hasGroup,
       getGroupName: getGroupName,
+      getGroupLeaderBoard: getGroupLeaderBoard,
       createGroup: createGroup,
       editGroup: editGroup,
       deleteGroup: deleteGroup,
@@ -87,9 +89,13 @@
     }
 
     function setUpActivityAndLeaderboard() {
-      service.activity = getActivityFeed(service.users);
-      service.globalLeaderboard = getGlobalLeaderBoard(service.users, service.last30Days);
-      service.groupLeaderboard = getGroupLeaderBoard(service.users, service.last30Days);
+      var groupId = service.user ? service.user.groupId : '';
+
+      service.activity = getActivityFeed();
+      service.globalLeaderboard = getGlobalLeaderBoard();
+      service.groupLeaderboard = getGroupLeaderBoard(groupId);
+      service.groupAggregate = getGroupAggregate();
+  
       localStorage.setObject('globalLeaderboard', service.globalLeaderboard);
       localStorage.setObject('groupLeaderboard', service.groupLeaderboard);
       $rootScope.$broadcast('firebase.leaderboardUpdated');
@@ -335,8 +341,8 @@
       tacoEatersCollection.$save(index);
     }
 
-    function getActivityFeed(users) {
-      return _(users)
+    function getActivityFeed() {
+      return _(service.users)
         .filter(removeTestUsers)
         .filter(filterOutBadUsers)
         .map('tacoEvents')
@@ -354,18 +360,18 @@
         .value();
     }
 
-    function getGlobalLeaderBoard(users, last30Days) {
-      var sorted = _(users)
+    function getGlobalLeaderBoard() {
+      var sorted = _(service.users)
         .filter(removeTestUsers)
         .filter(filterOutBadUsers)
         .sortBy('tacosToday')
-        .sortBy(last30Days ? 'tacos30Days' : 'tacos')
+        .sortBy(service.last30Days ? 'tacos30Days' : 'tacos')
         .reverse()
         .value();
 
       sorted = _.cloneDeep(sorted);
 
-      var fullLeaderboard = createLeaderBoardWithSorted(sorted, last30Days);
+      var fullLeaderboard = createLeaderBoardWithSorted(sorted);
       return _.filter(fullLeaderboard, limitGlobalLeaderboard);
     }
 
@@ -373,24 +379,57 @@
       return index < 10 || (service.user && user.id === service.user.id);
     }
 
-    function getGroupLeaderBoard(users, last30Days) {
-      var sorted = _(users)
+    function getGroupLeaderBoard(groupId) {
+      var sorted = _(service.users)
         .filter(removeTestUsers)
         .filter(filterOutBadUsers)
-        .filter(filterGroupUsers)
+        .filter(function (user) {
+          return user.groupId === groupId;
+        })
         .sortBy('tacosToday')
-        .sortBy(last30Days ? 'tacos30Days' : 'tacos')
+        .sortBy(service.last30Days ? 'tacos30Days' : 'tacos')
         .reverse()
         .value();
 
       sorted = _.cloneDeep(sorted);
 
-      return createLeaderBoardWithSorted(sorted, last30Days);
+      return createLeaderBoardWithSorted(sorted);
     }
 
-    function createLeaderBoardWithSorted(sorted, last30Days) {
+    function getGroupAggregate() {
+      var groups = _(service.users)
+        .groupBy('groupId')
+        .map(aggregateGroup)
+        .filter(function (group) { return group.groupId !== 'undefined' })
+        .sortBy('tacosToday')
+        .sortBy(service.last30Days ? 'tacos30Days' : 'tacos')
+        .reverse()
+        .value();
+
+      return createLeaderBoardWithSorted(groups);
+    }
+
+    function aggregateGroup(peeps, groupId) {
+      var aggregate = {
+        groupId: groupId,
+        numPeeps: peeps.length,
+        tacos: 0,
+        tacos30Days: 0,
+        tacosToday: 0
+      };
+
+      for (let peep of peeps) {
+        aggregate.tacos += peep.tacos;
+        aggregate.tacos30Days += peep.tacos30Days;
+        aggregate.tacosToday += peep.tacosToday;
+      }
+
+      return aggregate;
+    }
+
+    function createLeaderBoardWithSorted(sorted) {
       var leaderboard = [];
-      var prop = last30Days ? 'tacos30Days' : 'tacos';
+      var prop = service.last30Days ? 'tacos30Days' : 'tacos';
 
       for (var i = 0; i < sorted.length; i++) {
         sorted[i].displayTacos = sorted[i][prop];
@@ -413,13 +452,6 @@
 
     function removeTestUsers(user) {
       return user.name && !user.name.toLowerCase().includes('test');
-    }
-
-    function filterGroupUsers(user) {
-      var groupId = service.user ? service.user.groupId : '';
-      if (!groupId) return true;
-
-      return user.groupId === groupId;
     }
 
     /**

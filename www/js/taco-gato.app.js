@@ -14,6 +14,7 @@
       'taco.overview',
       'taco.leaderboard',
       'taco.activity',
+      'taco.groupsLeaderboard',
       'taco.editor',
       'taco.group'
     ])

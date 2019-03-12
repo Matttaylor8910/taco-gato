@@ -1,0 +1,17 @@
+<ion-item class="item leaderboard-list-item" ng-click="$ctrl.goToGroup()">
+  <div class="leaderboard-position-name">
+    <div class="leaderboard-position">{{$ctrl.group.rank}}</div>
+    <div class="leaderboard-name">
+      <div class="name" ng-class="{'has-group': $ctrl.showGroupName && $ctrl.getGroupName()}" ng-bind="$ctrl.getGroupName()"></div>
+      <div class="group">{{ $ctrl.group.numPeeps }} {{ $ctrl.group.numPeeps === 1 ? 'member' : 'members' }}</div>
+    </div>
+  </div>
+  <div class="leaderboard-tacos">
+    <div class="total-tacos">{{$ctrl.group.displayTacos}}</div>
+    <div class="tacos-today" ng-if="$ctrl.group.tacosToday">
+      +{{ $ctrl.group.tacosToday }}
+      Hoy
+    </div>
+  </div>
+</ion-item>
+
