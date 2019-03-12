@@ -13,7 +13,6 @@
 
     function init() {
       $ctrl.leaderboard = firebaseService.getGroupLeaderBoard($ctrl.groupId);
-      console.log($ctrl.leaderboard);
     }
   }
 })();
