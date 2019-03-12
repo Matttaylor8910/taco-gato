@@ -27,7 +27,7 @@
 
     .run(function($ionicPlatform, firebaseConfig) {
       $ionicPlatform.ready(function() {
-        if(window.Keyboard) {
+        if(window.Keyboard && window.Keyboard.hideFormAccessoryBar) {
           // show the accessory bar
           Keyboard.hideFormAccessoryBar(false);
         }
