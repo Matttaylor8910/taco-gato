@@ -3,8 +3,10 @@
     .module('taco.overview', [])
     .controller('OverviewController', OverviewController);
 
-  function OverviewController($scope, $rootScope, $state, $timeout, $ionicHistory, infiniteScroll, firebaseService, settings, localStorage) {
+  function OverviewController($scope, $rootScope, $state, $timeout, $ionicHistory, $ionicScrollDelegate, infiniteScroll, firebaseService, settings, localStorage) {
     var $ctrl = this;
+
+    var DEFAULT_LOAD = 10;
 
     $ctrl.tacoCounter = 0;
     $ctrl.firebase = firebaseService;
@@ -25,7 +27,7 @@
         if ($ctrl.you) {
           $ctrl.user = localStorage.getObject('overviewUser');
           $ctrl.allActivity = localStorage.getObject('overviewActivity');
-          $ctrl.activity = infiniteScroll.loadMore([], $ctrl.allActivity);
+          $ctrl.activity = infiniteScroll.loadMore([], $ctrl.allActivity, DEFAULT_LOAD);
           $ctrl.loading = !$ctrl.user;
           
           // only update the counter if there are tacos to update
@@ -42,6 +44,8 @@
         if (firebaseService.users) {
           getUserFromFirebase();
         }
+
+        $ionicScrollDelegate.scrollTop();
       }
       else if (firebaseService.user.id) {
         $ionicHistory.nextViewOptions({
@@ -75,7 +79,7 @@
         
         // if the tacos for each event (or any of the times) in activity has changed from what is cached, update it
         if (isAnythingDifferent(_.map($ctrl.allActivity, 'tacos'), _.map($ctrl.activity, 'tacos')) || isAnythingDifferent(_.map($ctrl.allActivity, 'time'), _.map($ctrl.activity, 'time'))) {
-          var length = $ctrl.activity ? $ctrl.activity.length : undefined;
+          var length = $ctrl.activity ? $ctrl.activity.length : DEFAULT_LOAD;
           $ctrl.activity = infiniteScroll.loadMore([], $ctrl.allActivity, length);
         }
 
@@ -152,7 +156,7 @@
 
     function loadMore() {
       if ($ctrl.allActivity) {
-        $ctrl.activity = infiniteScroll.loadMore($ctrl.activity, $ctrl.allActivity);
+        $ctrl.activity = infiniteScroll.loadMore($ctrl.activity, $ctrl.allActivity, DEFAULT_LOAD);
       }
       $scope.$broadcast('scroll.infiniteScrollComplete');
     }
