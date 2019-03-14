@@ -24,7 +24,8 @@
 
         if ($ctrl.you) {
           $ctrl.user = localStorage.getObject('overviewUser');
-          $ctrl.activity = localStorage.getObject('overviewActivity');
+          $ctrl.allActivity = localStorage.getObject('overviewActivity');
+          $ctrl.activity = infiniteScroll.loadMore([], $ctrl.allActivity);
           $ctrl.loading = !$ctrl.user;
           
           // only update the counter if there are tacos to update
@@ -86,7 +87,7 @@
         // if we're looking at the user's overview, cache the data
         if ($ctrl.you) {
           localStorage.setObject('overviewUser', $ctrl.user);
-          localStorage.setObject('overviewActivity', $ctrl.activity);
+          localStorage.setObject('overviewActivity', $ctrl.allActivity);
         }
 
         $ctrl.error = false;
