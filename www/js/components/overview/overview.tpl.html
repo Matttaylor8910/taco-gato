@@ -55,5 +55,11 @@
         RETURN TO LOGIN
       </button>
     </div>
+
+    <ion-infinite-scroll
+      ng-if="$ctrl.canLoadMore()"
+      distance="20%"
+      on-infinite="$ctrl.loadMore()">
+    </ion-infinite-scroll>
   </ion-content>
 </ion-view>

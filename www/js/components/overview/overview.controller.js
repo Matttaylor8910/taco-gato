@@ -3,7 +3,7 @@
     .module('taco.overview', [])
     .controller('OverviewController', OverviewController);
 
-  function OverviewController($scope, $rootScope, $state, $timeout, $ionicHistory, firebaseService, settings, localStorage) {
+  function OverviewController($scope, $rootScope, $state, $timeout, $ionicHistory, infiniteScroll, firebaseService, settings, localStorage) {
     var $ctrl = this;
 
     $ctrl.tacoCounter = 0;
@@ -11,6 +11,8 @@
     $ctrl.settings = settings;
 
     $ctrl.clearUser = clearUser;
+    $ctrl.loadMore = loadMore;
+    $ctrl.canLoadMore = canLoadMore;
 
     $scope.$on('$ionicView.beforeEnter', beforeEnter);
     $rootScope.$on('firebase.usersUpdated', getUserFromFirebase);
@@ -56,7 +58,7 @@
     function getUserFromFirebase() {
       var user = firebaseService.getUser($ctrl.userId);
       if (user) {
-        var activity = _(user.tacoEvents)
+        $ctrl.allActivity = _(user.tacoEvents)
           .flatten()
           .sortBy('time')
           .reverse()
@@ -71,8 +73,9 @@
           .value();
         
         // if the tacos for each event (or any of the times) in activity has changed from what is cached, update it
-        if (isAnythingDifferent(_.map(activity, 'tacos'), _.map($ctrl.activity, 'tacos')) || isAnythingDifferent(_.map(activity, 'time'), _.map($ctrl.activity, 'time'))) {
-          $ctrl.activity = activity;
+        if (isAnythingDifferent(_.map($ctrl.allActivity, 'tacos'), _.map($ctrl.activity, 'tacos')) || isAnythingDifferent(_.map($ctrl.allActivity, 'time'), _.map($ctrl.activity, 'time'))) {
+          var length = $ctrl.activity ? $ctrl.activity.length : undefined;
+          $ctrl.activity = infiniteScroll.loadMore([], $ctrl.allActivity, length);
         }
 
         // if anything about the user has changed, update the user
@@ -144,6 +147,17 @@
           incrementTacoDelay(DELAY);
         }, DELAY);
       }
+    }
+
+    function loadMore() {
+      if ($ctrl.allActivity) {
+        $ctrl.activity = infiniteScroll.loadMore($ctrl.activity, $ctrl.allActivity);
+      }
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    }
+
+    function canLoadMore() {
+      return $ctrl.allActivity && infiniteScroll.canLoadMore($ctrl.activity, $ctrl.allActivity);
     }
   }
 })();
