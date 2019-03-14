@@ -1,9 +1,20 @@
 <ion-view id="leaderboard">
-  <ion-nav-title>🌮🤼</ion-nav-title>
+  <ion-nav-title>
+    <date-selection title="🌮🤼"></date-selection>
+  </ion-nav-title>
   <ion-nav-buttons side="right">
     <button settings></button>
   </ion-nav-buttons>
-  <ion-content>
+
+  <div class="bar bar-subheader">
+    <div class="tabs">
+      <a class="tab-item tab-item-active">
+        Top Groups
+      </a>
+    </div>
+  </div>
+
+  <ion-content class="has-subheader">
     <div ng-if="$ctrl.firebase.groupAggregate" class="card">
       <div class="list">
         <groups-leaderboard-list-item

@@ -14,6 +14,7 @@
       user: localStorage.getObject('user'),
       globalLeaderboard: localStorage.getObject('globalLeaderboard'),
       groupLeaderboard: localStorage.getObject('groupLeaderboard'),
+      groupAggregate: localStorage.getObject('groupAggregate'),
       activity: undefined,
 
       addUser: addUser,
@@ -98,6 +99,7 @@
   
       localStorage.setObject('globalLeaderboard', service.globalLeaderboard);
       localStorage.setObject('groupLeaderboard', service.groupLeaderboard);
+      localStorage.setObject('groupAggregate', service.groupAggregate);
       $rootScope.$broadcast('firebase.leaderboardUpdated');
     }
 
@@ -400,13 +402,21 @@
       var groups = _(service.users)
         .groupBy('groupId')
         .map(aggregateGroup)
-        .filter(function (group) { return group.groupId !== 'undefined' })
+        .filter(function (group) { 
+          return group.groupId !== 'undefined'
+        })
         .sortBy('tacosToday')
         .sortBy(service.last30Days ? 'tacos30Days' : 'tacos')
         .reverse()
         .value();
 
-      return createLeaderBoardWithSorted(groups);
+      // limit to the top 10 groups that have eaten tacos in this time range
+      return _(createLeaderBoardWithSorted(groups))
+        .filter(function (group) { 
+          return group.displayTacos > 0;
+        })
+        .value()
+        .slice(0, 10);
     }
 
     function aggregateGroup(peeps, groupId) {

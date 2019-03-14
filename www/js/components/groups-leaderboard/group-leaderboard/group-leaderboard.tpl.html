@@ -1,9 +1,26 @@
 <ion-view id="leaderboard">
-  <ion-nav-title>🌮🏆</ion-nav-title>
+  <ion-nav-title>
+    <date-selection title="🌮🏆"></date-selection>
+  </ion-nav-title>
   <ion-nav-buttons side="right">
     <button settings></button>
   </ion-nav-buttons>
-  <ion-content>
+
+  <div class="bar bar-subheader">
+    <div class="tabs">
+        <a class="tab-item join-group-item"
+          ng-click="$ctrl.joinGroup()"
+          ng-if="$ctrl.firebase.hasGroup() === false"
+      >
+        <i class="icon ion-person-add">Join Group</i>
+      </a>
+      <a class="tab-item tab-item-active" ng-class="{'tab-item-wide': $ctrl.firebase.hasGroup()}">
+        {{ $ctrl.firebase.getGroup($ctrl.groupId).name }}
+      </a>
+    </div>
+  </div>
+  
+  <ion-content class="has-subheader">
     
     <ion-spinner ng-if="!$ctrl.leaderboard" icon="lines"></ion-spinner>
     <div ng-if="$ctrl.leaderboard" class="card">

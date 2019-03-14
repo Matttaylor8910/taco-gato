@@ -48,15 +48,3 @@
 #leaderboard .invite button {
   margin-top: 15px;
 }
-
-#leaderboard-header .ion-chevron-down {
-  margin-right: 3px;
-  font-size: 14px;
-}
-
-#leaderboard-popover .ion-checkmark {
-  font-size: 19px;
-}
-#leaderboard-popover span {
-  margin-left: 10px;
-}

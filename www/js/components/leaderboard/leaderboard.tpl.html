@@ -6,10 +6,8 @@
       ng-click="$ctrl.goToGroup()"
     ></button>
   </ion-nav-buttons>
-  <ion-nav-title id="leaderboard-header" ng-click="$ctrl.showPopover($event)">
-    {{ $ctrl.firebase.last30Days ? '30 Days' : 'All Time' }} 
-    <i class="icon ion-chevron-down"></i>
-    🌮🏆
+  <ion-nav-title id="leaderboard-header">
+    <date-selection title="🌮🏆"></date-selection>
   </ion-nav-title>
   <ion-nav-buttons side="right">
     <button settings></button>

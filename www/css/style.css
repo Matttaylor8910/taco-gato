@@ -65,6 +65,10 @@ ion-content.has-tabs.no-tabs {
 .tab-item.tab-item-active {
   color: #397df5;
 }
+.tab-item.tab-item-wide {
+  max-width: 200px;
+  min-width: 150px;
+}
 
 .list:last-child {
   margin-bottom: -1px;
@@ -215,6 +219,19 @@ taco-item.no-border .item.taco-item {
   text-align: center;
   font-size: 16px;
   color: #ef473a;
+}
+
+/* date selection */
+date-selection .ion-chevron-down {
+  margin-right: 3px;
+  font-size: 14px;
+}
+
+#date-selection-popover .ion-checkmark {
+  font-size: 19px;
+}
+#date-selection-popover span {
+  margin-left: 10px;
 }
 
 
