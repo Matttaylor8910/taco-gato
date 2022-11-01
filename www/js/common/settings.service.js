@@ -9,8 +9,8 @@
       darkMode: setting('darkMode', true),
       blocked: setting('blocked', false),
 
-      // set up the leaderboards with last 30 days by default
-      last30Days: setting('last30Days', true),
+      // set up the leaderboards with All Time by default
+      last30Days: setting('last30Days', false),
 
       setProperty: setProperty
     };

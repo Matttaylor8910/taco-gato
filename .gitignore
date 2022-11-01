@@ -32,4 +32,4 @@ $RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
-.firebase/hosting.d2Vic2l0ZQ.cache
+.firebase/*.cache

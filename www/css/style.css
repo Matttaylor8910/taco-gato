@@ -2,6 +2,10 @@ ion-tabs.tabs-bottom.hidden .tabs {
   display: none;
 }
 
+ion-tabs.tabs-bottom {
+  padding-bottom: env(safe-area-inset-top) !important;
+}
+
 /*fixes bar on iPhone X*/
 .bar-subheader .tabs {
   height: 49px !important;
@@ -188,7 +192,11 @@ taco-item.no-border .item.taco-item {
 }
 
 #welcome img.taco {
-  width: 100%;
+  max-height: 50vh;
+  margin: 0 auto;
+  text-align: center;
+  display: inherit;
+  max-width: 100%;
 }
 
 /* time picker */
